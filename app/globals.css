@@ -97,6 +97,12 @@
   --animate-pulse-slow: pulse-slow 4s ease-in-out infinite;
   --animate-shimmer: shimmer 2s linear infinite;
   --animate-glow: glow 3s ease-in-out infinite alternate;
+
+  --color-farm-green: var(--farm-green);
+  --color-farm-emerald: var(--farm-emerald);
+  --color-farm-soil: var(--farm-soil);
+  --color-farm-sun: var(--farm-sun);
+  --color-farm-sky: var(--farm-sky);
 }
 
 @keyframes blob {

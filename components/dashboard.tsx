@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { Cloud, Leaf, AlertTriangle, BookOpen, ArrowRight, MapPin, Search, TrendingUp, Droplets, Activity, Cpu, Layers, ShieldCheck, Zap, Heart, Sprout } from 'lucide-react';
+import { Cloud, Leaf, AlertTriangle, BookOpen, ArrowRight, MapPin, Search, TrendingUp, Droplets, Activity, Cpu, Layers, ShieldCheck, Zap, Heart, Sprout, TreePine, Mountain } from 'lucide-react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip as RechartsTooltip } from 'recharts';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
@@ -55,9 +55,9 @@ const Dashboard = () => {
   ];
 
   const cropPieData = [
-    { name: 'Wheat', value: 45, color: 'var(--farm-green)' },
-    { name: 'Rice', value: 30, color: 'var(--farm-emerald)' },
-    { name: 'Corn', value: 25, color: '#10b981' }
+    { name: 'Wheat', value: 45, color: '#4f46e5' },
+    { name: 'Rice', value: 30, color: '#6366f1' },
+    { name: 'Corn', value: 25, color: '#818cf8' }
   ];
   const cattlePieData = [
     { name: 'Healthy', value: 80, color: '#f97316' },
@@ -65,9 +65,9 @@ const Dashboard = () => {
     { name: 'At Risk', value: 5, color: '#fdba74' }
   ];
   const soilPieData = [
-    { name: 'Clay', value: 40, color: 'var(--farm-soil)' },
-    { name: 'Silt', value: 35, color: '#a16207' },
-    { name: 'Sand', value: 25, color: '#ca8a04' }
+    { name: 'Clay', value: 40, color: '#b45309' },
+    { name: 'Silt', value: 35, color: '#d97706' },
+    { name: 'Sand', value: 25, color: '#f59e0b' }
   ];
 
   return (
@@ -129,18 +129,18 @@ const Dashboard = () => {
         {/* Analytics Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           {/* Crop Matrix */}
-          <Card className="glass rounded-[4rem] p-10 border-4 border-farm-green/30 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.3)] relative overflow-hidden group">
-            <div className="absolute -top-24 -right-24 w-64 h-64 bg-farm-green/10 rounded-full blur-[80px] group-hover:scale-125 transition-transform duration-1000" />
+          <Card className="glass rounded-[4rem] p-10 border-4 border-indigo-600/30 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.3)] relative overflow-hidden group">
+            <div className="absolute -top-24 -right-24 w-64 h-64 bg-indigo-600/10 rounded-full blur-[80px] group-hover:scale-125 transition-transform duration-1000" />
             <div className="flex items-center gap-6 mb-10">
-              <div className="w-16 h-16 bg-farm-green rounded-2xl flex items-center justify-center shadow-lg shadow-farm-green/40">
-                <Leaf className="w-8 h-8 text-white" />
+              <div className="w-16 h-16 bg-indigo-600 rounded-2xl flex items-center justify-center shadow-lg shadow-indigo-600/40">
+                <TreePine className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-3xl font-black text-foreground tracking-tighter">Botanical Index</h3>
             </div>
 
             <div className="h-64 w-full mb-10 relative">
               <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                <p className="text-4xl font-black text-farm-green">85%</p>
+                <p className="text-4xl font-black text-indigo-600">85%</p>
                 <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest opacity-40">Efficiency</p>
               </div>
               <ResponsiveContainer width="100%" height="100%">
@@ -164,21 +164,21 @@ const Dashboard = () => {
               </ResponsiveContainer>
             </div>
 
-            <div className="glass rounded-[2.5rem] p-8 border-white/5 bg-farm-green/5">
-              <h4 className="flex items-center gap-3 font-black text-farm-green text-xs uppercase tracking-[0.3em] mb-6">
+            <div className="glass rounded-[2.5rem] p-8 border-white/5 bg-indigo-600/5">
+              <h4 className="flex items-center gap-3 font-black text-indigo-600 text-xs uppercase tracking-[0.3em] mb-6">
                 <Zap className="w-4 h-4" /> Live Insights
               </h4>
               <ul className="space-y-6">
                 {cropPoints.map((point, i) => (
                   <li key={i} className="flex items-start gap-4 transition-all hover:translate-x-2 group/item">
-                    <div className="w-2.5 h-2.5 rounded-full bg-farm-green mt-1.5 shadow-[0_0_10px_rgba(16,185,129,0.5)] group-hover/item:scale-125 transition-transform" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-indigo-600 mt-1.5 shadow-[0_0_10px_rgba(79,70,229,0.5)] group-hover/item:scale-125 transition-transform" />
                     <span className="text-lg text-foreground font-bold leading-tight opacity-80 group-hover/item:opacity-100 transition-opacity">{point}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
-            <Link href="/crops" className="mt-8 flex items-center justify-center gap-4 py-4 glass border-white/10 rounded-2xl font-black uppercase text-[10px] tracking-[0.3em] text-farm-green hover:bg-farm-green hover:text-white transition-all">
+            <Link href="/crops" className="mt-8 flex items-center justify-center gap-4 py-4 glass border-white/10 rounded-2xl font-black uppercase text-[10px] tracking-[0.3em] text-indigo-600 hover:bg-indigo-600 hover:text-white transition-all">
               Full Diagnostic <ArrowRight className="w-4 h-4" />
             </Link>
           </Card>
@@ -239,18 +239,18 @@ const Dashboard = () => {
           </Card>
 
           {/* Soil Matrix */}
-          <Card className="glass rounded-[4rem] p-10 border-4 border-farm-soil/30 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.3)] relative overflow-hidden group">
-            <div className="absolute -top-24 -right-24 w-64 h-64 bg-farm-soil/10 rounded-full blur-[80px] group-hover:scale-125 transition-transform duration-1000" />
+          <Card className="glass rounded-[4rem] p-10 border-4 border-amber-600/30 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.3)] relative overflow-hidden group">
+            <div className="absolute -top-24 -right-24 w-64 h-64 bg-amber-600/10 rounded-full blur-[80px] group-hover:scale-125 transition-transform duration-1000" />
             <div className="flex items-center gap-6 mb-10">
-              <div className="w-16 h-16 bg-farm-soil rounded-2xl flex items-center justify-center shadow-lg shadow-farm-soil/40">
-                <Layers className="w-8 h-8 text-white" />
+              <div className="w-16 h-16 bg-amber-600 rounded-2xl flex items-center justify-center shadow-lg shadow-amber-600/40">
+                <Mountain className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-3xl font-black text-foreground tracking-tighter">Soil Composition</h3>
+              <h3 className="text-3xl font-black text-foreground tracking-tighter">Soil Comparison</h3>
             </div>
 
             <div className="h-64 w-full mb-10 relative">
               <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                <p className="text-4xl font-black text-farm-soil">7.2</p>
+                <p className="text-4xl font-black text-amber-600">7.2</p>
                 <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest opacity-40">Avg pH</p>
               </div>
               <ResponsiveContainer width="100%" height="100%">
@@ -274,21 +274,21 @@ const Dashboard = () => {
               </ResponsiveContainer>
             </div>
 
-            <div className="glass rounded-[2.5rem] p-8 border-white/5 bg-farm-soil/5">
-              <h4 className="flex items-center gap-3 font-black text-farm-soil text-xs uppercase tracking-[0.3em] mb-6">
+            <div className="glass rounded-[2.5rem] p-8 border-white/5 bg-amber-600/5">
+              <h4 className="flex items-center gap-3 font-black text-amber-600 text-xs uppercase tracking-[0.3em] mb-6">
                 <Cpu className="w-4 h-4" /> Nutrient Matrix
               </h4>
               <ul className="space-y-6">
                 {soilPoints.map((point, i) => (
                   <li key={i} className="flex items-start gap-4 transition-all hover:translate-x-2 group/item">
-                    <div className="w-2.5 h-2.5 rounded-full bg-farm-soil mt-1.5 shadow-[0_0_10px_rgba(154,103,77,0.5)] group-hover/item:scale-125 transition-transform" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-amber-600 mt-1.5 shadow-[0_0_10px_rgba(180,83,9,0.5)] group-hover/item:scale-125 transition-transform" />
                     <span className="text-lg text-foreground font-bold leading-tight opacity-80 group-hover/item:opacity-100 transition-opacity">{point}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
-            <Link href="/soil" className="mt-8 flex items-center justify-center gap-4 py-4 glass border-white/10 rounded-2xl font-black uppercase text-[10px] tracking-[0.3em] text-farm-soil hover:bg-farm-soil hover:text-white transition-all">
+            <Link href="/soil" className="mt-8 flex items-center justify-center gap-4 py-4 glass border-white/10 rounded-2xl font-black uppercase text-[10px] tracking-[0.3em] text-amber-600 hover:bg-amber-600 hover:text-white transition-all">
               Substrate Analysis <ArrowRight className="w-4 h-4" />
             </Link>
           </Card>

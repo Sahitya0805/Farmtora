@@ -294,9 +294,9 @@ export default function HomePage() {
               <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-farm-sky/20 rounded-full blur-[100px] -z-10 animate-blob animation-delay-4000" />
 
               <div className="relative z-10">
-                <h2 className="text-7xl md:text-9xl font-black mb-12 tracking-tighter leading-[0.85]">
+                <h2 className="text-7xl md:text-9xl font-black mb-12 tracking-tighter leading-[0.9] py-4">
                   Start Your <br />
-                  <span className="text-gradient from-farm-emerald via-farm-green to-farm-sky">Transformation.</span>
+                  <span className="text-farm-emerald drop-shadow-[0_0_25px_rgba(16,185,129,0.4)]">Intelligence.</span>
                 </h2>
                 <p className="text-2xl md:text-3xl text-muted-foreground mb-16 max-w-3xl mx-auto font-bold opacity-80">
                   Join the elite circle of modern farmers leveraging the world's most advanced agricultural AI ecosystem.

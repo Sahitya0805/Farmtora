@@ -155,7 +155,7 @@ const SoilPage = () => {
     return (
         <div className="min-h-screen bg-background p-4 md:p-12 relative overflow-hidden">
             {/* Background blobs for Soil page */}
-            <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-farm-soil/10 rounded-full blur-[120px] -z-10 animate-blob" />
+            <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-amber-600/10 rounded-full blur-[120px] -z-10 animate-blob" />
             <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-farm-sun/10 rounded-full blur-[120px] -z-10 animate-blob animation-delay-2000" />
 
             <div className="max-w-6xl mx-auto relative z-10">
@@ -169,7 +169,7 @@ const SoilPage = () => {
                         </Link>
                         <div className="text-center md:text-left">
                             <h1 className="text-5xl md:text-7xl font-black text-foreground tracking-tighter mb-4">
-                                Soil <span className="text-farm-soil drop-shadow-[0_0_15px_rgba(154,103,77,0.3)]">Intelligence</span>
+                                Soil <span className="text-amber-600 drop-shadow-[0_0_15px_rgba(217,119,6,0.3)]">Intelligence</span>
                             </h1>
                             <p className="text-xl text-muted-foreground font-bold tracking-tight opacity-70">
                                 Deep-earth pedological scans for precision nutrient management.
@@ -188,7 +188,7 @@ const SoilPage = () => {
                                 key={opt}
                                 onClick={() => setTimeFrame(opt)}
                                 className={`px-6 py-3 rounded-2xl text-sm font-black transition-all duration-500 scale-95 hover:scale-100 ${timeFrame === opt
-                                    ? 'bg-farm-soil text-white shadow-[0_10px_20px_-5px_rgba(154,103,77,0.4)]'
+                                    ? 'bg-amber-500 text-black shadow-[0_10px_20px_-5px_rgba(245,158,11,0.4)]'
                                     : 'text-muted-foreground hover:bg-white/5'
                                     }`}
                             >
@@ -202,12 +202,12 @@ const SoilPage = () => {
                 {!soilResult && (
                     <div className="animate-in fade-in slide-in-from-bottom-10 duration-700">
                         <Card className="glass rounded-[3.5rem] p-12 mb-12 border-2 border-white/10 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.3)] relative overflow-hidden">
-                            <div className="absolute top-0 right-0 w-64 h-64 bg-farm-soil/5 rounded-bl-full -z-10" />
+                            <div className="absolute top-0 right-0 w-64 h-64 bg-amber-600/5 rounded-bl-full -z-10" />
                             <div className="relative z-10 text-center">
                                 <label className="block mb-10 group cursor-pointer">
-                                    <div className="border-4 border-dashed border-farm-soil/30 rounded-[2.5rem] p-20 group-hover:border-farm-soil/60 transition-all duration-500 group-hover:bg-farm-soil/5">
-                                        <div className="w-20 h-20 bg-farm-soil/20 rounded-[2rem] flex items-center justify-center mx-auto mb-8 group-hover:scale-110 group-hover:rotate-12 transition-all duration-500">
-                                            <Upload className="w-10 h-10 text-farm-soil" />
+                                    <div className="border-4 border-dashed border-amber-600/30 rounded-[2.5rem] p-20 group-hover:border-amber-600/60 transition-all duration-500 group-hover:bg-amber-600/5">
+                                        <div className="w-20 h-20 bg-amber-600/20 rounded-[2rem] flex items-center justify-center mx-auto mb-8 group-hover:scale-110 group-hover:rotate-12 transition-all duration-500">
+                                            <Upload className="w-10 h-10 text-amber-600" />
                                         </div>
                                         <p className="text-3xl font-black text-foreground mb-4 tracking-tighter">
                                             Click to Scan Earth
@@ -223,14 +223,14 @@ const SoilPage = () => {
                                     <div className="animate-in zoom-in duration-500">
                                         <div className="relative inline-block mb-10">
                                             <img src={preview} alt="Soil Preview" className="max-w-xl mx-auto rounded-[3rem] shadow-2xl border-4 border-white/20 h-auto" />
-                                            <div className="absolute -inset-4 bg-farm-soil/20 blur-2xl -z-10 rounded-[3rem] animate-pulse" />
+                                            <div className="absolute -inset-4 bg-amber-600/20 blur-2xl -z-10 rounded-[3rem] animate-pulse" />
                                         </div>
                                         <br />
                                         <Button
                                             size="lg"
                                             onClick={handleAnalyze}
                                             disabled={loading}
-                                            className="px-16 py-8 rounded-[2rem] bg-farm-soil hover:bg-farm-soil brightness-110 text-white font-black text-2xl transition-all duration-500 hover:scale-110 shadow-[0_20px_40px_-5px_rgba(154,103,77,0.5)] flex items-center gap-4 mx-auto"
+                                            className="px-16 py-8 rounded-[2rem] bg-amber-600 hover:bg-amber-600 brightness-110 text-white font-black text-2xl transition-all duration-500 hover:scale-110 shadow-[0_20px_40px_-5px_rgba(217,119,6,0.5)] flex items-center gap-4 mx-auto"
                                         >
                                             {loading ? (
                                                 <div className="flex items-center gap-3">
@@ -314,24 +314,24 @@ const SoilPage = () => {
                     <div className="space-y-12 animate-in fade-in zoom-in duration-700">
                         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
                             {/* Main Analysis Card */}
-                            <Card className="lg:col-span-2 glass rounded-[4rem] p-12 border-4 border-farm-soil/30 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.3)] relative overflow-hidden">
+                            <Card className="lg:col-span-2 glass rounded-[4rem] p-12 border-4 border-amber-600/30 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.3)] relative overflow-hidden">
                                 <div className="absolute top-0 right-0 p-8">
-                                    <Button variant="ghost" onClick={reset} className="glass px-6 py-4 rounded-2xl text-muted-foreground hover:text-farm-soil font-black uppercase text-[10px] tracking-widest border-white/10">
+                                    <Button variant="ghost" onClick={reset} className="glass px-6 py-4 rounded-2xl text-muted-foreground hover:text-amber-600 font-black uppercase text-[10px] tracking-widest border-white/10">
                                         <ArrowLeft className="w-4 h-4 mr-2" /> {t('crops.result.uploadAnother')}
                                     </Button>
                                 </div>
 
                                 <div className="flex items-start gap-10 mb-12">
-                                    <div className="w-24 h-24 bg-farm-soil rounded-[2rem] flex items-center justify-center shadow-[0_15px_30px_-5px_rgba(154,103,77,0.5)] shrink-0 animate-pulse">
+                                    <div className="w-24 h-24 bg-amber-600 rounded-[2rem] flex items-center justify-center shadow-[0_15px_30px_-5px_rgba(217,119,6,0.5)] shrink-0 animate-pulse">
                                         <Sprout className="w-12 h-12 text-white" />
                                     </div>
                                     <div>
-                                        <span className="text-xs font-black text-farm-soil uppercase tracking-[0.3em] mb-2 block opacity-70">
+                                        <span className="text-xs font-black text-amber-600 uppercase tracking-[0.3em] mb-2 block opacity-70">
                                             Predominant Horizon
                                         </span>
                                         <h2 className="text-6xl md:text-8xl font-black text-foreground tracking-tighter leading-none mb-2">{soilResult.soilType}</h2>
                                         <div className="flex items-center gap-3">
-                                            <div className="h-1 w-12 bg-farm-soil rounded-full" />
+                                            <div className="h-1 w-12 bg-amber-600 rounded-full" />
                                             <p className="text-muted-foreground font-black uppercase tracking-widest text-xs">
                                                 Scanner Accuracy: {(soilResult.confidence * 100).toFixed(1)}%
                                             </p>
@@ -357,7 +357,7 @@ const SoilPage = () => {
 
                             {/* Preview Image Card */}
                             <Card className="glass rounded-[4rem] p-4 border-2 border-white/10 shadow-2xl relative group">
-                                <div className="absolute inset-0 bg-farm-soil/20 blur-2xl opacity-0 group-hover:opacity-60 transition-opacity duration-1000 -z-10" />
+                                <div className="absolute inset-0 bg-amber-600/20 blur-2xl opacity-0 group-hover:opacity-60 transition-opacity duration-1000 -z-10" />
                                 <img src={preview!} alt="Analyzed Soil" className="w-full h-full object-cover rounded-[3rem] shadow-inner shadow-black/40 grayscale-[0.2] group-hover:grayscale-0 transition-all duration-700" />
                             </Card>
                         </div>
@@ -367,19 +367,19 @@ const SoilPage = () => {
                             {/* Crop Recommendations */}
                             <div className="space-y-10">
                                 <h3 className="text-4xl font-black text-foreground tracking-tighter flex items-center gap-6">
-                                    <div className="w-3 h-12 bg-farm-soil rounded-full shadow-[0_0_20px_rgba(154,103,77,0.5)]" />
+                                    <div className="w-3 h-12 bg-amber-600 rounded-full shadow-[0_0_20px_rgba(217,119,6,0.5)]" />
                                     Cultivation Vectors
                                 </h3>
                                 <div className="space-y-6">
                                     {soilResult.recommendations.map((rec, i) => (
-                                        <Card key={i} className="glass p-10 border-white/10 rounded-[3rem] hover:translate-x-4 transition-transform duration-500 border-l-[12px] border-farm-soil shadow-xl relative overflow-hidden group">
-                                            <div className="absolute top-0 right-0 w-32 h-32 bg-farm-soil/5 rounded-bl-full -z-10 group-hover:bg-farm-soil/10 transition-colors" />
+                                        <Card key={i} className="glass p-10 border-white/10 rounded-[3rem] hover:translate-x-4 transition-transform duration-500 border-l-[12px] border-amber-600 shadow-xl relative overflow-hidden group">
+                                            <div className="absolute top-0 right-0 w-32 h-32 bg-amber-600/5 rounded-bl-full -z-10 group-hover:bg-amber-600/10 transition-colors" />
                                             <div className="flex justify-between items-start mb-6">
                                                 <div>
-                                                    <p className="text-xs font-black text-farm-soil uppercase tracking-[0.2em] mb-1 opacity-70">Recommended Species</p>
+                                                    <p className="text-xs font-black text-amber-600 uppercase tracking-[0.2em] mb-1 opacity-70">Recommended Species</p>
                                                     <h4 className="text-4xl font-black text-foreground tracking-tighter leading-none">{rec.crop}</h4>
                                                 </div>
-                                                <span className="px-6 py-2 glass border-white/10 text-farm-soil text-[10px] font-black uppercase tracking-widest rounded-full">
+                                                <span className="px-6 py-2 glass border-white/10 text-amber-600 text-[10px] font-black uppercase tracking-widest rounded-full">
                                                     {rec.duration} Cycle
                                                 </span>
                                             </div>
@@ -414,27 +414,27 @@ const SoilPage = () => {
                 {records.length > 0 && !soilResult && (
                     <div className="mt-24 space-y-12 animate-in fade-in slide-in-from-bottom-10 duration-1000">
                         <h3 className="text-4xl font-black text-foreground tracking-tighter flex items-center gap-6">
-                            <div className="p-4 bg-farm-soil rounded-2xl shadow-[0_0_20px_rgba(154,103,77,0.4)]">
+                            <div className="p-4 bg-amber-600 rounded-2xl shadow-[0_0_20px_rgba(217,119,6,0.4)]">
                                 <History className="w-8 h-8 text-white" />
                             </div>
                             Chronological Repository
                         </h3>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                             {records.map((record, i) => (
-                                <Card key={i} className="glass p-8 rounded-[3rem] border-2 border-white/5 hover:border-farm-soil/40 transition-all duration-500 cursor-pointer shadow-lg hover:shadow-2xl hover:-translate-y-4 hover:scale-[1.02] group relative overflow-hidden">
-                                    <div className="absolute top-0 right-0 w-32 h-32 bg-farm-soil/5 rounded-bl-full -z-10 group-hover:bg-farm-soil/10 transition-colors" />
+                                <Card key={i} className="glass p-8 rounded-[3rem] border-2 border-white/5 hover:border-amber-600/40 transition-all duration-500 cursor-pointer shadow-lg hover:shadow-2xl hover:-translate-y-4 hover:scale-[1.02] group relative overflow-hidden">
+                                    <div className="absolute top-0 right-0 w-32 h-32 bg-amber-600/5 rounded-bl-full -z-10 group-hover:bg-amber-600/10 transition-colors" />
                                     <div className="flex justify-between items-start mb-8">
-                                        <div className="w-16 h-16 glass border-white/10 rounded-2xl flex items-center justify-center group-hover:bg-farm-soil group-hover:text-white transition-all duration-500 shadow-inner">
+                                        <div className="w-16 h-16 glass border-white/10 rounded-2xl flex items-center justify-center group-hover:bg-amber-600 group-hover:text-white transition-all duration-500 shadow-inner">
                                             <Layers className="w-8 h-8 text-muted-foreground group-hover:text-white" />
                                         </div>
                                         <span className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.2em] leading-loose opacity-50">
                                             {new Date(record.timestamp).toLocaleDateString()}
                                         </span>
                                     </div>
-                                    <h4 className="text-3xl font-black text-foreground tracking-tighter leading-tight mb-2 group-hover:text-farm-soil transition-colors">{record.soilType}</h4>
+                                    <h4 className="text-3xl font-black text-foreground tracking-tighter leading-tight mb-2 group-hover:text-amber-600 transition-colors">{record.soilType}</h4>
                                     <p className="text-muted-foreground font-bold mb-6 text-sm opacity-60">Moisture: {record.moisture}% | pH: {record.ph}</p>
                                     <div className="flex items-center justify-between pt-6 border-t border-white/5">
-                                        <div className="flex items-center gap-2 text-farm-soil font-black text-xs uppercase tracking-widest">
+                                        <div className="flex items-center gap-2 text-amber-600 font-black text-xs uppercase tracking-widest">
                                             Diagnostics <ChevronRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
                                         </div>
                                         <span className="text-[10px] font-black text-muted-foreground uppercase opacity-40">Pedological Scan</span>

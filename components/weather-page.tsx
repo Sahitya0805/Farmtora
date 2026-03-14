@@ -34,6 +34,19 @@ const WeatherPage = () => {
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [isSearching, setIsSearching] = useState(false);
 
+  const applyFallbackLocation = () => {
+    const fallbackLocation = 'Pune, India';
+    const fallbackCoords = { lat: 18.5204, lon: 73.8567 };
+
+    setLocation(fallbackLocation);
+    setCoords(fallbackCoords);
+    localStorage.setItem('farmerApp_location', fallbackLocation);
+    localStorage.setItem('farmerApp_lat', fallbackCoords.lat.toString());
+    localStorage.setItem('farmerApp_lon', fallbackCoords.lon.toString());
+    const userSavedLang = localStorage.getItem('farmerApp_lang');
+    if (!userSavedLang) setLanguage('en');
+  };
+
   useEffect(() => {
     const initLocation = () => {
       const savedLocation = localStorage.getItem('farmerApp_location');
@@ -49,30 +62,44 @@ const WeatherPage = () => {
       if ("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition(
           async (position) => {
-            const { latitude, longitude } = position.coords;
-            setCoords({ lat: latitude, lon: longitude });
+            try {
+              const { latitude, longitude } = position.coords;
+              setCoords({ lat: latitude, lon: longitude });
 
-            const locationData = await reverseGeocode(latitude, longitude);
-            if (locationData && locationData.name) {
-              setLocation(locationData.name);
-              const userSavedLang = localStorage.getItem('farmerApp_lang');
-              if (!userSavedLang) {
-                if (locationData.state === 'Karnataka') {
-                  setLanguage('kn');
-                } else {
-                  setLanguage('en');
+              const locationData = await reverseGeocode(latitude, longitude);
+              if (locationData && locationData.name) {
+                setLocation(locationData.name);
+
+                const userSavedLang = localStorage.getItem('farmerApp_lang');
+                if (!userSavedLang) {
+                  if (locationData.state === 'Karnataka') {
+                    setLanguage('kn');
+                  } else {
+                    setLanguage('en');
+                  }
                 }
+
+                localStorage.setItem('farmerApp_location', locationData.name);
+                localStorage.setItem('farmerApp_lat', latitude.toString());
+                localStorage.setItem('farmerApp_lon', longitude.toString());
+              } else {
+                setLocation('Current Location');
+                applyFallbackLocation();
               }
-            } else {
-              setLocation('Current Location');
+            } catch (err) {
+              console.warn('Reverse geocode failed, using fallback location:', err);
+              applyFallbackLocation();
             }
           },
           (error) => {
-            console.error("Error getting location:", error);
-            setCoords({ lat: 18.5204, lon: 73.8567 });
-            setLocation('Pune, India');
-          }
+            console.warn('Error getting location:', error);
+            applyFallbackLocation();
+          },
+          { timeout: 10000, maximumAge: 600000, enableHighAccuracy: false }
         );
+      } else {
+        console.warn('Geolocation is not available in this browser, using fallback location.');
+        applyFallbackLocation();
       }
     };
 
@@ -111,37 +138,46 @@ const WeatherPage = () => {
       setLoading(true);
       navigator.geolocation.getCurrentPosition(
         async (position) => {
-          const { latitude, longitude } = position.coords;
-          setCoords({ lat: latitude, lon: longitude });
+          try {
+            const { latitude, longitude } = position.coords;
+            setCoords({ lat: latitude, lon: longitude });
 
-          const locationData = await reverseGeocode(latitude, longitude);
-          if (locationData && locationData.name) {
-            setLocation(locationData.name);
-            localStorage.setItem('farmerApp_location', locationData.name);
-            localStorage.setItem('farmerApp_lat', latitude.toString());
-            localStorage.setItem('farmerApp_lon', longitude.toString());
+            const locationData = await reverseGeocode(latitude, longitude);
+            if (locationData && locationData.name) {
+              setLocation(locationData.name);
+              localStorage.setItem('farmerApp_location', locationData.name);
+              localStorage.setItem('farmerApp_lat', latitude.toString());
+              localStorage.setItem('farmerApp_lon', longitude.toString());
 
-            const userSavedLang = localStorage.getItem('farmerApp_lang');
-            if (!userSavedLang) {
-              if (locationData.state === 'Karnataka') {
-                setLanguage('kn');
-              } else {
-                setLanguage('en');
+              const userSavedLang = localStorage.getItem('farmerApp_lang');
+              if (!userSavedLang) {
+                if (locationData.state === 'Karnataka') {
+                  setLanguage('kn');
+                } else {
+                  setLanguage('en');
+                }
               }
+            } else {
+              const fallbackName = `${latitude.toFixed(2)}, ${longitude.toFixed(2)}`;
+              setLocation(fallbackName);
+              localStorage.setItem('farmerApp_location', fallbackName);
+              localStorage.setItem('farmerApp_lat', latitude.toString());
+              localStorage.setItem('farmerApp_lon', longitude.toString());
             }
-          } else {
-            const fallbackName = `${latitude.toFixed(2)}, ${longitude.toFixed(2)}`;
-            setLocation(fallbackName);
-            localStorage.setItem('farmerApp_location', fallbackName);
-            localStorage.setItem('farmerApp_lat', latitude.toString());
-            localStorage.setItem('farmerApp_lon', longitude.toString());
+          } catch (err) {
+            console.warn('Error reverse-geocoding on handleGetLocation, using fallback', err);
+            applyFallbackLocation();
+          } finally {
+            setLoading(false);
           }
         },
         (error) => {
-          console.error("Error getting location:", error);
+          console.warn("Error getting location:", error);
+          applyFallbackLocation();
           setLoading(false);
           alert('Could not retrieve your location. Check browser settings.');
-        }
+        },
+        { timeout: 10000, maximumAge: 600000, enableHighAccuracy: false }
       );
     } else {
       alert('Geolocation is not supported by your browser.');
