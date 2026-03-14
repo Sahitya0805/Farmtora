@@ -19,6 +19,7 @@ export const fetchWeatherData = async (latitude: number, longitude: number) => {
         condition: getWeatherCondition(data.current.weather_code),
         precipitation: data.current.precipitation,
         uvIndex: data.current.uv_index,
+        weatherCode: data.current.weather_code,
       },
       daily: data.daily,
       timezone: data.timezone,
@@ -125,17 +126,37 @@ export const reverseGeocode = async (lat: number, lon: number) => {
   }
 };
 
+// Helper function to create a simple hash of a string
+const hashString = (str: string): number => {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    const char = str.charCodeAt(i);
+    hash = ((hash << 5) - hash) + char;
+    hash = hash & hash; // Convert to 32bit integer
+  }
+  return Math.abs(hash);
+};
+
 // Crop Disease Detection using Plant.id API (Free tier available)
 // For demo purposes, we'll use mock data as Plant.id requires authentication
 export const detectCropDisease = async (imageBase64: string) => {
   try {
-    // For the hackathon demo, randomly return either a specific disease or healthy
-    // to show both UI states.
-    const isHealthy = Math.random() > 0.5;
+    // Generate a deterministic number based on the image content
+    const hash = hashString(imageBase64);
 
-    const mockResult = isHealthy
-      ? { name: 'Healthy Crop', confidence: 0.98, severity: 'low' }
-      : { name: 'Blossom End Rot', confidence: 0.95, severity: 'high' };
+    // Use the hash to make a deterministic "random" choice
+    const isHealthy = hash % 3 === 0;
+
+    // Use the hash to pick a specific disease if not healthy
+    const diseases = ['Blossom End Rot', 'Early Blight', 'Late Blight', 'Powdery Mildew', 'Leaf Spot', 'Fusarium Wilt'];
+    const diseaseName = isHealthy ? 'Healthy Crop' : diseases[hash % diseases.length];
+
+    // Generate a deterministic confidence between 0.85 and 0.99
+    const confidence = 0.85 + ((hash % 15) / 100);
+    const severity = diseaseName === 'Healthy Crop' ? 'low' :
+      (hash % 2 === 0 ? 'high' : 'medium');
+
+    const mockResult = { name: diseaseName, confidence, severity };
 
     return {
       disease: mockResult.name,
@@ -154,30 +175,39 @@ export const detectCropDisease = async (imageBase64: string) => {
 export const identifyCattleBreed = async (imageBase64: string) => {
   try {
     const breeds = [
-      { name: 'Holstein-Friesian', confidence: 0.94, origin: 'Netherlands' },
-      { name: 'Jersey', confidence: 0.87, origin: 'United Kingdom' },
-      { name: 'Brahman', confidence: 0.91, origin: 'India' },
-      { name: 'Gir', confidence: 0.89, origin: 'India' },
-      { name: 'Sahiwal', confidence: 0.85, origin: 'Pakistan' },
-      { name: 'Red Sindhi', confidence: 0.88, origin: 'Pakistan' },
-      { name: 'Crossbreed', confidence: 0.92, origin: 'Mixed' },
+      { name: 'Holstein-Friesian', confidenceBase: 0.94, origin: 'Netherlands' },
+      { name: 'Jersey', confidenceBase: 0.87, origin: 'United Kingdom' },
+      { name: 'Brahman', confidenceBase: 0.91, origin: 'India' },
+      { name: 'Gir', confidenceBase: 0.89, origin: 'India' },
+      { name: 'Sahiwal', confidenceBase: 0.85, origin: 'Pakistan' },
+      { name: 'Red Sindhi', confidenceBase: 0.88, origin: 'Pakistan' },
+      { name: 'Crossbreed', confidenceBase: 0.92, origin: 'Mixed' },
     ];
 
-    // Simulate random breed identification
-    const randomBreed = breeds[Math.floor(Math.random() * breeds.length)];
+    const hash = hashString(imageBase64);
+
+    // Deterministically pick a breed based on image hash
+    const breedIndex = hash % breeds.length;
+    const randomBreed = breeds[breedIndex];
+
+    // Deterministically calculate confidence score
+    const confidence = randomBreed.confidenceBase + ((hash % 5) / 100);
+
+    // Deterministically decide if the cattle has a disease (e.g. 1 in 4 chance)
+    const hasDisease = hash % 4 === 0;
 
     return {
       breed: randomBreed.name,
-      confidence: randomBreed.confidence,
+      confidence: confidence,
       origin: randomBreed.origin,
       characteristics: getCattleBreedInfo(randomBreed.name).characteristics,
       healthConcerns: getCattleBreedInfo(randomBreed.name).healthConcerns,
       productionCapacity: getCattleBreedInfo(randomBreed.name).productionCapacity,
       treatmentTips: getCattleBreedInfo(randomBreed.name).treatmentTips,
-      diseaseDetected: {
+      diseaseDetected: hasDisease ? {
         name: 'Lumpy Skin Disease (LSD)',
-        confidence: 0.96,
-        severity: 'High',
+        confidence: 0.85 + ((hash % 10) / 100),
+        severity: (hash % 2 === 0) ? 'High' : 'Medium',
         description: 'A viral disease of cattle characterized by fever, enlarged superficial lymph nodes, and multiple nodules (measuring 2-5 cm) on the skin and mucous membranes.',
         treatments: [
           'Immediate isolation of the infected animal',
@@ -186,10 +216,87 @@ export const identifyCattleBreed = async (imageBase64: string) => {
           'Ensure easy access to clean water and soft feed',
           'Notify local veterinary authorities immediately'
         ]
-      }
+      } : undefined
     };
   } catch (error) {
     console.error('Breed identification error:', error);
+    return null;
+  }
+};
+
+// Soil Analysis using hash of image for deterministic results
+export const analyzeSoil = async (imageBase64: string) => {
+  try {
+    const hash = hashString(imageBase64);
+    const soilTypes = ['Loamy', 'Sandy', 'Clay', 'Silty', 'Peaty', 'Saline'];
+    const soilType = soilTypes[hash % soilTypes.length];
+    const confidence = 0.92 + ((hash % 5) / 100); // High confidence 92-96%
+
+    const info = getSoilInformation(soilType);
+
+    // Realistic deterministic metrics based on soil type
+    let moisture = 0, nitrogen = 0, phosphorus = 0, potassium = 0, ph = 7.0;
+
+    switch (soilType) {
+      case 'Loamy':
+        moisture = 45 + (hash % 15);
+        nitrogen = 40 + (hash % 10);
+        phosphorus = 35 + (hash % 10);
+        potassium = 40 + (hash % 10);
+        ph = 6.5 + ((hash % 10) / 20);
+        break;
+      case 'Sandy':
+        moisture = 15 + (hash % 10);
+        nitrogen = 10 + (hash % 10);
+        phosphorus = 15 + (hash % 10);
+        potassium = 10 + (hash % 10);
+        ph = 5.8 + ((hash % 10) / 10);
+        break;
+      case 'Clay':
+        moisture = 65 + (hash % 15);
+        nitrogen = 30 + (hash % 15);
+        phosphorus = 25 + (hash % 15);
+        potassium = 50 + (hash % 15);
+        ph = 7.2 + ((hash % 10) / 10);
+        break;
+      case 'Silty':
+        moisture = 55 + (hash % 15);
+        nitrogen = 35 + (hash % 10);
+        phosphorus = 30 + (hash % 10);
+        potassium = 45 + (hash % 10);
+        ph = 6.8 + ((hash % 10) / 20);
+        break;
+      case 'Peaty':
+        moisture = 75 + (hash % 15);
+        nitrogen = 50 + (hash % 20);
+        phosphorus = 15 + (hash % 10);
+        potassium = 20 + (hash % 10);
+        ph = 4.5 + ((hash % 10) / 10);
+        break;
+      case 'Saline':
+        moisture = 30 + (hash % 15);
+        nitrogen = 15 + (hash % 10);
+        phosphorus = 20 + (hash % 10);
+        potassium = 30 + (hash % 10);
+        ph = 8.5 + ((hash % 10) / 10);
+        break;
+    }
+
+    return {
+      soilType: soilType,
+      confidence: confidence,
+      metrics: {
+        moisture,
+        nitrogen,
+        phosphorus,
+        potassium,
+        ph: parseFloat(ph.toFixed(1)),
+      },
+      recommendations: info.recommendations,
+      managementTips: info.managementTips,
+    };
+  } catch (error) {
+    console.error('Soil analysis error:', error);
     return null;
   }
 };
@@ -376,6 +483,76 @@ export function getCattleBreedInfo(
       healthConcerns: ['Consult veterinarian'],
       productionCapacity: 'Variable',
       treatmentTips: ['Consult local veterinarian for comprehensive care plan'],
+    }
+  );
+}
+
+export function getSoilInformation(
+  soilType: string
+): {
+  recommendations: { crop: string; reason: string; duration: string }[];
+  managementTips: string[];
+} {
+  const soilDatabase: {
+    [key: string]: {
+      recommendations: { crop: string; reason: string; duration: string }[];
+      managementTips: string[];
+    };
+  } = {
+    'Loamy': {
+      recommendations: [
+        { crop: 'Wheat', reason: 'Balanced nutrients and good drainage.', duration: '4-6 months' },
+        { crop: 'Cotton', reason: 'Retains moisture well for deep roots.', duration: '6-8 months' },
+        { crop: 'Sugarcane', reason: 'High organic matter supports growth.', duration: '12-18 months' }
+      ],
+      managementTips: ['Maintain organic matter with compost.', 'Regular crop rotation.', 'Optimize irrigation.']
+    },
+    'Sandy': {
+      recommendations: [
+        { crop: 'Watermelon', reason: 'Prefers warm, well-drained soil.', duration: '3 months' },
+        { crop: 'Peanuts', reason: 'Loose texture allows for pod growth.', duration: '4-5 months' },
+        { crop: 'Carrots', reason: 'Easy root penetration in loose soil.', duration: '3-4 months' }
+      ],
+      managementTips: ['Increase watering frequency.', 'Add organic mulch.', 'Use slow-release fertilizers.']
+    },
+    'Clay': {
+      recommendations: [
+        { crop: 'Paddy (Rice)', reason: 'Holds water exceptionally well.', duration: '4-5 months' },
+        { crop: 'Broccoli', reason: 'High nutrient retention beneficial.', duration: '3 months' },
+        { crop: 'Cabbage', reason: 'Strong root system for heavy soil.', duration: '3 months' }
+      ],
+      managementTips: ['Improve drainage.', 'Avoid tilling when wet.', 'Add gypsum to improve structure.']
+    },
+    'Silty': {
+      recommendations: [
+        { crop: 'Corn', reason: 'Highly fertile and holds moisture.', duration: '3-4 months' },
+        { crop: 'Tomatoes', reason: 'Good texture for root development.', duration: '3-4 months' },
+        { crop: 'Lettuce', reason: 'Fast growth in fertile silt.', duration: '2 months' }
+      ],
+      managementTips: ['Prevent compaction.', 'Use cover crops.', 'Monitor moisture levels closely.']
+    },
+    'Peaty': {
+      recommendations: [
+        { crop: 'Blueberries', reason: 'Thrives in acidic, organic soil.', duration: 'Perennial' },
+        { crop: 'Onions', reason: 'High organic content supports bulb size.', duration: '4 months' },
+        { crop: 'Potatoes', reason: 'Acidic preference and easy harvesting.', duration: '3-4 months' }
+      ],
+      managementTips: ['Manage acidity with lime if needed.', 'Ensure proper drainage.', 'Monitor for excessive moisture.']
+    },
+    'Saline': {
+      recommendations: [
+        { crop: 'Barley', reason: 'Highest salt tolerance among cereals.', duration: '4 months' },
+        { crop: 'Date Palm', reason: 'Extremely tolerant to high salinity.', duration: 'Years' },
+        { crop: 'Spinach', reason: 'Moderately tolerant to salt.', duration: '2 months' }
+      ],
+      managementTips: ['Leach excess salts with fresh water.', 'Use salt-tolerant varieties.', 'Improve soil flushing.']
+    }
+  };
+
+  return (
+    soilDatabase[soilType] || {
+      recommendations: [{ crop: 'Consult expert', reason: 'Unknown soil type', duration: 'N/A' }],
+      managementTips: ['Soil testing recommended'],
     }
   );
 }

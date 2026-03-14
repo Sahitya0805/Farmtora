@@ -1,14 +1,15 @@
-export type Language = 'en' | 'kn';
+export type Language = 'en' | 'kn' | 'hi';
 
 export const translations = {
     en: {
         // General
         'app.title': 'Farmtora AI Assistant',
         'app.subtitle': 'Smart Solutions for Modern Farming',
-        'nav.dashboard': 'Dashboard',
+        'nav.dashboard': 'Info',
         'nav.weather': 'Weather',
         'nav.crops': 'Crops',
         'nav.cattle': 'Cattle',
+        'nav.soil': 'Soil',
         'nav.market': 'Market',
         'nav.logout': 'Logout',
 
@@ -16,7 +17,9 @@ export const translations = {
         'login.welcome': 'Welcome. Please log in to your account.',
         'login.email': 'Email',
         'login.password': 'Password',
-        'login.submit': 'Access Dashboard',
+        'login.submit': 'Access Info',
+        'auth.login': 'Login',
+        'auth.signup': 'Sign Up',
 
         // Dashboard
         'dashboard.welcome': 'Welcome back,',
@@ -86,15 +89,27 @@ export const translations = {
         'cattle.production': 'Production Capacity',
         'cattle.healthPoints': 'Health Monitoring Points',
         'cattle.treatmentTips': 'Treatment & Care Tips',
+
+        // Soil Page
+        'soil.title': 'Soil Optimization',
+        'soil.subtitle': 'Analyze your soil to discover the best crops and management techniques',
+        'soil.type': 'Detected Soil Type',
+        'soil.metrics': 'Soil Nutrient Analysis',
+        'soil.recommendations': 'Top Crop Recommendations',
+        'soil.management': 'Soil Management Tips',
+        'soil.history': 'Soil Analysis History',
+        'soil.timeframe': 'Analysis Projection Timeframe',
+        'soil.months': 'Months',
     },
     kn: {
         // General
         'app.title': 'Farmtora AI ಸಹಾಯಕ',
         'app.subtitle': 'ಆಧುನಿಕ ಕೃಷಿಗೆ ಸ್ಮಾರ್ಟ್ ಪರಿಹಾರಗಳು',
-        'nav.dashboard': 'ಡ್ಯಾಶ್‌ಬೋರ್ಡ್',
+        'nav.dashboard': 'ಮಾಹಿತಿ',
         'nav.weather': 'ಹವಾಮಾನ',
         'nav.crops': 'ಬೆಳೆಗಳು',
         'nav.cattle': 'ಜಾನುವಾರು',
+        'nav.soil': 'ಮಣ್ಣು',
         'nav.market': 'ಮಾರುಕಟ್ಟೆ',
         'nav.logout': 'ಲಾಗ್ಔಟ್',
 
@@ -102,7 +117,9 @@ export const translations = {
         'login.welcome': 'ಸ್ವಾಗತ. ದಯವಿಟ್ಟು ನಿಮ್ಮ ಖಾತೆಗೆ ಲಾಗಿನ್ ಮಾಡಿ.',
         'login.email': 'ಇಮೇಲ್ (Email)',
         'login.password': 'ಪಾಸ್‌ವರ್ಡ್ (Password)',
-        'login.submit': 'ಡ್ಯಾಶ್‌ಬೋರ್ಡ್ ಪ್ರವೇಶಿಸಿ',
+        'login.submit': 'ಮಾಹಿತಿ ಪ್ರವೇಶಿಸಿ',
+        'auth.login': 'ಲಾಗಿನ್',
+        'auth.signup': 'ಸೈನ್ ಅಪ್',
 
         // Dashboard
         'dashboard.welcome': 'ಮರಳಿ ಸ್ವಾಗತ,',
@@ -172,5 +189,116 @@ export const translations = {
         'cattle.production': 'ಉತ್ಪಾದನಾ ಸಾಮರ್ಥ್ಯ',
         'cattle.healthPoints': 'ಆರೋಗ್ಯ ನಿಗಾ ಬಿಂದುಗಳು',
         'cattle.treatmentTips': 'ಚಿಕಿತ್ಸೆ ಮತ್ತು ಆರೈಕೆ ಸಲಹೆಗಳು',
+
+        // Soil Page
+        'soil.title': 'ಮಣ್ಣಿನ ಉತ್ತಮೀಕರಣ',
+        'soil.subtitle': 'ಅತ್ಯುತ್ತಮ ಬೆಳೆಗಳು ಮತ್ತು ನಿರ್ವಹಣಾ ವಿಧಾನಗಳನ್ನು ತಿಳಿಯಲು ನಿಮ್ಮ ಮಣ್ಣನ್ನು ವಿಶ್ಲೇಷಿಸಿ',
+        'soil.type': 'ಪತ್ತೆಯಾದ ಮಣ್ಣಿನ ವಿಧ',
+        'soil.metrics': 'ಮಣ್ಣಿನ ಪೋಷಕಾಂಶಗಳ ವಿಶ್ಲೇಷಣೆ',
+        'soil.recommendations': 'ಉನ್ನತ ಬೆಳೆ ಶಿಫಾರಸುಗಳು',
+        'soil.management': 'ಮಣ್ಣಿನ ನಿರ್ವಹಣಾ ಸಲಹೆಗಳು',
+        'soil.history': 'ಮಣ್ಣಿನ ವಿಶ್ಲೇಷಣೆ ಇತಿಹಾಸ',
+        'soil.timeframe': 'ವಿಶ್ಲೇಷಣೆ ಪ್ರಕ್ಷೇಪಣ ಕಾಲಮಿತಿ',
+        'soil.months': 'ತಿಂಗಳುಗಳು',
+    },
+    hi: {
+        // General
+        'app.title': 'Farmtora एआई सहायक',
+        'app.subtitle': 'आधुनिक खेती के लिए स्मार्ट समाधान',
+        'nav.dashboard': 'जानकारी',
+        'nav.weather': 'मौसम',
+        'nav.crops': 'फसलें',
+        'nav.cattle': 'मवेशी',
+        'nav.soil': 'मिट्टी',
+        'nav.market': 'बाज़ार',
+        'nav.logout': 'लॉग आउट',
+
+        // Login Page
+        'login.welcome': 'खाते में लॉग इन करें',
+        'login.email': 'ईमेल',
+        'login.password': 'पासवर्ड',
+        'login.submit': 'जानकारी तक पहुंचें',
+        'auth.login': 'लॉग इन',
+        'auth.signup': 'साइन अप',
+
+        // Dashboard
+        'dashboard.welcome': 'वापसी पर स्वागत है,',
+        'dashboard.greeting': 'किसान',
+        'dashboard.overview': 'फार्म अवलोकन',
+        'dashboard.quickActions': 'त्वरित कार्रवाइयां',
+        'dashboard.weatherSummary': 'मौसम सारांश',
+        'dashboard.multiWeather': 'मल्टी-लोकेशन मौसम',
+        'dashboard.recentAlerts': 'हाल के अलर्ट',
+        'dashboard.advisories': 'सरकारी सलाह',
+        'dashboard.research': 'अनुसंधान और समाचार',
+
+        // Features Items
+        'feature.crop.title': 'फसल रोग का पता लगाना',
+        'feature.crop.desc': 'त्वरित एआई रोग विश्लेषण और उपचार सिफारिशों के लिए अपनी फसलों की तस्वीरें अपलोड करें।',
+        'feature.weather.title': 'मौसम खुफिया जानकारी',
+        'feature.weather.desc': 'आपके क्षेत्र के लिए प्रति घंटा स्थानीयकृत ट्रैकिंग और गंभीर मौसम की भविष्यवाणी एल्गोरिदम।',
+        'feature.cattle.title': 'मवेशी स्वास्थ्य निगरानी',
+        'feature.cattle.desc': 'पशुधन निगरानी और प्रारंभिक स्वास्थ्य चिंता का पता लगाने के लिए दृश्य एआई निदान।',
+        'feature.data.title': 'फार्म डेटा विज़ुअलाइज़ेशन',
+        'feature.data.desc': 'समय के साथ आपकी उपज, मिट्टी के स्वास्थ्य और वित्तीय मैट्रिक्स को ट्रैक करने वाला इंटरेक्टिव एनालिटिक्स डैशबोर्ड।',
+
+        'action.trynow': 'अभी आज़माएं',
+        'action.viewforecast': 'पूर्ण पूर्वानुमान देखें',
+
+        // Weather Page
+        'weather.title': 'मौसम खुफिया जानकारी',
+        'weather.subtitle': 'वास्तविक समय का कृषि डेटा',
+        'weather.search': 'वैश्विक स्थान खोजें...',
+        'weather.currentLocal': 'वर्तमान स्थानीय अवलोकन',
+        'weather.humidity': 'नमी',
+        'weather.wind': 'हवा',
+        'weather.uv': 'यूवी (UV)',
+        'weather.precip': 'बारिश',
+        'weather.7day': '7-दिवसीय पूर्वानुमान',
+        'weather.high': 'अधिकतम',
+        'weather.low': 'न्यूनतम',
+
+        // Crops Page
+        'crops.title': 'फसल रोग का पता लगाना',
+        'crops.subtitle': 'फसल के रोगों का पता लगाने के लिए एक छवि अपलोड करें',
+        'crops.upload.title': 'अपलोड करने के लिए क्लिक करें या ड्रैग और ड्रॉप करें',
+        'crops.upload.desc': 'PNG, JPG, GIF अधिकतम 10MB तक',
+        'crops.upload.button': 'रोग का पता लगाएं',
+        'crops.upload.analyzing': 'विश्लेषण कर रहा है...',
+        'crops.result.uploadAnother': 'एक और छवि अपलोड करें',
+        'crops.result.critical': 'गंभीर कार्रवाई आवश्यक है',
+        'crops.result.attention': 'ध्यान देने की अनुशंसा की जाती है',
+        'crops.result.healthy': 'पौधा स्वस्थ प्रतीत होता है',
+        'crops.result.identified': 'पहचाना गया:',
+        'crops.result.reportDesc': 'स्वचालित दृश्य निदान रिपोर्ट।',
+        'crops.result.severity': 'गंभीरता',
+        'crops.result.confidence': 'भरोसा',
+        'crops.result.quickAction': 'त्वरित कार्रवाई आवश्यक है',
+        'crops.result.statusInfo': 'स्थिति की जानकारी',
+        'crops.result.treatments': 'अनुशंसित उपचार',
+        'crops.result.prevention': 'रोकथाम और प्रबंधन',
+        'crops.history.title': 'पता लगाने का इतिहास',
+
+        // Cattle Page
+        'cattle.title': 'मवेशी नस्ल की पहचान',
+        'cattle.subtitle': 'मवेशियों की नस्लों की पहचान करने और स्वास्थ्य जानकारी प्राप्त करने के लिए एक छवि अपलोड करें',
+        'cattle.healthAlert': 'स्वास्थ्य चेतावनी का पता चला',
+        'cattle.urgent': 'तत्काल ध्यान देने की आवश्यकता हो सकती है',
+        'cattle.characteristics': 'नस्ल की विशेषताएं',
+        'cattle.origin': 'मूल',
+        'cattle.production': 'उत्पादन क्षमता',
+        'cattle.healthPoints': 'स्वास्थ्य निगरानी बिंदु',
+        'cattle.treatmentTips': 'उपचार और देखभाल के सुझाव',
+
+        // Soil Page
+        'soil.title': 'मिट्टी अनुकूलन',
+        'soil.subtitle': 'सर्वोत्तम फसलों और प्रबंधन तकनीकों की खोज के लिए अपनी मिट्टी का विश्लेषण करें',
+        'soil.type': 'पहचानी गई मिट्टी का प्रकार',
+        'soil.metrics': 'मिट्टी पोषक तत्व विश्लेषण',
+        'soil.recommendations': 'शीर्ष फसल सिफारिशें',
+        'soil.management': 'मिट्टी प्रबंधन युक्तियाँ',
+        'soil.history': 'मिट्टी विश्लेषण इतिहास',
+        'soil.timeframe': 'विश्लेषण का समय सीमा',
+        'soil.months': 'महीने',
     }
 };

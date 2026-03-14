@@ -38,6 +38,17 @@ interface CattleRecord {
   imageData?: string;
 }
 
+interface SoilRecord {
+  id?: string;
+  timestamp: number;
+  soilType: string;
+  confidence: number;
+  moisture: number;
+  ph: number;
+  notes: string;
+  imageData?: string;
+}
+
 interface FarmDataRecord {
   id?: string;
   timestamp: number;
@@ -85,6 +96,12 @@ export const initDB = async (): Promise<IDBDatabase> => {
         const farmStore = database.createObjectStore('farmData', { keyPath: 'id', autoIncrement: true });
         farmStore.createIndex('timestamp', 'timestamp', { unique: false });
         farmStore.createIndex('dataType', 'dataType', { unique: false });
+      }
+
+      if (!database.objectStoreNames.contains('soil')) {
+        const soilStore = database.createObjectStore('soil', { keyPath: 'id', autoIncrement: true });
+        soilStore.createIndex('timestamp', 'timestamp', { unique: false });
+        soilStore.createIndex('soilType', 'soilType', { unique: false });
       }
     };
   });
@@ -177,8 +194,33 @@ export const getCattleRecords = async (): Promise<CattleRecord[]> => {
     const store = transaction.objectStore('cattle');
     const request = store.getAll();
 
+    request.onerror = () => reject(request.error);
+  });
+};
+
+// Soil Operations
+export const addSoilRecord = async (record: SoilRecord): Promise<string> => {
+  const database = await getDB();
+  return new Promise((resolve, reject) => {
+    const transaction = database.transaction(['soil'], 'readwrite');
+    const store = transaction.objectStore('soil');
+    const request = store.add(record);
+
+    request.onsuccess = () => resolve(request.result as string);
+    request.onerror = () => reject(request.error);
+  });
+};
+
+export const getSoilRecords = async (days: number = 365): Promise<SoilRecord[]> => {
+  const database = await getDB();
+  return new Promise((resolve, reject) => {
+    const transaction = database.transaction(['soil'], 'readonly');
+    const store = transaction.objectStore('soil');
+    const cutoffTime = Date.now() - days * 24 * 60 * 60 * 1000;
+    const request = store.getAll();
+
     request.onsuccess = () => {
-      const records = request.result as CattleRecord[];
+      const records = (request.result as SoilRecord[]).filter((r) => r.timestamp >= cutoffTime);
       resolve(records.sort((a, b) => b.timestamp - a.timestamp));
     };
     request.onerror = () => reject(request.error);
@@ -218,9 +260,9 @@ export const clearOldData = async (): Promise<void> => {
   const database = await getDB();
   const cutoffTime = Date.now() - 90 * 24 * 60 * 60 * 1000;
 
-  const transaction = database.transaction(['weather', 'crops', 'cattle', 'farmData'], 'readwrite');
+  const transaction = database.transaction(['weather', 'crops', 'cattle', 'farmData', 'soil'], 'readwrite');
 
-  ['weather', 'crops', 'cattle', 'farmData'].forEach((storeName) => {
+  ['weather', 'crops', 'cattle', 'farmData', 'soil'].forEach((storeName) => {
     const store = transaction.objectStore(storeName);
     const index = store.index('timestamp');
     const range = IDBKeyRange.upperBound(cutoffTime);

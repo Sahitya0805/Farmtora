@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { ArrowLeft, Upload, Heart, TrendingUp, AlertTriangle, ShieldCheck } from 'lucide-react';
+import { ArrowLeft, Upload, Heart, TrendingUp, AlertTriangle, ShieldCheck, Search, Globe, Target, Activity } from 'lucide-react';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
 import { identifyCattleBreed } from '@/lib/api-services';
@@ -76,6 +76,49 @@ const CattlePage = () => {
       const reader = new FileReader();
       reader.onload = async (e) => {
         const base64 = e.target?.result as string;
+
+        try {
+          const img = new Image();
+          img.src = base64;
+          await new Promise((resolve) => { img.onload = resolve; });
+
+          await import('@tensorflow/tfjs');
+          const mobilenet = await import('@tensorflow-models/mobilenet');
+          const model = await mobilenet.load();
+          const predictions = await model.classify(img);
+
+          console.log('MobileNet Cattle predictions:', predictions);
+
+          const validKeywords = ['animal', 'cow', 'cattle', 'bull', 'ox', 'calf', 'heifer', 'livestock', 'mammal', 'bovine', 'dog', 'cat', 'horse', 'sheep', 'goat', 'pig'];
+
+          const isAnimal = predictions.some(p =>
+            validKeywords.some(kw => p.className.toLowerCase().includes(kw))
+          );
+
+          if (!isAnimal) {
+            setBreedResult({
+              breed: 'Invalid Image Detected',
+              confidence: predictions[0].probability,
+              origin: 'Unknown',
+              characteristics: ['Please upload an image of cattle or an agricultural animal.'],
+              healthConcerns: ['Unable to analyze non-animal images.'],
+              productionCapacity: 'N/A',
+              treatmentTips: ['Ensure the animal is well-lit and clearly visible in the photo.', 'Avoid uploading pictures of plants, people, vehicles, or unrelated objects.'],
+              diseaseDetected: {
+                name: 'Non-Cattle Subject',
+                confidence: predictions[0].probability,
+                severity: 'error',
+                description: 'The uploaded image does not appear to contain cattle or any recognized livestock. AI diagnostics require a clear image of the animal.',
+                treatments: ['Take a new photo with the cattle centered in the frame.']
+              }
+            });
+            setLoading(false);
+            return;
+          }
+        } catch (tfError) {
+          console.error("TensorFlow classification failed:", tfError);
+        }
+
         const result = await identifyCattleBreed(base64);
 
         if (result) {
@@ -86,7 +129,7 @@ const CattlePage = () => {
             timestamp: Date.now(),
             breed: result.breed,
             age: 3,
-            healthStatus: 'Good',
+            healthStatus: result.diseaseDetected ? 'Attention Needed' : 'Good',
             weight: 400,
             lastVaccine: new Date().toISOString().split('T')[0],
             imageData: base64.substring(0, 100),
@@ -100,342 +143,417 @@ const CattlePage = () => {
     } catch (error) {
       console.error('Error identifying breed:', error);
     } finally {
-      setLoading(false);
+      // setLoading(false) handled conditionally based on async reader execution
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-amber-50 p-4 md:p-8">
-      <div className="max-w-6xl mx-auto">
+    <div className="min-h-screen bg-background p-4 md:p-12 relative overflow-hidden">
+      {/* Background blobs for Cattle page */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-rose-500/10 rounded-full blur-[120px] -z-10 animate-blob" />
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-orange-500/10 rounded-full blur-[120px] -z-10 animate-blob animation-delay-2000" />
+
+      <div className="max-w-6xl mx-auto relative z-10">
         {/* Header */}
-        <div className="flex items-center gap-4 mb-8">
+        <div className="flex flex-col md:flex-row items-center gap-8 mb-16">
           <Link href="/dashboard">
-            <Button variant="outline" size="icon" className="rounded-full">
-              <ArrowLeft className="w-5 h-5" />
+            <Button variant="outline" size="icon" className="rounded-2xl w-14 h-14 glass border-white/20 hover:bg-white/10 shrink-0">
+              <ArrowLeft className="w-6 h-6" />
             </Button>
           </Link>
-          <div>
-            <h1 className="text-3xl md:text-4xl font-bold text-secondary">{t('cattle.title')}</h1>
-            <p className="text-gray-600">{t('cattle.subtitle')}</p>
+          <div className="text-center md:text-left">
+            <h1 className="text-5xl md:text-7xl font-black text-foreground tracking-tighter mb-4">
+              Livestock <span className="text-rose-500 drop-shadow-[0_0_15px_rgba(244,63,94,0.3)]">Diagnostics</span>
+            </h1>
+            <p className="text-xl text-muted-foreground font-bold tracking-tight opacity-70">
+              Harness deterministic computer vision for elite animal health management.
+            </p>
           </div>
         </div>
 
         {/* Upload Section */}
         {!breedResult && !selectedRecord && (
-          <Card className="bg-white p-8 mb-8 shadow-lg border-0">
-            <div className="text-center">
-              <label className="block mb-6">
-                <div className="border-2 border-dashed border-secondary rounded-lg p-12 cursor-pointer hover:border-secondary/70 transition-colors">
-                  <Upload className="w-12 h-12 text-secondary mx-auto mb-4" />
-                  <p className="text-lg font-semibold text-gray-800 mb-2">
-                    {t('crops.upload.title')}
-                  </p>
-                  <p className="text-gray-600">{t('crops.upload.desc')}</p>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleFileSelect}
-                    className="hidden"
-                  />
-                </div>
-              </label>
+          <div className="animate-in fade-in slide-in-from-bottom-10 duration-700">
+            <Card className="glass rounded-[3.5rem] p-12 mb-12 border-2 border-white/10 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.3)] relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-rose-500/5 rounded-bl-full -z-10" />
 
-              {preview && (
-                <>
-                  <img
-                    src={preview}
-                    alt="Preview"
-                    className="max-w-md mx-auto mb-6 rounded-lg shadow-md h-auto"
-                  />
-                  <Button
-                    size="lg"
-                    onClick={handleIdentify}
-                    disabled={loading}
-                    className="w-full md:w-auto bg-secondary hover:bg-secondary/90"
-                  >
-                    {loading ? t('crops.upload.analyzing') : t('crops.upload.button')}
-                  </Button>
-                </>
-              )}
-            </div>
-          </Card>
+              <div className="text-center">
+                <label className="block mb-10 group cursor-pointer">
+                  <div className="border-4 border-dashed border-rose-500/30 rounded-[2.5rem] p-20 group-hover:border-rose-500/60 transition-all duration-500 group-hover:bg-rose-500/5">
+                    <div className="w-20 h-20 bg-rose-500/20 rounded-[2rem] flex items-center justify-center mx-auto mb-8 group-hover:scale-110 group-hover:rotate-12 transition-all duration-500">
+                      <Upload className="w-10 h-10 text-rose-500" />
+                    </div>
+                    <p className="text-3xl font-black text-foreground mb-4 tracking-tighter">
+                      {t('crops.upload.title')}
+                    </p>
+                    <p className="text-lg text-muted-foreground font-bold opacity-70">
+                      {t('crops.upload.desc')}
+                    </p>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleFileSelect}
+                      className="hidden"
+                    />
+                  </div>
+                </label>
+
+                {preview && (
+                  <div className="animate-in zoom-in duration-500">
+                    <div className="relative inline-block mb-10">
+                      <img
+                        src={preview}
+                        alt="Preview"
+                        className="max-w-xl mx-auto rounded-[3rem] shadow-2xl border-4 border-white/20 h-auto"
+                      />
+                      <div className="absolute -inset-4 bg-rose-500/20 blur-2xl -z-10 rounded-[3rem] animate-pulse" />
+                    </div>
+                    <br />
+                    <Button
+                      size="lg"
+                      onClick={handleIdentify}
+                      disabled={loading}
+                      className="px-16 py-8 rounded-[2rem] bg-rose-500 hover:bg-rose-600 text-white font-black text-2xl transition-all duration-500 hover:scale-110 shadow-[0_20px_40px_-5px_rgba(244,63,94,0.5)] flex items-center gap-4 mx-auto"
+                    >
+                      {loading ? (
+                        <div className="flex items-center gap-3">
+                          <div className="w-6 h-6 border-4 border-white/30 border-t-white rounded-full animate-spin" />
+                          <span>{t('crops.upload.analyzing')}</span>
+                        </div>
+                      ) : (
+                        <>
+                          <Search className="w-6 h-6" />
+                          <span>Identify Breed</span>
+                        </>
+                      )}
+                    </Button>
+                  </div>
+                )}
+              </div>
+            </Card>
+          </div>
         )}
 
         {/* Breed Identification Results */}
         {breedResult && !selectedRecord && (
-          <Card className="bg-white p-8 mb-8 shadow-lg border-0">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => {
-                setBreedResult(null);
-                setSelectedFile(null);
-                setPreview(null);
-              }}
-              className="mb-6"
-            >
-              ← {t('crops.result.uploadAnother')}
-            </Button>
+          <div className="animate-in fade-in zoom-in duration-700">
+            <Card className="glass rounded-[3.5rem] p-12 mb-12 border-2 border-white/10 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.3)] relative overflow-hidden">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => {
+                  setBreedResult(null);
+                  setSelectedFile(null);
+                  setPreview(null);
+                }}
+                className="mb-10 glass border-white/20 hover:bg-white/10 rounded-2xl px-6 py-6 font-black text-xs uppercase tracking-widest flex items-center gap-2"
+              >
+                <ArrowLeft className="w-4 h-4" /> {t('crops.result.uploadAnother')}
+              </Button>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {/* Breed Info */}
-              <div>
-                <div className="mb-6 p-4 rounded-lg bg-orange-50 border-l-4 border-secondary">
-                  <h2 className="text-3xl font-bold text-secondary mb-3">{breedResult.breed}</h2>
-                  <div className="space-y-2">
-                    <p className="text-gray-700">
-                      <strong>{t('cattle.origin')}:</strong> {breedResult.origin}
-                    </p>
-                    <p className="text-gray-700">
-                      <strong>{t('crops.result.confidence')}:</strong> {(breedResult.confidence * 100).toFixed(1)}%
-                    </p>
-                    <p className="text-gray-700">
-                      <strong>{t('cattle.production')}:</strong> {breedResult.productionCapacity}
-                    </p>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                {/* Breed Info */}
+                <div className="space-y-8">
+                  <div className="p-10 rounded-[3rem] bg-rose-500/10 border-2 border-rose-500/20 shadow-inner">
+                    <div className="inline-block px-4 py-1 rounded-full bg-rose-500/20 text-rose-500 font-black text-[10px] uppercase tracking-widest mb-6">
+                      Breed Identification Result
+                    </div>
+                    <h2 className="text-6xl md:text-8xl font-black text-foreground tracking-tighter mb-8 leading-none">{breedResult.breed}</h2>
+                    <div className="grid grid-cols-1 gap-6">
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 rounded-2xl bg-background flex items-center justify-center border border-white/10">
+                          <Globe className="w-6 h-6 text-blue-400" />
+                        </div>
+                        <div>
+                          <p className="text-xs text-muted-foreground uppercase font-black tracking-widest">{t('cattle.origin')}</p>
+                          <p className="text-xl font-black text-foreground">{breedResult.origin}</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 rounded-2xl bg-background flex items-center justify-center border border-white/10">
+                          <Target className="w-6 h-6 text-emerald-400" />
+                        </div>
+                        <div>
+                          <p className="text-xs text-muted-foreground uppercase font-black tracking-widest">{t('crops.result.confidence')}</p>
+                          <p className="text-xl font-black text-foreground">{(breedResult.confidence * 100).toFixed(1)}%</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 rounded-2xl bg-background flex items-center justify-center border border-white/10">
+                          <Activity className="w-6 h-6 text-rose-400" />
+                        </div>
+                        <div>
+                          <p className="text-xs text-muted-foreground uppercase font-black tracking-widest">{t('cattle.production')}</p>
+                          <p className="text-xl font-black text-foreground">{breedResult.productionCapacity}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Quick Stats Cards */}
+                  <div className="grid grid-cols-2 gap-6">
+                    <Card className="glass border-white/10 p-8 rounded-[2.5rem] bg-emerald-500/5 hover:bg-emerald-500/10 transition-colors group">
+                      <p className="text-xs text-muted-foreground font-black uppercase tracking-widest mb-2">{t('cattle.characteristics')}</p>
+                      <p className="text-5xl font-black text-emerald-500 group-hover:scale-110 transition-transform origin-left">{breedResult.characteristics.length}</p>
+                    </Card>
+                    <Card className="glass border-white/10 p-8 rounded-[2.5rem] bg-rose-500/5 hover:bg-rose-500/10 transition-colors group">
+                      <p className="text-xs text-muted-foreground font-black uppercase tracking-widest mb-2">{t('cattle.healthPoints')}</p>
+                      <p className="text-5xl font-black text-rose-500 group-hover:scale-110 transition-transform origin-left">{breedResult.healthConcerns.length}</p>
+                    </Card>
                   </div>
                 </div>
 
-                {/* Quick Stats */}
-                <div className="grid grid-cols-2 gap-4">
-                  <Card className="bg-blue-50 p-4 border-0">
-                    <p className="text-sm text-gray-600 mb-1">{t('cattle.characteristics')}</p>
-                    <p className="text-2xl font-bold text-primary">{breedResult.characteristics.length}</p>
-                  </Card>
-                  <Card className="bg-red-50 p-4 border-0">
-                    <p className="text-sm text-gray-600 mb-1">{t('cattle.healthPoints')}</p>
-                    <p className="text-2xl font-bold text-red-600">{breedResult.healthConcerns.length}</p>
-                  </Card>
-                </div>
+                {/* Preview Image in Result */}
+                {preview && (
+                  <div className="relative group">
+                    <div className="absolute -inset-4 bg-rose-500/20 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-1000 -z-10" />
+                    <img
+                      src={preview}
+                      alt="Cattle"
+                      className="w-full rounded-[4rem] shadow-2xl border-4 border-white/10 h-auto group-hover:scale-[1.02] transition-transform duration-700 object-cover"
+                    />
+                  </div>
+                )}
               </div>
-
-              {/* Preview Image */}
-              {preview && (
-                <div>
-                  <img
-                    src={preview}
-                    alt="Cattle"
-                    className="w-full rounded-lg shadow-md h-auto"
-                  />
-                </div>
-              )}
-            </div>
-          </Card>
+            </Card>
+          </div>
         )}
 
-        {/* Disease Alert Section */}
+        {/* Disease / Error Alert Section */}
         {breedResult?.diseaseDetected && !selectedRecord && (
-          <Card className="bg-red-50 p-8 mb-8 shadow-xl border-2 border-red-500 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-red-500/10 rounded-bl-full -z-10" />
+          <div className="animate-in slide-in-from-right-10 duration-700">
+            <Card className={`p-12 mb-12 shadow-[0_40px_80px_-20px_rgba(244,63,94,0.3)] border-4 relative overflow-hidden rounded-[4rem] ${breedResult.diseaseDetected.severity === 'error' ? 'bg-red-500/10 border-red-500' : 'bg-red-500/5 border-red-500/50'
+              }`}>
+              <div className="absolute top-0 right-0 w-64 h-64 bg-red-500/10 rounded-bl-full -z-10" />
 
-            <div className="flex items-center gap-4 mb-6">
-              <div className="p-3 bg-red-100 rounded-full animate-pulse">
-                <AlertTriangle className="w-8 h-8 text-red-600" />
-              </div>
-              <div>
-                <h2 className="text-3xl font-bold text-red-600 tracking-tight">{t('cattle.healthAlert')}</h2>
-                <p className="text-red-800/80 font-medium">{t('cattle.urgent')}</p>
-              </div>
-            </div>
-
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-sm border border-red-100">
-              <div className="flex flex-col md:flex-row justify-between items-start gap-6 mb-6">
-                <div className="flex-1">
-                  <h3 className="text-2xl font-bold text-gray-900 mb-2">{breedResult.diseaseDetected.name}</h3>
-                  <p className="text-gray-700 leading-relaxed">{breedResult.diseaseDetected.description}</p>
+              <div className="flex flex-col md:flex-row items-center gap-8 mb-12">
+                <div className={`p-6 rounded-[2.5rem] ${breedResult.diseaseDetected.severity === 'error' ? 'bg-red-500 animate-bounce' : 'bg-red-500 animate-pulse-slow shadow-[0_0_30px_rgba(239,68,68,0.5)]'}`}>
+                  <AlertTriangle className="w-12 h-12 text-white" />
                 </div>
-                <div className="flex flex-col gap-2 min-w-[140px]">
-                  <span className="inline-flex items-center justify-center px-4 py-2 bg-red-100 text-red-700 rounded-xl font-bold text-sm uppercase tracking-wider border border-red-200">
-                    Severity: {breedResult.diseaseDetected.severity}
-                  </span>
-                  <span className="inline-flex items-center justify-center px-4 py-2 bg-gray-100 text-gray-700 rounded-xl font-medium text-sm border border-gray-200">
-                    Confidence: {(breedResult.diseaseDetected.confidence * 100).toFixed(1)}%
-                  </span>
+                <div className="text-center md:text-left">
+                  <h2 className="text-5xl md:text-6xl font-black text-red-500 tracking-tighter mb-2">
+                    {breedResult.diseaseDetected.severity === 'error' ? 'Invalid Image Detected' : t('cattle.healthAlert')}
+                  </h2>
+                  <p className="text-xl text-red-500/70 font-black uppercase tracking-widest">
+                    {breedResult.diseaseDetected.severity === 'error' ? 'Please upload cattle' : t('cattle.urgent')}
+                  </p>
                 </div>
               </div>
 
-              <div className="bg-red-50/50 rounded-xl p-5 border border-red-100">
-                <h4 className="font-bold text-red-800 mb-4 flex items-center gap-2">
-                  <ShieldCheck className="w-5 h-5" />
-                  Recommended Immediate Actions:
-                </h4>
-                <ul className="space-y-3">
-                  {breedResult.diseaseDetected.treatments.map((tr, i) => (
-                    <li key={i} className="flex items-start gap-3">
-                      <div className="mt-1 w-2 h-2 rounded-full bg-red-500 shrink-0" />
-                      <span className="text-gray-800 font-medium">{tr}</span>
-                    </li>
-                  ))}
-                </ul>
+              <div className="glass rounded-[3rem] p-10 border-white/20">
+                <div className="flex flex-col lg:flex-row justify-between items-start gap-12 mb-12">
+                  <div className="flex-1">
+                    <h3 className="text-4xl font-black text-foreground mb-4 tracking-tighter">{breedResult.diseaseDetected.name}</h3>
+                    <p className="text-xl text-muted-foreground leading-relaxed font-bold opacity-80">{breedResult.diseaseDetected.description}</p>
+                  </div>
+                  <div className="flex flex-col gap-4 min-w-[200px] w-full lg:w-auto">
+                    <span className="inline-flex items-center justify-center px-8 py-4 bg-red-500 text-white rounded-[1.5rem] font-black text-sm uppercase tracking-widest shadow-xl">
+                      Severity: {breedResult.diseaseDetected.severity}
+                    </span>
+                    <span className="inline-flex items-center justify-center px-8 py-4 glass text-foreground rounded-[1.5rem] font-black text-sm uppercase tracking-widest border border-white/20">
+                      Confidence: {(breedResult.diseaseDetected.confidence * 100).toFixed(1)}%
+                    </span>
+                  </div>
+                </div>
+
+                <div className="bg-red-500/5 rounded-[2.5rem] p-10 border-2 border-red-500/20">
+                  <h4 className="text-2xl font-black text-red-500 mb-8 flex items-center gap-4">
+                    <ShieldCheck className="w-8 h-8" />
+                    Recommended Immediate Actions:
+                  </h4>
+                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {breedResult.diseaseDetected.treatments.map((tr, i) => (
+                      <li key={i} className="flex items-start gap-5 glass p-6 rounded-[2rem] border-white/10 hover:bg-white/5 transition-colors group">
+                        <div className="mt-1.5 w-4 h-4 rounded-full bg-red-500 shrink-0 group-hover:scale-125 transition-transform" />
+                        <span className="text-foreground font-bold text-lg leading-snug">{tr}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
-            </div>
-          </Card>
+            </Card>
+          </div>
         )}
 
         {/* Characteristics */}
         {breedResult && !selectedRecord && (
-          <Card className="bg-white p-8 mb-8 shadow-lg border-0">
-            <h2 className="text-2xl font-bold text-secondary mb-6">{t('cattle.characteristics')}</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {breedResult.characteristics.map((char, idx) => (
-                <Card
-                  key={idx}
-                  className="bg-green-50 p-4 border-l-4 border-secondary hover:shadow-lg transition-all cursor-pointer"
-                  onClick={() => {
-                    setSelectedRecord({
-                      id: idx,
-                      timestamp: Date.now(),
-                      breed: breedResult.breed,
-                      age: 0,
-                      healthStatus: 'Unknown',
-                      weight: 0,
-                      lastVaccine: '',
-                      notes: `Characteristic: ${char}`,
-                    });
-                  }}
-                >
-                  <p className="text-gray-700 font-semibold hover:text-secondary transition-colors">
-                    {char}
-                  </p>
-                </Card>
-              ))}
-            </div>
-          </Card>
+          <div className="animate-in slide-in-from-bottom-10 duration-700 delay-200">
+            <Card className="glass rounded-[4rem] p-12 mb-12 border-2 border-white/10 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.2)]">
+              <div className="flex items-center gap-6 mb-12">
+                <div className="p-4 bg-emerald-500 rounded-2xl shadow-[0_0_20px_rgba(16,185,129,0.4)]">
+                  <Activity className="w-8 h-8 text-white" />
+                </div>
+                <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tighter">{t('cattle.characteristics')}</h2>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {breedResult.characteristics.map((char, idx) => (
+                  <Card
+                    key={idx}
+                    className="glass p-8 rounded-[2.5rem] border-white/10 hover:border-emerald-500/50 hover:bg-emerald-500/10 transition-all duration-500 cursor-pointer group shadow-lg"
+                    onClick={() => {
+                      setSelectedRecord({
+                        id: idx,
+                        timestamp: Date.now(),
+                        breed: breedResult.breed,
+                        age: 0,
+                        healthStatus: 'Information',
+                        weight: 0,
+                        lastVaccine: '',
+                        notes: `Key breed characteristic: ${char}`,
+                      });
+                    }}
+                  >
+                    <p className="text-foreground font-black text-xl group-hover:text-emerald-500 transition-colors leading-tight">
+                      {char}
+                    </p>
+                  </Card>
+                ))}
+              </div>
+            </Card>
+          </div>
         )}
 
         {/* Health Concerns */}
         {breedResult && !selectedRecord && (
-          <Card className="bg-white p-8 mb-8 shadow-lg border-0">
-            <div className="flex items-center gap-3 mb-6">
-              <Heart className="w-6 h-6 text-red-600" />
-              <h2 className="text-2xl font-bold text-red-600">{t('cattle.healthPoints')}</h2>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {breedResult.healthConcerns.map((concern, idx) => (
-                <Card
-                  key={idx}
-                  className="bg-red-50 p-4 border-l-4 border-red-600 hover:shadow-lg transition-all cursor-pointer"
-                  onClick={() => {
-                    setSelectedRecord({
-                      id: idx,
-                      timestamp: Date.now(),
-                      breed: breedResult.breed,
-                      age: 0,
-                      healthStatus: concern,
-                      weight: 0,
-                      lastVaccine: '',
-                      notes: `Health Concern: ${concern}. Regular monitoring and preventive care recommended.`,
-                    });
-                  }}
-                >
-                  <p className="text-gray-700 font-semibold hover:text-red-600 transition-colors">
-                    {concern}
-                  </p>
-                </Card>
-              ))}
-            </div>
-          </Card>
+          <div className="animate-in slide-in-from-bottom-10 duration-700 delay-300">
+            <Card className="glass rounded-[4rem] p-12 mb-12 border-2 border-white/10 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.2)]">
+              <div className="flex items-center gap-6 mb-12">
+                <div className="p-4 bg-rose-500 rounded-2xl shadow-[0_0_20px_rgba(244,63,94,0.4)]">
+                  <Heart className="w-8 h-8 text-white" />
+                </div>
+                <h2 className="text-4xl md:text-5xl font-black text-rose-500 tracking-tighter">{t('cattle.healthPoints')}</h2>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {breedResult.healthConcerns.map((concern, idx) => (
+                  <Card
+                    key={idx}
+                    className="glass p-8 rounded-[2.5rem] border-white/10 hover:border-rose-500/50 hover:bg-rose-500/10 transition-all duration-500 cursor-pointer group shadow-lg"
+                    onClick={() => {
+                      setSelectedRecord({
+                        id: idx,
+                        timestamp: Date.now(),
+                        breed: breedResult.breed,
+                        age: 0,
+                        healthStatus: concern,
+                        weight: 0,
+                        lastVaccine: '',
+                        notes: `Critical health monitoring required for: ${concern}. Consult a veterinarian for a preventive management plan.`,
+                      });
+                    }}
+                  >
+                    <p className="text-foreground font-black text-xl group-hover:text-rose-500 transition-colors leading-tight">
+                      {concern}
+                    </p>
+                  </Card>
+                ))}
+              </div>
+            </Card>
+          </div>
         )}
 
         {/* Treatment Tips */}
         {breedResult && !selectedRecord && breedResult.treatmentTips && (
-          <Card className="bg-white p-8 mb-8 shadow-lg border-0">
-            <div className="flex items-center gap-3 mb-6">
-              <Heart className="w-6 h-6 text-emerald-600" />
-              <h2 className="text-2xl font-bold text-emerald-600">{t('cattle.treatmentTips')}</h2>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {breedResult.treatmentTips.map((tip, idx) => (
-                <Card
-                  key={idx}
-                  className="bg-emerald-50 p-5 border-l-4 border-emerald-500 hover:shadow-lg transition-all cursor-pointer"
-                  onClick={() => {
-                    setSelectedRecord({
-                      id: String(idx + 100) as any, // offset id
-                      timestamp: Date.now(),
-                      breed: breedResult.breed,
-                      age: 0,
-                      healthStatus: 'Proactive Care',
-                      weight: 0,
-                      lastVaccine: '',
-                      notes: `Care Tip: ${tip}. Incorporate this into your regular farm management routine.`,
-                    });
-                  }}
-                >
-                  <p className="text-gray-800 font-medium hover:text-emerald-700 transition-colors">
-                    {tip}
-                  </p>
-                </Card>
-              ))}
-            </div>
-          </Card>
+          <div className="animate-in slide-in-from-bottom-10 duration-700 delay-400">
+            <Card className="glass rounded-[4rem] p-12 mb-12 border-2 border-white/10 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.2)]">
+              <div className="flex items-center gap-6 mb-12">
+                <div className="p-4 bg-emerald-500 rounded-2xl shadow-[0_0_20px_rgba(16,185,129,0.4)]">
+                  <ShieldCheck className="w-8 h-8 text-white" />
+                </div>
+                <h2 className="text-4xl md:text-5xl font-black text-emerald-500 tracking-tighter">{t('cattle.treatmentTips')}</h2>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {breedResult.treatmentTips.map((tip, idx) => (
+                  <Card
+                    key={idx}
+                    className="glass p-8 rounded-[2.5rem] border-white/10 hover:border-emerald-500/50 hover:bg-emerald-500/10 transition-all duration-500 cursor-pointer group shadow-lg flex flex-col justify-between"
+                  >
+                    <p className="text-foreground/90 font-bold text-lg group-hover:text-foreground transition-colors leading-snug mb-6">
+                      {tip}
+                    </p>
+                    <span className="text-[10px] font-black uppercase tracking-[0.2em] text-emerald-500">Expert Advice</span>
+                  </Card>
+                ))}
+              </div>
+            </Card>
+          </div>
         )}
 
         {/* Detailed Record View */}
         {selectedRecord && (
-          <Card className="bg-white p-8 mb-8 shadow-lg border-0">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setSelectedRecord(null)}
-              className="mb-6"
-            >
-              ← Back
-            </Button>
-            <h2 className="text-3xl font-bold text-secondary mb-4">{selectedRecord.breed}</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-              <Card className="bg-blue-50 p-4 border-0">
-                <p className="text-sm text-gray-600 mb-1">Health Status</p>
-                <p className="text-2xl font-bold text-primary">{selectedRecord.healthStatus}</p>
-              </Card>
-              <Card className="bg-green-50 p-4 border-0">
-                <p className="text-sm text-gray-600 mb-1">Last Updated</p>
-                <p className="text-lg font-bold text-accent">
-                  {new Date(selectedRecord.timestamp).toLocaleDateString()}
-                </p>
-              </Card>
-            </div>
-            <div className="bg-blue-50 p-4 rounded-lg border-l-4 border-primary">
-              <h3 className="text-lg font-semibold text-primary mb-2">Details</h3>
-              <p className="text-gray-700">{selectedRecord.notes}</p>
-            </div>
-          </Card>
+          <div className="animate-in scale-95 fade-in duration-500">
+            <Card className="glass rounded-[4rem] p-16 mb-12 border-2 border-white/10 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.4)] relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-primary/10 rounded-full blur-[80px] -z-10" />
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setSelectedRecord(null)}
+                className="mb-12 glass border-white/20 hover:bg-white/10 rounded-2xl px-8 py-6 font-black text-xs uppercase tracking-widest flex items-center gap-2"
+              >
+                <ArrowLeft className="w-4 h-4" /> Back to Analysis
+              </Button>
+              <h2 className="text-7xl font-black text-foreground tracking-tighter mb-12 leading-none">{selectedRecord.breed}</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                <Card className="glass p-10 rounded-[3rem] border-white/10 bg-primary/5">
+                  <p className="text-xs text-muted-foreground uppercase font-black tracking-widest mb-4">Health Status</p>
+                  <p className="text-4xl font-black text-primary tracking-tighter">{selectedRecord.healthStatus}</p>
+                </Card>
+                <Card className="glass p-10 rounded-[3rem] border-white/10 bg-emerald-500/5">
+                  <p className="text-xs text-muted-foreground uppercase font-black tracking-widest mb-4">Last Updated</p>
+                  <p className="text-4xl font-black text-emerald-500 tracking-tighter">
+                    {new Date(selectedRecord.timestamp).toLocaleDateString()}
+                  </p>
+                </Card>
+              </div>
+              <div className="glass p-10 rounded-[3.5rem] border-2 border-primary/20 bg-primary/10">
+                <h3 className="text-2xl font-black text-primary mb-6 flex items-center gap-4">
+                  <Activity className="w-8 h-8" /> Analysis Details
+                </h3>
+                <p className="text-2xl text-foreground/80 font-bold leading-relaxed tracking-tight">{selectedRecord.notes}</p>
+              </div>
+            </Card>
+          </div>
         )}
 
         {/* Historical Records */}
         {records.length > 0 && !breedResult && !selectedRecord && (
-          <Card className="bg-white p-8 shadow-lg border-0">
-            <div className="flex items-center gap-3 mb-6">
-              <TrendingUp className="w-6 h-6 text-secondary" />
-              <h2 className="text-2xl font-bold text-secondary">Your Cattle Herd</h2>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {records.slice(0, 9).map((record, idx) => (
-                <Card
-                  key={idx}
-                  className="bg-gradient-to-br from-orange-50 to-amber-50 p-4 cursor-pointer hover:shadow-lg transition-all border-0 hover:scale-105"
-                  onClick={() => setSelectedRecord(record)}
-                >
-                  <div className="flex justify-between items-start mb-3">
-                    <div>
-                      <p className="text-sm text-gray-600">
-                        {new Date(record.timestamp).toLocaleDateString()}
-                      </p>
-                      <p className="font-bold text-secondary text-lg">{record.breed}</p>
+          <div className="animate-in fade-in slide-in-from-bottom-10 duration-1000">
+            <Card className="glass rounded-[4rem] p-12 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.3)] border-2 border-white/10">
+              <div className="flex items-center gap-6 mb-12">
+                <div className="p-4 bg-orange-500 rounded-2xl shadow-[0_0_20px_rgba(249,115,22,0.4)]">
+                  <TrendingUp className="w-8 h-8 text-white" />
+                </div>
+                <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tighter">Your Cattle Herd</h2>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {records.slice(0, 9).map((record, idx) => (
+                  <Card
+                    key={idx}
+                    className="glass p-8 rounded-[3rem] cursor-pointer hover:shadow-2xl transition-all border-2 border-white/5 hover:border-orange-500/40 hover:-translate-y-4 hover:scale-[1.02] duration-500 group relative overflow-hidden"
+                    onClick={() => setSelectedRecord(record)}
+                  >
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-orange-500/5 rounded-bl-full -z-10 group-hover:bg-orange-500/10 transition-colors" />
+                    <div className="flex justify-between items-start mb-6">
+                      <div>
+                        <p className="text-xs text-muted-foreground uppercase font-black tracking-widest mb-1">
+                          {new Date(record.timestamp).toLocaleDateString()}
+                        </p>
+                        <p className="font-black text-foreground text-3xl tracking-tighter group-hover:text-orange-500 transition-colors">{record.breed}</p>
+                      </div>
+                      <Heart className="w-6 h-6 text-orange-500 group-hover:scale-125 transition-transform" />
                     </div>
-                    <Heart className="w-5 h-5 text-secondary" />
-                  </div>
-                  <p className="text-sm text-gray-600 mb-2">
-                    Status: {record.healthStatus}
-                  </p>
-                  {record.weight > 0 && (
-                    <span className="inline-block px-2 py-1 bg-secondary/20 text-secondary text-xs font-semibold rounded">
-                      {record.weight} kg
-                    </span>
-                  )}
-                </Card>
-              ))}
-            </div>
-          </Card>
+                    <p className="text-lg text-muted-foreground font-black uppercase tracking-widest mb-6 border-b border-white/10 pb-4">
+                      {record.healthStatus}
+                    </p>
+                    {record.weight > 0 && (
+                      <span className="inline-block px-6 py-3 bg-orange-500/20 text-orange-500 text-sm font-black rounded-2xl tracking-widest">
+                        {record.weight} KG
+                      </span>
+                    )}
+                  </Card>
+                ))}
+              </div>
+            </Card>
+          </div>
         )}
       </div>
     </div>

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useState } from 'react';
+import Link from 'next/link';
 import { translations, Language } from '@/lib/translations';
 
 type LanguageContextType = {
@@ -16,7 +17,7 @@ export const LanguageProvider = ({ children }: { children: React.ReactNode }) =>
     const getInitialLanguage = (): Language => {
         if (typeof window !== 'undefined') {
             const saved = localStorage.getItem('farmerApp_lang') as Language;
-            if (saved && (saved === 'en' || saved === 'kn')) {
+            if (saved && (saved === 'en' || saved === 'kn' || saved === 'hi')) {
                 return saved;
             }
         }
@@ -41,13 +42,21 @@ export const LanguageProvider = ({ children }: { children: React.ReactNode }) =>
     return (
         <LanguageContext.Provider value={{ language, setLanguage, t }}>
             {/* Top Right Fixed Toggle Buttons */}
-            <div className="fixed top-4 right-4 z-[9999]">
-                <div className="flex items-center gap-1 bg-white border-2 border-slate-200 p-1 rounded-full shadow-sm hover:shadow transition-all">
+            <div className="fixed top-4 right-4 z-[9999] flex items-center gap-3">
+                <div className="flex items-center gap-2">
+                    <Link
+                        href="/auth"
+                        className="px-6 py-2.5 text-xs font-black uppercase tracking-widest glass border-farm-emerald/30 text-farm-emerald rounded-full hover:bg-farm-emerald/20 transition-all duration-300 shadow-lg"
+                    >
+                        ACCOUNT
+                    </Link>
+                </div>
+                <div className="flex items-center gap-1 bg-slate-900/5 backdrop-blur-md border border-slate-200/50 p-1 rounded-full shadow-lg">
                     <button
                         onClick={() => switchLanguage('en')}
                         className={`px-3 py-1.5 text-xs transition-all ${language === 'en'
-                            ? 'bg-blue-500 text-white rounded-full font-bold shadow-sm'
-                            : 'text-slate-500 font-medium hover:text-slate-700'
+                            ? 'bg-farm-emerald text-black rounded-full font-bold shadow-sm'
+                            : 'text-slate-600 font-medium hover:bg-farm-emerald/10 hover:text-farm-emerald rounded-full'
                             }`}
                     >
                         EN
@@ -55,11 +64,20 @@ export const LanguageProvider = ({ children }: { children: React.ReactNode }) =>
                     <button
                         onClick={() => switchLanguage('kn')}
                         className={`px-3 py-1.5 text-xs transition-all ${language === 'kn'
-                            ? 'bg-orange-500 text-white rounded-full font-bold shadow-sm'
-                            : 'text-slate-500 font-medium hover:text-slate-700'
+                            ? 'bg-farm-emerald text-black rounded-full font-bold shadow-sm'
+                            : 'text-slate-600 font-medium hover:bg-farm-emerald/10 hover:text-farm-emerald rounded-full'
                             }`}
                     >
                         ಕನ್ನಡ
+                    </button>
+                    <button
+                        onClick={() => switchLanguage('hi')}
+                        className={`px-3 py-1.5 text-xs transition-all ${language === 'hi'
+                            ? 'bg-farm-emerald text-black rounded-full font-bold shadow-sm'
+                            : 'text-slate-600 font-medium hover:bg-farm-emerald/10 hover:text-farm-emerald rounded-full'
+                            }`}
+                    >
+                        हिंदी
                     </button>
                 </div>
             </div>
