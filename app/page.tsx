@@ -78,7 +78,7 @@ export default function HomePage() {
               variants={itemVariants}
               className="text-7xl md:text-[10rem] font-black tracking-[-0.05em] mb-10 leading-[0.85] text-foreground"
             >
-              Farm<span className="text-farm-emerald brightness-110 drop-shadow-[0_0_30px_rgba(16,185,129,0.5)]">Tora</span> <br />
+              Agri<span className="text-farm-emerald brightness-110 drop-shadow-[0_0_30px_rgba(16,185,129,0.5)]">vent</span> <br />
               <span className="text-gradient from-farm-emerald via-farm-sun to-farm-sky animate-shimmer bg-[length:200%_auto] tracking-[-0.02em]">
                 Intelligent.
               </span>
@@ -99,7 +99,7 @@ export default function HomePage() {
                 onClick={() => {
                   lenis?.scrollTo('#features');
                 }}
-                className="group relative px-12 py-7 w-full sm:w-auto bg-farm-emerald text-white rounded-3xl font-black text-2xl transition-all duration-500 hover:scale-105 shadow-[0_20px_40px_-10px_rgba(16,185,129,0.5)] hover:shadow-[0_30px_60px_-10px_rgba(16,185,129,0.7)] flex items-center justify-center gap-4 overflow-hidden"
+                className="group relative px-12 py-7 w-full sm:w-auto bg-farm-emerald text-black rounded-3xl font-black text-2xl transition-all duration-500 hover:scale-105 shadow-[0_20px_40px_-10px_rgba(16,185,129,0.5)] hover:shadow-[0_30px_60px_-10px_rgba(16,185,129,0.7)] flex items-center justify-center gap-4 overflow-hidden"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
                 Explore Platform
@@ -130,8 +130,8 @@ export default function HomePage() {
               <div className="inline-block px-4 py-1.5 rounded-xl bg-farm-emerald/10 text-farm-emerald font-black text-[10px] uppercase tracking-widest mb-6 border border-farm-emerald/20">
                 Core Capabilities
               </div>
-              <h2 className="text-6xl md:text-8xl font-black mb-8 tracking-tight">
-                Unified <span className="text-gradient from-farm-emerald to-farm-green">Intelligence</span>
+              <h2 className="text-6xl md:text-8xl font-black mb-8 tracking-tight text-black">
+                Unified Intelligence
               </h2>
               <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto font-medium leading-relaxed">
                 Experience the next generation of precision farming through our integrated AI pillars.
@@ -210,7 +210,7 @@ export default function HomePage() {
           </div>
         </motion.section>
 
-        {/* WHY CHOOSE FARMTORA */}
+        {/* WHY CHOOSE AGRIVENT */}
         <section className="w-full py-40 relative">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">

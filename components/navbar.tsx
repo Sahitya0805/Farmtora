@@ -58,9 +58,9 @@ export function Navbar() {
                     <div className="flex-1 flex items-center justify-start">
                         <Link href="/" className="flex items-center gap-3 group">
                             <div className="w-12 h-12 rounded-2xl overflow-hidden shadow-[0_0_20px_rgba(16,185,129,0.3)] group-hover:shadow-[0_0_35px_rgba(16,185,129,0.5)] transition-all duration-500 group-hover:rotate-[10deg] group-hover:scale-110">
-                                <img src="/farmtora_logo.png" alt="FarmTora Logo" className="w-full h-full object-cover" />
+                                <img src="/agrivent_logo.png" alt="Agrivent Logo" className="w-full h-full object-cover" />
                             </div>
-                            <span className="font-black text-2xl text-foreground tracking-tighter group-hover:text-primary transition-colors">FarmTora</span>
+                            <span className="font-black text-2xl text-foreground tracking-tighter group-hover:text-primary transition-colors">Agrivent</span>
                         </Link>
                     </div>
 

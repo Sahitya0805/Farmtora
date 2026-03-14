@@ -3,7 +3,7 @@ export type Language = 'en' | 'kn' | 'hi';
 export const translations = {
     en: {
         // General
-        'app.title': 'Farmtora AI Assistant',
+        'app.title': 'Agrivent AI Assistant',
         'app.subtitle': 'Smart Solutions for Modern Farming',
         'nav.dashboard': 'Info',
         'nav.weather': 'Weather',
@@ -103,7 +103,7 @@ export const translations = {
     },
     kn: {
         // General
-        'app.title': 'Farmtora AI ಸಹಾಯಕ',
+        'app.title': 'Agrivent AI ಸಹಾಯಕ',
         'app.subtitle': 'ಆಧುನಿಕ ಕೃಷಿಗೆ ಸ್ಮಾರ್ಟ್ ಪರಿಹಾರಗಳು',
         'nav.dashboard': 'ಮಾಹಿತಿ',
         'nav.weather': 'ಹವಾಮಾನ',
@@ -203,7 +203,7 @@ export const translations = {
     },
     hi: {
         // General
-        'app.title': 'Farmtora एआई सहायक',
+        'app.title': 'Agrivent एआई सहायक',
         'app.subtitle': 'आधुनिक खेती के लिए स्मार्ट समाधान',
         'nav.dashboard': 'जानकारी',
         'nav.weather': 'मौसम',

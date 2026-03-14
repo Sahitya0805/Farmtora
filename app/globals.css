@@ -27,6 +27,13 @@
   --input: #e2e8f0;
   --ring: #10b981;
   --radius: 1rem;
+  
+  /* Farm Themed Tokens */
+  --farm-green: #22c55e;
+  --farm-emerald: #10b981;
+  --farm-soil: #78350f;
+  --farm-sun: #fbbf24;
+  --farm-sky: #38bdf8;
 }
 
 .dark {
@@ -53,12 +60,7 @@
   --input: #1e293b;
   --ring: #34d399;
 
-  /* Farm Themed Tokens */
-  --farm-green: #22c55e;
-  --farm-emerald: #10b981;
-  --farm-soil: #78350f;
-  --farm-sun: #fbbf24;
-  --farm-sky: #38bdf8;
+  --ring: #34d399;
 }
 
 @theme {
