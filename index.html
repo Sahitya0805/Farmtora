@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmtora - AI Platform for Modern Farming</title>
+    <meta name="description" content="The ultimate high-performance AI platform for modern farming. On-device diagnostics, weather forecasting, soil analysis, and cattle health monitoring.">
+    <link rel="icon" href="public/farmtora_logo.png" type="image/png">
+    
+    <!-- Custom Style System -->
+    <link rel="stylesheet" href="styles.css?v=3">
+    
+    <!-- External CDNs -->
+    <!-- Chart.js for dashboard metrics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.400.0/dist/umd/lucide.min.js"></script>
+    <!-- TensorFlow.js and MobileNet for plant/animal/soil verification -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0/dist/tf.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@2.1.0/dist/mobilenet.min.js" defer></script>
+</head>
+<body>
+    <!-- Top-level Navigation -->
+    <nav class="navbar glass">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="#home" class="brand-link">
+                    <div class="brand-logo-container">
+                        <img src="public/farmtora_logo.png" alt="Farmtora Logo">
+                    </div>
+                    <span class="brand-text">Farmtora</span>
+                </a>
+            </div>
+            
+            <div class="nav-links-desktop">
+                <a href="#home" class="nav-item active" data-page="home">
+                    <i data-lucide="home"></i><span class="nav-label-text">Home</span>
+                </a>
+                <a href="#weather" class="nav-item" data-page="weather">
+                    <i data-lucide="cloud-sun"></i><span class="nav-label-text">Weather</span>
+                </a>
+                <a href="#crops" class="nav-item" data-page="crops">
+                    <i data-lucide="leaf"></i><span class="nav-label-text">Crops</span>
+                </a>
+                <a href="#cattle" class="nav-item" data-page="cattle">
+                    <i data-lucide="paw-print"></i><span class="nav-label-text">Cattle</span>
+                </a>
+                <a href="#soil" class="nav-item" data-page="soil">
+                    <i data-lucide="layers"></i><span class="nav-label-text">Soil</span>
+                </a>
+                <a href="#dashboard" class="nav-item" data-page="dashboard">
+                    <i data-lucide="layout-dashboard"></i><span class="nav-label-text">Dashboard</span>
+                </a>
+            </div>
+            
+            <div class="lang-account-panel">
+                <div class="lang-switch-container">
+                    <button class="lang-btn active" data-lang="en">EN</button>
+                    <button class="lang-btn" data-lang="kn">ಕನ್</button>
+                    <button class="lang-btn" data-lang="hi">हिं</button>
+                </div>
+                <a href="#auth" class="btn-account nav-item-auth" data-page="auth">
+                    <i data-lucide="user"></i><span class="nav-label-text">Account</span>
+                </a>
+            </div>
+
+            <a href="#auth" class="mobile-account-link btn-account" data-page="auth" aria-label="Account">
+                <i data-lucide="user"></i>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Mobile Bottom Navigation Bar (matches styles.css) -->
+    <div class="nav-links-mobile glass">
+        <a href="#home" class="mobile-nav-item active" data-page="home">
+            <div class="mobile-nav-icon-wrapper">
+                <i data-lucide="home"></i>
+            </div>
+            <span class="mobile-nav-label">Home</span>
+        </a>
+        <a href="#weather" class="mobile-nav-item" data-page="weather">
+            <div class="mobile-nav-icon-wrapper">
+                <i data-lucide="cloud-sun"></i>
+            </div>
+            <span class="mobile-nav-label">Weather</span>
+        </a>
+        <a href="#crops" class="mobile-nav-item" data-page="crops">
+            <div class="mobile-nav-icon-wrapper">
+                <i data-lucide="leaf"></i>
+            </div>
+            <span class="mobile-nav-label">Crops</span>
+        </a>
+        <a href="#cattle" class="mobile-nav-item" data-page="cattle">
+            <div class="mobile-nav-icon-wrapper">
+                <i data-lucide="paw-print"></i>
+            </div>
+            <span class="mobile-nav-label">Cattle</span>
+        </a>
+        <a href="#soil" class="mobile-nav-item" data-page="soil">
+            <div class="mobile-nav-icon-wrapper">
+                <i data-lucide="layers"></i>
+            </div>
+            <span class="mobile-nav-label">Soil</span>
+        </a>
+        <a href="#dashboard" class="mobile-nav-item" data-page="dashboard">
+            <div class="mobile-nav-icon-wrapper">
+                <i data-lucide="layout-dashboard"></i>
+            </div>
+            <span class="mobile-nav-label">Dash</span>
+        </a>
+    </div>
+
+    <!-- Main Render App Container -->
+    <main id="app" class="main-content">
+        <!-- SPA view elements will be rendered here dynamically -->
+    </main>
+
+    <!-- Loading Screen Overlay (matches styles.css) -->
+    <div id="loadingOverlay" class="loading-overlay hidden">
+        <div class="loading-spinner"></div>
+        <p id="loadingOverlayText" class="loading-text">Processing...</p>
+    </div>
+
+    <!-- Custom App Script -->
+    <script src="script.js"></script>
+</body>
+</html>
