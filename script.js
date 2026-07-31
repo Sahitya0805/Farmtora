@@ -31,8 +31,13 @@ const TRANSLATIONS = {
         navCrops: "Crops",
         navCattle: "Cattle",
         navSoil: "Soil",
+        navMarket: "Market",
         navDashboard: "Dashboard",
         navAccount: "Account",
+        
+        marketTitle: "Crop Market Prices",
+        marketSubtitle: "Live agricultural commodity pricing, daily trends, and APMC mandi benchmarks",
+        marketSearchPlaceholder: "Search crop (e.g. Wheat, Rice, Cotton)...",
         
         // Weather
         weatherTitle: "Weather Forecast",
@@ -151,8 +156,13 @@ const TRANSLATIONS = {
         navCrops: "ಬೆಳೆಗಳು",
         navCattle: "ಜಾನುವಾರು",
         navSoil: "ಮಣ್ಣು",
+        navMarket: "ಮಾರುಕಟ್ಟೆ",
         navDashboard: "ಡ್ಯಾಶ್‌ಬೋರ್ಡ್",
         navAccount: "ಖಾತೆ",
+        
+        marketTitle: "ಬೆಳೆ ಮಾರುಕಟ್ಟೆ ಬೆಲೆಗಳು",
+        marketSubtitle: "ನೇರ ಕೃಷಿ ಸರಕು ಬೆಲೆಗಳು ಮತ್ತು ಮಂಡಿ ದರಗಳು",
+        marketSearchPlaceholder: "ಬೆಳೆಯನ್ನು ಹುಡುಕಿ (ಉದಾ. ಗೋಧಿ, ಭತ್ತ)...",
         
         weatherTitle: "ಹವಾಮಾನ ಮುನ್ಸೂಚನೆ",
         weatherSubtitle: "ನೈಜ-ಸಮಯದ ಹವಾಮಾನ ನವೀಕರಣಗಳು ಮತ್ತು ಕೃಷಿ ಯೋಜನೆ",
@@ -264,8 +274,13 @@ const TRANSLATIONS = {
         navCrops: "फसलें",
         navCattle: "मवेशी",
         navSoil: "मिट्टी",
+        navMarket: "बाज़ार",
         navDashboard: "डैशबोर्ड",
         navAccount: "खाता",
+        
+        marketTitle: "फ़सल बाज़ार भाव",
+        marketSubtitle: "लाइव कृषि वस्तु मूल्य, दैनिक रुझान और मंडी दरें",
+        marketSearchPlaceholder: "फ़सल खोजें (जैसे गेहूं, धान, कपास)...",
         
         weatherTitle: "मौसम का पूर्वानुमान",
         weatherSubtitle: "कृषि योजना के लिए वास्तविक समय के मौसम की जानकारी",
@@ -676,7 +691,7 @@ class FarmtoraApp {
     }
 
     showPage(pageName) {
-        const validPages = ['home', 'weather', 'crops', 'cattle', 'soil', 'dashboard', 'auth'];
+        const validPages = ['home', 'weather', 'crops', 'cattle', 'soil', 'market', 'dashboard', 'auth'];
         if (!validPages.includes(pageName)) {
             pageName = 'home';
         }
@@ -701,6 +716,8 @@ class FarmtoraApp {
         } else if (pageName === 'soil') {
             this.initScanEvents('soil');
             this.initUploadAreaEnhancements();
+        } else if (pageName === 'market') {
+            this.initMarketEvents();
         } else if (pageName === 'dashboard') {
             this.initDashboardCharts();
         } else if (pageName === 'auth') {
@@ -728,6 +745,9 @@ class FarmtoraApp {
                 break;
             case 'soil':
                 app.innerHTML = this.getScanTemplate('soil');
+                break;
+            case 'market':
+                app.innerHTML = this.getMarketTemplate();
                 break;
             case 'dashboard':
                 app.innerHTML = this.getDashboardTemplate();
@@ -2352,6 +2372,149 @@ class FarmtoraApp {
                 e.preventDefault();
                 area.style.borderColor = 'var(--border)';
                 area.style.backgroundColor = '#ffffff';
+            });
+        });
+    }
+
+    getMarketTemplate() {
+        return `
+            <div class="page animate-fade-in">
+                <div class="subpage-header">
+                    <h1 class="page-title">${this.t('marketTitle')}</h1>
+                    <p class="page-subtitle">${this.t('marketSubtitle')}</p>
+                </div>
+
+                <!-- Market Summary KPIs -->
+                <div class="dashboard-kpi-grid grid grid-cols-3" style="margin-bottom: 2rem;">
+                    <div class="dashboard-kpi-card card glass">
+                        <div class="dashboard-kpi-icon" style="background: rgba(34, 197, 94, 0.15); color: #16a34a;">
+                            <i data-lucide="trending-up"></i>
+                        </div>
+                        <div>
+                            <p class="dashboard-kpi-label">Top Gainer Today</p>
+                            <h2 class="dashboard-kpi-value" style="font-size: 1.25rem; color: #16a34a;">Tomato (+6.8%)</h2>
+                        </div>
+                    </div>
+                    <div class="dashboard-kpi-card card glass">
+                        <div class="dashboard-kpi-icon" style="background: rgba(239, 68, 68, 0.15); color: #ef4444;">
+                            <i data-lucide="trending-down"></i>
+                        </div>
+                        <div>
+                            <p class="dashboard-kpi-label">Top Price Drop</p>
+                            <h2 class="dashboard-kpi-value" style="font-size: 1.25rem; color: #ef4444;">Onion (-4.2%)</h2>
+                        </div>
+                    </div>
+                    <div class="dashboard-kpi-card card glass">
+                        <div class="dashboard-kpi-icon" style="background: rgba(59, 130, 246, 0.15); color: #3b82f6;">
+                            <i data-lucide="refresh-cw"></i>
+                        </div>
+                        <div>
+                            <p class="dashboard-kpi-label">Benchmark Status</p>
+                            <h2 class="dashboard-kpi-value" style="font-size: 1.25rem;">Live Mandi Sync</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Search & Category Filters -->
+                <div class="card glass" style="padding: 1.5rem; margin-bottom: 2rem;">
+                    <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; justify-content: space-between;">
+                        <div style="position: relative; flex: 1; min-width: 250px;">
+                            <input type="text" id="marketSearchInput" class="input-node" placeholder="${this.t('marketSearchPlaceholder')}" style="width: 100%; padding-left: 2.75rem;">
+                            <i data-lucide="search" style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--text-muted); width: 1.25rem; height: 1.25rem;"></i>
+                        </div>
+                        <div class="market-category-filters" style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                            <button class="btn btn-secondary market-cat-btn active" data-cat="all">All Crops</button>
+                            <button class="btn btn-secondary market-cat-btn" data-cat="grains">Grains & Pulses</button>
+                            <button class="btn btn-secondary market-cat-btn" data-cat="vegetables">Vegetables</button>
+                            <button class="btn btn-secondary market-cat-btn" data-cat="cash">Cash Crops</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Crop Price Cards Grid -->
+                <div id="marketCropGrid" class="grid grid-cols-3" style="gap: 1.5rem;">
+                    <!-- Dynamically populated crop price cards -->
+                </div>
+            </div>
+        `;
+    }
+
+    initMarketEvents() {
+        const cropData = [
+            { name: "Wheat (Sharbati)", category: "grains", price: "₹2,450 / Quintal", trend: "+3.2%", positive: true, mandi: "Kolar APMC, KA", icon: "wheat" },
+            { name: "Paddy (Basmati)", category: "grains", price: "₹3,890 / Quintal", trend: "+1.8%", positive: true, mandi: "Amritsar Mandi, PB", icon: "sprout" },
+            { name: "Tomato (Hybrid)", category: "vegetables", price: "₹32 / kg", trend: "+6.8%", positive: true, mandi: "Kolar Market, KA", icon: "apple" },
+            { name: "Onion (Red)", category: "vegetables", price: "₹24 / kg", trend: "-4.2%", positive: false, mandi: "Lasalgaon APMC, MH", icon: "circle-dot" },
+            { name: "Cotton (Medium Staple)", category: "cash", price: "₹7,120 / Quintal", trend: "+0.5%", positive: true, mandi: "Rajkot APMC, GJ", icon: "flower-2" },
+            { name: "Sugarcane", category: "cash", price: "₹315 / Quintal", trend: "0.0%", positive: true, mandi: "Mandya Mandi, KA", icon: "tree-pine" },
+            { name: "Maize (Yellow)", category: "grains", price: "₹2,100 / Quintal", trend: "+2.4%", positive: true, mandi: "Davangere APMC, KA", icon: "sun" },
+            { name: "Potato (Jyoti)", category: "vegetables", price: "₹18 / kg", trend: "-1.5%", positive: false, mandi: "Hooghly APMC, WB", icon: "circle" },
+            { name: "Soybean", category: "cash", price: "₹4,650 / Quintal", trend: "+4.1%", positive: true, mandi: "Indore Mandi, MP", icon: "leaf" }
+        ];
+
+        const renderGrid = (items) => {
+            const container = document.getElementById('marketCropGrid');
+            if (!container) return;
+
+            if (items.length === 0) {
+                container.innerHTML = `<div style="grid-column: 1 / -1; text-align: center; padding: 3rem;" class="card glass"><p class="text-muted">No crop prices found matching your query.</p></div>`;
+                return;
+            }
+
+            container.innerHTML = items.map(c => `
+                <div class="card glass animate-fade-in" style="padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+                            <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                <div style="width: 2.75rem; height: 2.75rem; border-radius: 0.75rem; background: rgba(22, 163, 74, 0.12); display: flex; align-items: center; justify-content: center; color: var(--primary);">
+                                    <i data-lucide="${c.icon}"></i>
+                                </div>
+                                <div>
+                                    <h3 style="font-size: 1.1rem; font-weight: 600; margin: 0;">${c.name}</h3>
+                                    <span style="font-size: 0.8rem; color: var(--text-muted);">${c.mandi}</span>
+                                </div>
+                            </div>
+                            <span class="badge" style="background: ${c.positive ? 'rgba(34, 197, 94, 0.15)' : 'rgba(239, 68, 68, 0.15)'}; color: ${c.positive ? '#16a34a' : '#ef4444'}; font-weight: 600; padding: 0.25rem 0.5rem; border-radius: 0.5rem; font-size: 0.85rem;">
+                                ${c.trend}
+                            </span>
+                        </div>
+                        <div style="margin-top: 1rem;">
+                            <div style="font-size: 1.5rem; font-weight: 700; color: var(--text);">${c.price}</div>
+                            <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem;">Updated 15 mins ago</div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            lucide.createIcons();
+        };
+
+        renderGrid(cropData);
+
+        // Filter events
+        const searchInput = document.getElementById('marketSearchInput');
+        let currentCat = 'all';
+
+        const filterData = () => {
+            const query = (searchInput?.value || '').toLowerCase();
+            const filtered = cropData.filter(item => {
+                const matchesCat = currentCat === 'all' || item.category === currentCat;
+                const matchesSearch = item.name.toLowerCase().includes(query) || item.mandi.toLowerCase().includes(query);
+                return matchesCat && matchesSearch;
+            });
+            renderGrid(filtered);
+        };
+
+        if (searchInput) {
+            searchInput.addEventListener('input', filterData);
+        }
+
+        document.querySelectorAll('.market-cat-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                document.querySelectorAll('.market-cat-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentCat = btn.dataset.cat;
+                filterData();
             });
         });
     }

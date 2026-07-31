@@ -3146,3 +3146,26 @@ button:focus-visible {
     flex-direction: column;
   }
 }
+
+/* Crop Market Price Custom Styles */
+.market-cat-btn.active {
+  background: var(--primary) !important;
+  color: #ffffff !important;
+  border-color: var(--primary) !important;
+}
+
+.market-cat-btn {
+  font-size: 0.85rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+@media (max-width: 768px) {
+  .market-category-filters {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+  }
+}
+

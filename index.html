@@ -7,6 +7,10 @@
     <meta name="description" content="The ultimate high-performance AI platform for modern farming. On-device diagnostics, weather forecasting, soil analysis, and cattle health monitoring.">
     <link rel="icon" href="public/farmtora_logo.png" type="image/png">
     
+    <!-- PWA Setup -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#16a34a">
+    
     <!-- Custom Style System -->
     <link rel="stylesheet" href="styles.css?v=3">
     
@@ -47,6 +51,9 @@
                 </a>
                 <a href="#soil" class="nav-item" data-page="soil">
                     <i data-lucide="layers"></i><span class="nav-label-text">Soil</span>
+                </a>
+                <a href="#market" class="nav-item" data-page="market">
+                    <i data-lucide="bar-chart-2"></i><span class="nav-label-text">Market</span>
                 </a>
                 <a href="#dashboard" class="nav-item" data-page="dashboard">
                     <i data-lucide="layout-dashboard"></i><span class="nav-label-text">Dashboard</span>
@@ -102,6 +109,12 @@
             </div>
             <span class="mobile-nav-label">Soil</span>
         </a>
+        <a href="#market" class="mobile-nav-item" data-page="market">
+            <div class="mobile-nav-icon-wrapper">
+                <i data-lucide="bar-chart-2"></i>
+            </div>
+            <span class="mobile-nav-label">Market</span>
+        </a>
         <a href="#dashboard" class="mobile-nav-item" data-page="dashboard">
             <div class="mobile-nav-icon-wrapper">
                 <i data-lucide="layout-dashboard"></i>
@@ -123,5 +136,16 @@
 
     <!-- Custom App Script -->
     <script src="script.js"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('./sw.js').then(registration => {
+            console.log('SW registered: ', registration);
+          }).catch(registrationError => {
+            console.log('SW registration failed: ', registrationError);
+          });
+        });
+      }
+    </script>
 </body>
 </html>
