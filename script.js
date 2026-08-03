@@ -185,7 +185,6 @@ const TRANSLATIONS = {
         uploadAreaSub: "ಎಲೆ/ಸಸ್ಯದ ಫೋಟೋವನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಲು ಎಳೆಯಿರಿ ಅಥವಾ ಕ್ಲಿಕ್ ಮಾಡಿ",
         btnAnalyze: "ಐಟಿ ರೋಗನಿರ್ಣಯ ಚಾಲನೆ",
         critical: "ಗಂಭೀರ",
-        attention: "ಗಮನ ಹರಿಸಿ",
         healthy: "ಆರೋಗ್ಯಕರ",
         cropDisease: "ಗುರುತಿಸಲಾದ समस्या",
         confidence: "ವಿಶ್ವಾಸಾರ್ಹತೆಯ ಸ್ಕೋರ್",
