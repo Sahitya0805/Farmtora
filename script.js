@@ -198,7 +198,7 @@ const TRANSLATIONS = {
         uploadCattleSub: "ಮವೇಶಿಯ ಫೋಟೋವನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಲು ಎಳೆಯಿರಿ ಅಥವಾ ಕ್ಲಿಕ್ ಮಾಡಿ",
         cattleBreed: "ಗುರುತಿಸಲಾದ ತಳಿ",
         healthStatus: "ಆರೋಗ್ಯ ಸ್ಥಿತಿ",
-        vaccineTracker: "ಲಸಿಕೆ ವೇಳಾಪಟ್ಟಿ",
+
         cattleHistory: "ಮೇಲ್ವಿಚಾರಣೆ ಲಾಗ್",
         
         soilTitle: "ಮಣ್ಣಿನ ಅತ್ಯುತ್ತಮವಾಗಿಸುವಿಕೆ",
