@@ -3286,3 +3286,64 @@ button:focus-visible {
   box-shadow: 0 6px 18px rgba(22, 163, 74, 0.15);
   outline: none;
 }
+
+/* ---- 7-day farm advice ---- */
+.farm-advice-summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1rem;
+  margin-bottom: 1rem;
+  border-radius: var(--radius);
+  background: rgba(22, 163, 74, 0.1);
+  border: 1px solid rgba(22, 163, 74, 0.3);
+  color: #14532d;
+}
+
+.farm-advice-summary svg { width: 1.1rem; height: 1.1rem; color: var(--primary); }
+
+.farm-advice-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 0.85rem;
+}
+
+.farm-advice-day {
+  padding: 1rem;
+  border-radius: var(--radius);
+}
+
+.farm-advice-date {
+  font-weight: 800;
+  margin-bottom: 0.6rem;
+}
+
+.farm-advice-items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.farm-advice-item {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-start;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  padding: 0.5rem 0.6rem;
+  border-radius: 0.5rem;
+}
+
+.farm-advice-item svg { flex-shrink: 0; width: 1rem; height: 1rem; margin-top: 0.15rem; }
+.farm-advice-item.level-risk { background: rgba(220, 38, 38, 0.08); color: #7f1d1d; }
+.farm-advice-item.level-good { background: rgba(22, 163, 74, 0.1); color: #14532d; }
+.farm-advice-item.level-info { background: rgba(8, 145, 178, 0.08); color: #164e63; }
+
+.farm-advice-note {
+  margin-top: 0.85rem;
+  font-size: 0.8rem;
+  color: var(--muted-foreground);
+}

@@ -130,6 +130,7 @@ const TRANSLATIONS = {
         loadingModel: "Loading the photo checker...",
         scanningImage: "Checking the photo...",
         fetchingWeather: "Retrieving weather data...",
+        weatherError: "Couldn't load the weather right now. Check your connection and try again.",
         pickMatchTitle: "Which one matches what you see?",
         pickCropSub: "Compare your photo with these common problems and choose the closest one.",
         pickCattleSub: "Choose your animal's breed.",
@@ -263,6 +264,7 @@ const TRANSLATIONS = {
         loadingModel: "ಫೋಟೋ ಪರಿಶೀಲಕವನ್ನು ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ...",
         scanningImage: "ಫೋಟೋ ಪರಿಶೀಲಿಸಲಾಗುತ್ತಿದೆ...",
         fetchingWeather: "ಹವಾಮಾನ ಡೇಟಾವನ್ನು ಪಡೆಯಲಾಗುತ್ತಿದೆ...",
+        weatherError: "ಈಗ ಹವಾಮಾನ ಮಾಹಿತಿ ಪಡೆಯಲಾಗಲಿಲ್ಲ. ಸಂಪರ್ಕ ಪರಿಶೀಲಿಸಿ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.",
         pickMatchTitle: "ನೀವು ಕಾಣುವುದಕ್ಕೆ ಯಾವುದು ಹೊಂದುತ್ತದೆ?",
         pickCropSub: "ನಿಮ್ಮ ಫೋಟೋವನ್ನು ಈ ಸಾಮಾನ್ಯ ಸಮಸ್ಯೆಗಳೊಂದಿಗೆ ಹೋಲಿಸಿ, ಹತ್ತಿರದದನ್ನು ಆರಿಸಿ.",
         pickCattleSub: "ನಿಮ್ಮ ಪ್ರಾಣಿಯ ತಳಿಯನ್ನು ಆರಿಸಿ.",
@@ -396,6 +398,7 @@ const TRANSLATIONS = {
         loadingModel: "फ़ोटो जांचने वाला टूल लोड हो रहा है...",
         scanningImage: "फ़ोटो जांची जा रही है...",
         fetchingWeather: "मौसम की जानकारी प्राप्त की जा रही है...",
+        weatherError: "अभी मौसम की जानकारी नहीं मिल सकी। कनेक्शन जांचें और फिर कोशिश करें।",
         pickMatchTitle: "आपको जो दिख रहा है, उससे कौन-सा मेल खाता है?",
         pickCropSub: "अपनी फ़ोटो की तुलना इन आम समस्याओं से करें और सबसे मिलती-जुलती चुनें।",
         pickCattleSub: "अपने पशु की नस्ल चुनें।",
@@ -653,10 +656,10 @@ class FarmtoraApp {
             btn.classList.toggle('active', btn.dataset.lang === lang);
         });
         
-        // Re-render current layout
-        this.renderCurrentPage();
-        this.updateActiveNav(this.currentPage);
-        lucide.createIcons();
+        // Re-render the current page and re-attach its event handlers
+        const scrollY = window.scrollY;
+        this.showPage(this.currentPage);
+        window.scrollTo(0, scrollY);
     }
 
     setupEventListeners() {
@@ -944,6 +947,7 @@ class FarmtoraApp {
                         </button>
                     </div>
                     <p class="page-subtitle">${this.t('weatherSubtitle')}</p>
+                    <p id="weatherError" class="guidance-note hidden" role="alert"><i data-lucide="alert-triangle"></i><span>${this.t('weatherError')}</span></p>
                 </div>
 
                 <!-- Weather Card Panel -->
@@ -1019,6 +1023,15 @@ class FarmtoraApp {
                         ${this.t('sevenDayForecast')}
                     </h3>
                     <div class="forecast-grid" id="weatherForecastGrid"></div>
+
+                    <!-- 7-Day Farm Advice -->
+                    <h3 class="forecast-heading">
+                        <span class="forecast-heading-icon"><i data-lucide="sprout"></i></span>
+                        ${window.FarmAdvice ? FarmAdvice.text('title', this.currentLang) : ''}
+                    </h3>
+                    <div id="farmAdviceSummary" class="farm-advice-summary"></div>
+                    <div id="farmAdviceList" class="farm-advice-list"></div>
+                    <p class="farm-advice-note">${window.FarmAdvice ? FarmAdvice.text('note', this.currentLang) : ''}</p>
                 </div>
 
                 <!-- History Search List -->
@@ -1489,19 +1502,21 @@ class FarmtoraApp {
     }
 
     async fetchWeather(lat, lon, name) {
-        const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,weathercode,sunrise,sunset,uv_index_max&timezone=auto`;
+        const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,precipitation_sum,wind_speed_10m_max,weathercode,sunrise,sunset,uv_index_max&timezone=auto`;
         try {
             const res = await fetch(url);
+            if (!res.ok) throw new Error(`Weather service returned ${res.status}`);
             const data = await res.json();
+            if (!data.current || !data.daily) throw new Error('Incomplete weather data');
             
             // Format log for UI displays
             const record = {
                 name: name,
                 lat: lat,
                 lon: lon,
-                temp: data.current_weather.temperature,
-                code: data.current_weather.weathercode,
-                wind: data.current_weather.windspeed,
+                temp: data.current.temperature_2m,
+                code: data.current.weather_code,
+                wind: Math.round(data.current.wind_speed_10m),
                 time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
                 date: new Date().toLocaleDateString([], { month: 'short', day: 'numeric' }),
                 raw: data
@@ -1518,8 +1533,10 @@ class FarmtoraApp {
                 date: new Date().toLocaleDateString()
             });
             this.renderWeatherHistory();
+            document.getElementById('weatherError')?.classList.add('hidden');
         } catch(e) {
             console.error("Weather fetch failure", e);
+            document.getElementById('weatherError')?.classList.remove('hidden');
         }
     }
 
@@ -1534,9 +1551,9 @@ class FarmtoraApp {
         const cond = this.getWeatherCondition(record.code);
         document.getElementById('weatherCondition').innerHTML = `<i data-lucide="${cond.icon}" style="display:inline-block; vertical-align:middle; width:2rem; height:2rem; margin-right:0.5rem; color:var(--secondary)"></i> ${this.currentLang === 'en' ? cond.text : cond.textTranslated[this.currentLang] || cond.text}`;
         
-        // Mocking humidity & precipitation parameters (Open-Meteo current response contains wind and code natively)
-        const humidity = Math.floor(40 + (record.lat % 45)); // Deterministic
-        document.getElementById('weatherHumidity').textContent = `${humidity}%`;
+        // Real relative humidity from Open-Meteo's `current` block
+        const humidity = record.raw.current?.relative_humidity_2m;
+        document.getElementById('weatherHumidity').textContent = typeof humidity === 'number' ? `${Math.round(humidity)}%` : '-';
         document.getElementById('weatherWind').textContent = `${record.wind} km/h`;
         
         const dailyPrecip = record.raw.daily.precipitation_probability_max[0];
@@ -1585,7 +1602,39 @@ class FarmtoraApp {
                 `;
             }).join('');
         }
+        this.renderFarmAdvice(record.raw.daily);
         lucide.createIcons();
+    }
+
+    renderFarmAdvice(daily) {
+        const list = document.getElementById('farmAdviceList');
+        const summary = document.getElementById('farmAdviceSummary');
+        if (!list || !summary || !window.FarmAdvice) return;
+
+        const lang = this.currentLang;
+        const week = FarmAdvice.adviseWeek(daily);
+        const dayLabel = (iso) => new Date(`${iso}T00:00:00`).toLocaleDateString(lang, { weekday: 'short', day: 'numeric', month: 'short' });
+        const icons = { frost: 'snowflake', heat: 'thermometer-sun', heavyRain: 'cloud-rain-wind', sprayGood: 'spray-can', sprayAvoid: 'ban', irrigate: 'droplets', skipIrrigation: 'cloud-drizzle', normal: 'check-circle-2' };
+
+        const spray = FarmAdvice.bestSprayDays(week).map(dayLabel);
+        summary.innerHTML = `
+            <i data-lucide="spray-can"></i>
+            <strong>${FarmAdvice.text('bestSprayDays', lang)}:</strong>
+            <span>${spray.length ? spray.join(', ') : FarmAdvice.text('none', lang)}</span>
+        `;
+
+        list.innerHTML = week.map((day) => `
+            <div class="farm-advice-day glass">
+                <div class="farm-advice-date">${dayLabel(day.date)}</div>
+                <ul class="farm-advice-items">
+                    ${day.advice.map((item) => `
+                        <li class="farm-advice-item level-${item.level}">
+                            <i data-lucide="${icons[item.code] || 'info'}"></i>
+                            <span>${FarmAdvice.describe(item, lang)}</span>
+                        </li>`).join('')}
+                </ul>
+            </div>
+        `).join('');
     }
 
     getWeatherCondition(code) {

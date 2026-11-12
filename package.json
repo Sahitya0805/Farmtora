@@ -2,7 +2,8 @@
   "name": "farmtora",
   "version": "1.0.0",
   "private": true,
+  "description": "Weather, crop-problem guide and livestock and soil care for farmers, in English, Kannada and Hindi.",
   "scripts": {
-    "build": "mkdir -p dist && cp index.html styles.css script.js manifest.json sw.js dist/ && cp -R public dist/public"
+    "test": "node --test test/"
   }
 }

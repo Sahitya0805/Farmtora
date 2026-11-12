@@ -1,12 +1,15 @@
 # FarmTora
 
+[![CI](https://github.com/Sahitya0805/Farmtora/actions/workflows/ci.yml/badge.svg)](https://github.com/Sahitya0805/Farmtora/actions/workflows/ci.yml)
+
 An installable, offline-capable web app that puts a farmer's local weather, crop guidance and market prices in one place, in **English, Kannada and Hindi**.
 
 **Live demo:** https://farmtora-q28o.vercel.app
 
 ## Features
 
-- **Location-based weather** – finds the user's place with OpenStreetMap (Nominatim) reverse geocoding or a city search, then loads the forecast from the Open-Meteo API.
+- **Location-based weather** – finds the user's place with OpenStreetMap (Nominatim) reverse geocoding or a city search, then loads current conditions (temperature, humidity, wind) and the 7-day forecast from the Open-Meteo API.
+- **7-day farm advice** – turns the forecast (temperature, rain chance, rainfall and wind) into daily advice: best spraying days, when to irrigate or skip it, and frost, heat and heavy-rain warnings, in all three languages.
 - **Crop problem guide** – add an optional photo (checked on-device with TensorFlow.js MobileNet to confirm it shows a plant), then pick the problem that matches what you see to get treatment and prevention steps.
 - **Livestock and soil guides** – breed care tips with the usual vaccination schedule, and typical nutrients and suitable crops for each soil type.
 - **Official sources** – links to IMD agromet advisories, Agmarknet mandi prices, the Soil Health Card scheme, ICAR and the Kisan Call Centre (1800-180-1551).
@@ -18,6 +21,14 @@ An installable, offline-capable web app that puts a farmer's local weather, crop
 ## Tech stack
 
 JavaScript (no framework) · HTML/CSS · PWA (Web App Manifest + Service Worker) · TensorFlow.js MobileNet · IndexedDB · Chart.js · Open-Meteo API · OpenStreetMap Nominatim · Vercel
+
+## Tests
+
+```bash
+npm test
+```
+
+Node's built-in test runner checks the farm-advice rules and that English, Kannada and Hindi have the same set of UI text. GitHub Actions runs them on every push.
 
 ## Run locally
 
