@@ -1,70 +1,51 @@
-const CACHE_NAME = 'farmtora-cache-v1';
+const CACHE_NAME = 'farmtora-cache-v2';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
-  './styles.css',
-  './script.js',
+  './styles.css?v=4',
+  './script.js?v=4',
   './manifest.json',
   './public/farmtora_logo.png'
 ];
 
-// Install Event
+// Install: pre-cache the app shell so it opens offline.
 self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => {
-        console.log('Opened cache');
-        return cache.addAll(ASSETS_TO_CACHE);
-      })
+    caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS_TO_CACHE))
   );
+  self.skipWaiting();
 });
 
-// Fetch Event
+// Fetch: network first for our own files (so updates show up immediately),
+// falling back to the cache when the network is unavailable.
 self.addEventListener('fetch', event => {
+  const { request } = event;
+  if (request.method !== 'GET' || !request.url.startsWith(self.location.origin)) {
+    return; // let the browser handle API calls and CDN assets normally
+  }
+
   event.respondWith(
-    caches.match(event.request)
+    fetch(request)
       .then(response => {
-        // Cache hit - return response
-        if (response) {
-          return response;
+        if (response && response.status === 200 && response.type === 'basic') {
+          const copy = response.clone();
+          caches.open(CACHE_NAME).then(cache => cache.put(request, copy));
         }
-        return fetch(event.request).then(
-          function(response) {
-            // Check if we received a valid response
-            if(!response || response.status !== 200 || response.type !== 'basic') {
-              return response;
-            }
-
-            // Clone the response
-            var responseToCache = response.clone();
-
-            caches.open(CACHE_NAME)
-              .then(function(cache) {
-                // Don't cache API requests or external CDNs aggressively here, just app assets
-                if (event.request.url.startsWith(self.location.origin)) {
-                   cache.put(event.request, responseToCache);
-                }
-              });
-
-            return response;
-          }
-        );
+        return response;
       })
+      .catch(() =>
+        caches.match(request).then(cached => cached || caches.match('./index.html'))
+      )
   );
 });
 
-// Activate Event
+// Activate: remove caches from older versions and take control right away.
 self.addEventListener('activate', event => {
-  const cacheWhitelist = [CACHE_NAME];
   event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
-        cacheNames.map(cacheName => {
-          if (cacheWhitelist.indexOf(cacheName) === -1) {
-            return caches.delete(cacheName);
-          }
-        })
-      );
-    })
+    caches.keys()
+      .then(names => Promise.all(
+        names.filter(name => name !== CACHE_NAME).map(name => caches.delete(name))
+      ))
+      .then(() => self.clients.claim())
   );
 });

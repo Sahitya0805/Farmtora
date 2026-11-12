@@ -1,7 +1,7 @@
 {
   "name": "Farmtora",
   "short_name": "Farmtora",
-  "description": "The ultimate high-performance AI platform for modern farming.",
+  "description": "Weather, crop-problem guide and livestock and soil care tips for farmers, in English, Kannada and Hindi.",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#ffffff",

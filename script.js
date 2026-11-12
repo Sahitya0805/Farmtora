@@ -1,5 +1,5 @@
 /**
- * Farmtora - AI Platform for Modern Farming
+ * FarmTora - weather, crop and livestock guide for farmers
  * Core Client-Side SPA Application Engine
  */
 
@@ -7,23 +7,23 @@
 const TRANSLATIONS = {
     en: {
         appName: "Farmtora",
-        tagline: "Intelligent. Precise. Yield-focused.",
+        tagline: "Weather. Crops. Livestock. Soil.",
         launchApp: "Launch App",
         learnMore: "Learn More",
-        homeTitle: "Farmtora <span class=\"accent\">Intelligence</span> for every field.",
-        homeSubtitle: "Plan weather windows, diagnose crops, monitor livestock, and understand soil health from one farm-ready workspace.",
-        unifiedIntel: "Unified Intelligence",
-        unifiedIntelSub: "Experience the next generation of precision farming through our integrated AI pillars.",
+        homeTitle: "Everyday farm help, <span class=\"accent\">in your language</span>.",
+        homeSubtitle: "Check local weather, look up crop problems, and track livestock and soil care — in English, Kannada and Hindi.",
+        unifiedIntel: "Everything in One Place",
+        unifiedIntelSub: "Four simple tools for everyday farm decisions.",
         extremeYield: "Built for clearer daily farm decisions.",
-        extremeYieldSub: "Fast diagnostics, local records, and regional weather signals help farmers move from observation to action with less guesswork.",
-        edgeFirst: "Edge-First AI",
-        edgeFirstSub: "No latency. High accuracy. Local processing.",
-        globalScale: "Global Scale",
-        globalScaleSub: "Multi-language support for diverse regions.",
-        deterministic: "Consistent Records",
-        deterministicSub: "Keep scans and decisions easy to revisit.",
+        extremeYieldSub: "Local weather forecasts, a crop-problem guide and saved notes help farmers move from observation to action.",
+        edgeFirst: "Works Offline",
+        edgeFirstSub: "Install it on your phone; pages you have opened keep working on weak networks.",
+        globalScale: "Three Languages",
+        globalScaleSub: "Switch between English, Kannada and Hindi at any time.",
+        deterministic: "Saved Records",
+        deterministicSub: "Your lookups are saved on this device so you can revisit them.",
         ctaTitle: "Start with today’s field conditions.",
-        ctaSubtitle: "Open the weather workspace, then move into crop, cattle, soil, and dashboard views as your day unfolds.",
+        ctaSubtitle: "Open the weather page, then use the crop, livestock and soil guides as your day unfolds.",
         
         // Navigation
         navHome: "Home",
@@ -36,12 +36,12 @@ const TRANSLATIONS = {
         navAccount: "Account",
         
         marketTitle: "Crop Market Prices",
-        marketSubtitle: "Live agricultural commodity pricing, daily trends, and APMC mandi benchmarks",
+        marketSubtitle: "Sample commodity prices and trends — not live market data.",
         marketSearchPlaceholder: "Search crop (e.g. Wheat, Rice, Cotton)...",
         
         // Weather
         weatherTitle: "Weather Forecast",
-        weatherSubtitle: "Real-time weather updates and agricultural planning",
+        weatherSubtitle: "Local forecasts to plan sowing, spraying and harvest.",
         searchPlaceholder: "Search city or location...",
         detectLocation: "Use My Location",
         currentTemp: "Current Temperature",
@@ -56,57 +56,57 @@ const TRANSLATIONS = {
         clearHistory: "Clear History",
         
         // Crops
-        cropsTitle: "Crop Diagnostics",
-        cropsSubtitle: "Visual transformer models for millisecond crop disease identification",
+        cropsTitle: "Crop Problem Guide",
+        cropsSubtitle: "Add a photo, pick the problem that matches what you see, and get treatment and prevention steps.",
         uploadAreaTitle: "Upload Crop Image",
         uploadAreaSub: "Drag and drop or click to upload leaf/plant photo",
-        btnAnalyze: "Run AI Diagnostic",
+        btnAnalyze: "Check Photo & Continue",
         critical: "Critical",
         attention: "Attention",
         healthy: "Healthy",
-        cropDisease: "Identified Issue",
+        cropDisease: "Selected Problem",
         confidence: "Confidence Score",
         treatments: "Treatment Recommendations",
         preventions: "Prevention Strategies",
-        cropsHistory: "Scan Archive",
+        cropsHistory: "Saved Lookups",
         
         // Cattle
-        cattleTitle: "Livestock Monitoring",
-        cattleSubtitle: "Deterministic computer vision for breed classification & health alerts",
+        cattleTitle: "Livestock Care Guide",
+        cattleSubtitle: "Pick your breed for general care tips and the usual vaccination schedule.",
         uploadCattleTitle: "Upload Livestock Image",
         uploadCattleSub: "Drag and drop or click to upload cattle photo",
-        cattleBreed: "Identified Breed",
+        cattleBreed: "Selected Breed",
         healthStatus: "Health Status",
-        vaccineTracker: "Vaccination Schedule",
-        cattleHistory: "Monitoring Log",
+        vaccineTracker: "Usual Vaccination Schedule",
+        cattleHistory: "Saved Lookups",
         
         // Soil
-        soilTitle: "Soil Optimization",
-        soilSubtitle: "Deep sub-surface quality analytics for optimized crop scheduling",
+        soilTitle: "Soil Type Guide",
+        soilSubtitle: "Pick your soil type to see its typical nutrients and the crops that suit it.",
         uploadSoilTitle: "Upload Soil Image",
         uploadSoilSub: "Drag and drop or click to upload soil profile photo",
-        soilType: "Identified Soil Type",
-        soilNutrients: "Soil Matrix (Nutrients)",
+        soilType: "Selected Soil Type",
+        soilNutrients: "Typical Nutrients",
         nitrogen: "Nitrogen (N)",
         phosphorus: "Phosphorus (P)",
         potassium: "Potassium (K)",
         phLevel: "pH Level",
         soilMoisture: "Soil Moisture",
-        optimizedCrops: "Optimized Crop Scheduling",
+        optimizedCrops: "Crops That Suit This Soil",
         recommendations: "Soil Treatment Recommendations",
-        soilHistory: "Analysis Records",
+        soilHistory: "Saved Lookups",
         
         // Dashboard
-        dashTitle: "Operational Dashboard",
-        dashSubtitle: "Real-time analytics across crop health, cattle, and soil dynamics",
+        dashTitle: "My Dashboard",
+        dashSubtitle: "A summary of the lookups saved on this device.",
         botanicalIndex: "Crop Botanical Index",
         cattleHealth: "Cattle Health Index",
         soilTaxonomy: "Soil Taxonomy Ratio",
-        advisoryBoard: "Government Advisories",
-        researchFeed: "Agricultural Research Articles",
-        scansCount: "Total Diagnostics",
-        activeCattle: "Cattle Monitored",
-        soilAvgPh: "Average pH Level",
+        advisoryBoard: "Official Sources",
+        researchFeed: "Get Help",
+        scansCount: "Saved Lookups",
+        activeCattle: "Livestock Lookups",
+        soilAvgPh: "Typical pH (saved soils)",
         
         // Auth
         authTitle: "Access Portal",
@@ -127,29 +127,44 @@ const TRANSLATIONS = {
         errInvalidCrop: "Verification failed: Please upload a photo of a crop, plant, or leaf.",
         errInvalidCattle: "Verification failed: Please upload a photo of a cow or other livestock.",
         errInvalidSoil: "Verification failed: Please upload a photo containing soil or dirt.",
-        loadingModel: "Initializing AI models...",
-        scanningImage: "Analyzing image layers...",
-        fetchingWeather: "Retrieving weather data..."
+        loadingModel: "Loading the photo checker...",
+        scanningImage: "Checking the photo...",
+        fetchingWeather: "Retrieving weather data...",
+        pickMatchTitle: "Which one matches what you see?",
+        pickCropSub: "Compare your photo with these common problems and choose the closest one.",
+        pickCattleSub: "Choose your animal's breed.",
+        pickSoilSub: "Choose the soil type that looks most like yours.",
+        referenceNote: "This is general guidance, not a diagnosis. Confirm with your local agriculture officer or Krishi Vigyan Kendra before using chemicals.",
+        vetNote: "General guidance only. Follow the schedule your local veterinarian gives you.",
+        soilNote: "Typical values for this soil type. Get your field tested for a Soil Health Card to know its exact nutrients.",
+        sampleData: "Sample data",
+        chooseAnother: "Choose a different match",
+        noRecords: "Nothing saved yet.",
+        careTips: "Care Tips",
+        statusLabel: "Severity",
+        photoTipTitle: "Add a photo (optional)",
+        skipPhoto: "Skip photo and browse the guide",
+        marketKpi: "Sample Prices"
     },
     kn: {
         appName: "ಫಾರ್ಮ್‌ಟೋರಾ",
-        tagline: "ಬುದ್ಧಿವಂತ. ನಿಖರ. ಇಳುವರಿ-ಕೇಂದ್ರಿತ.",
+        tagline: "ಹವಾಮಾನ. ಬೆಳೆ. ಜಾನುವಾರು. ಮಣ್ಣು.",
         launchApp: "ಅಪ್ಲಿಕೇಶನ್ ಪ್ರಾರಂಭಿಸಿ",
         learnMore: "ಹೆಚ್ಚು ತಿಳಿಯಿರಿ",
-        homeTitle: "ಫಾರ್ಮ್‌ಟೋರಾ <span class=\"accent\">ಬುದ್ಧಿವಂತ</span>.",
-        homeSubtitle: "ಆಧುನಿಕ ಕೃಷಿಗಾಗಿ ಅಂತಿಮ ಉನ್ನತ-ಕಾರ್ಯಕ್ಷಮತೆಯ ಐಟಿ ವೇದಿಕೆ. ನಿರ್ಣಾಯಕ ರೋಗನಿರ್ಣಯ ಮತ್ತು ಕ್ರಿಯಾಶೀಲ ಪ್ರಾದೇಶಿಕ ಬುದ್ಧಿಮತ್ತೆ.",
-        unifiedIntel: "ಏಕೀಕೃತ ಬುದ್ಧಿಮತ್ತೆ",
-        unifiedIntelSub: "ನಮ್ಮ ಸಂಯೋಜಿತ ಐಟಿ ಸ್ತಂಭಗಳ ಮೂಲಕ ಮುಂದಿನ ಪೀಳಿಗೆಯ ನಿಖರ ಕೃಷಿಯನ್ನು ಅನುಭವಿಸಿ.",
-        extremeYield: "ವಿಪರೀತ ಇಳುವರಿಗಾಗಿ ವಿನ್ಯಾಸಗೊಳಿಸಲಾಗಿದೆ.",
-        extremeYieldSub: "ತತ್ಕ್ಷಣದ, ನಿರ್ಣಾಯಕ ಕೃಷಿ ಬುದ್ಧಿಮತ್ತೆಯನ್ನು ಒದಗಿಸಲು ಸರ್ವರ್‌ಲೆಸ್ ಎಡ್ಜ್ ಕಂಪ್ಯೂಟಿಂಗ್ ಮತ್ತು ನರ-ಜಾಲ ರೋಗನಿರ್ಣಯವನ್ನು ನಿಯಂತ್ರಿಸುವುದು.",
-        edgeFirst: "ಎಡ್ಜ್-ಫಸ್ಟ್ ಐಟಿ",
-        edgeFirstSub: "ವಿಳಂಬವಿಲ್ಲ. ಹೆಚ್ಚಿನ ನಿಖರತೆ. ಸ್ಥಳೀಯ ಪ್ರಕ್ರಿಯೆ.",
-        globalScale: "ಜಾಗತಿಕ ಪ್ರಮಾಣ",
-        globalScaleSub: "ವೈವಿಧ್ಯಮಯ ಪ್ರದೇಶಗಳಿಗೆ ಬಹು-ಭಾಷಾ ಬೆಂಬಲ.",
-        deterministic: "೧೦೦% ನಿರ್ಣಾಯಕ",
-        deterministicSub: "ನಿಮ್ಮ ಸುಗ್ಗಿಯನ್ನು ನೀವು ಬೆಟ್ಟಿಂಗ್ ಮಾಡಬಹುದಾದ ಸ್ಥಿರತೆ.",
-        ctaTitle: "ನಿಮ್ಮ ಬುದ್ಧಿಮತ್ತೆಯನ್ನು ಪ್ರಾರಂಭಿಸಿ.",
-        ctaSubtitle: "ವಿಶ್ವದ ಅತ್ಯಂತ ಮುಂದುವರಿದ ಕೃಷಿ ಐಟಿ ಪರಿಸರ ವ್ಯವಸ್ಥೆಯನ್ನು ಬಳಸಿಕೊಳ್ಳುವ ಆಧುನಿಕ ರೈತರ ಗಣ್ಯ ವಲಯಕ್ಕೆ ಸೇರಿಕೊಳ್ಳಿ.",
+        homeTitle: "ದಿನನಿತ್ಯದ ಕೃಷಿ ನೆರವು, <span class=\"accent\">ನಿಮ್ಮ ಭಾಷೆಯಲ್ಲಿ</span>.",
+        homeSubtitle: "ಸ್ಥಳೀಯ ಹವಾಮಾನ ನೋಡಿ, ಬೆಳೆ ಸಮಸ್ಯೆಗಳನ್ನು ಹುಡುಕಿ, ಜಾನುವಾರು ಮತ್ತು ಮಣ್ಣಿನ ಆರೈಕೆಯನ್ನು ನಿರ್ವಹಿಸಿ — ಕನ್ನಡ, ಹಿಂದಿ ಮತ್ತು ಇಂಗ್ಲಿಷ್‌ನಲ್ಲಿ.",
+        unifiedIntel: "ಎಲ್ಲವೂ ಒಂದೇ ಕಡೆ",
+        unifiedIntelSub: "ದೈನಂದಿನ ಕೃಷಿ ನಿರ್ಧಾರಗಳಿಗೆ ನಾಲ್ಕು ಸರಳ ಸಾಧನಗಳು.",
+        extremeYield: "ದಿನನಿತ್ಯದ ಕೃಷಿ ನಿರ್ಧಾರಗಳನ್ನು ಸುಲಭಗೊಳಿಸಲು.",
+        extremeYieldSub: "ಸ್ಥಳೀಯ ಹವಾಮಾನ ಮುನ್ಸೂಚನೆ, ಬೆಳೆ ಸಮಸ್ಯೆ ಮಾರ್ಗದರ್ಶಿ ಮತ್ತು ಉಳಿಸಿದ ದಾಖಲೆಗಳು ರೈತರಿಗೆ ಬೇಗ ಕ್ರಮ ಕೈಗೊಳ್ಳಲು ನೆರವಾಗುತ್ತವೆ.",
+        edgeFirst: "ಆಫ್‌ಲೈನ್‌ನಲ್ಲೂ ಕೆಲಸ ಮಾಡುತ್ತದೆ",
+        edgeFirstSub: "ಫೋನ್‌ನಲ್ಲಿ ಇನ್‌ಸ್ಟಾಲ್ ಮಾಡಿ; ತೆರೆದ ಪುಟಗಳು ದುರ್ಬಲ ನೆಟ್‌ವರ್ಕ್‌ನಲ್ಲೂ ಕೆಲಸ ಮಾಡುತ್ತವೆ.",
+        globalScale: "ಮೂರು ಭಾಷೆಗಳು",
+        globalScaleSub: "ಯಾವಾಗ ಬೇಕಾದರೂ ಕನ್ನಡ, ಹಿಂದಿ ಮತ್ತು ಇಂಗ್ಲಿಷ್ ನಡುವೆ ಬದಲಿಸಿ.",
+        deterministic: "ಉಳಿಸಿದ ದಾಖಲೆಗಳು",
+        deterministicSub: "ನಿಮ್ಮ ಹುಡುಕಾಟಗಳು ಈ ಸಾಧನದಲ್ಲಿ ಉಳಿಯುತ್ತವೆ, ನಂತರ ಮತ್ತೆ ನೋಡಬಹುದು.",
+        ctaTitle: "ಇಂದಿನ ಹೊಲದ ಪರಿಸ್ಥಿತಿಯಿಂದ ಪ್ರಾರಂಭಿಸಿ.",
+        ctaSubtitle: "ಮೊದಲು ಹವಾಮಾನ ಪುಟ ತೆರೆಯಿರಿ, ನಂತರ ಅಗತ್ಯಕ್ಕೆ ತಕ್ಕಂತೆ ಬೆಳೆ, ಜಾನುವಾರು ಮತ್ತು ಮಣ್ಣಿನ ಮಾರ್ಗದರ್ಶಿಗಳನ್ನು ಬಳಸಿ.",
         
         navHome: "ಮುಖಪುಟ",
         navWeather: "ಹವಾಮಾನ",
@@ -161,11 +176,11 @@ const TRANSLATIONS = {
         navAccount: "ಖಾತೆ",
         
         marketTitle: "ಬೆಳೆ ಮಾರುಕಟ್ಟೆ ಬೆಲೆಗಳು",
-        marketSubtitle: "ನೇರ ಕೃಷಿ ಸರಕು ಬೆಲೆಗಳು ಮತ್ತು ಮಂಡಿ ದರಗಳು",
+        marketSubtitle: "ಮಾದರಿ ಸರಕು ಬೆಲೆಗಳು ಮತ್ತು ಪ್ರವೃತ್ತಿಗಳು — ನೇರ ಮಾರುಕಟ್ಟೆ ದರಗಳಲ್ಲ.",
         marketSearchPlaceholder: "ಬೆಳೆಯನ್ನು ಹುಡುಕಿ (ಉದಾ. ಗೋಧಿ, ಭತ್ತ)...",
         
         weatherTitle: "ಹವಾಮಾನ ಮುನ್ಸೂಚನೆ",
-        weatherSubtitle: "ನೈಜ-ಸಮಯದ ಹವಾಮಾನ ನವೀಕರಣಗಳು ಮತ್ತು ಕೃಷಿ ಯೋಜನೆ",
+        weatherSubtitle: "ಬಿತ್ತನೆ, ಸಿಂಪಡಣೆ ಮತ್ತು ಕೊಯ್ಲು ಯೋಜಿಸಲು ಸ್ಥಳೀಯ ಮುನ್ಸೂಚನೆ.",
         searchPlaceholder: "ನಗರ ಅಥವಾ ಸ್ಥಳವನ್ನು ಹುಡುಕಿ...",
         detectLocation: "ನನ್ನ ಸ್ಥಳ ಬಳಸಿ",
         currentTemp: "ಪ್ರಸ್ತುತ ತಾಪಮಾನ",
@@ -179,54 +194,54 @@ const TRANSLATIONS = {
         weatherHistory: "ಇತ್ತೀಚಿನ ಹುಡುಕಾಟಗಳು",
         clearHistory: "ಇತಿಹಾಸ ಅಳಿಸಿ",
         
-        cropsTitle: "ಬೆಳೆ ರೋಗನಿರ್ಣಯ",
-        cropsSubtitle: "ಮಿಲಿಸೆಕೆಂಡ್ ಬೆಳೆ ರೋಗ ಪತ್ತೆಗಾಗಿ ದೃಶ್ಯ ಟ್ರಾನ್ಸ್‌ಫಾರ್ಮರ್ ಮಾದರಿಗಳು",
+        cropsTitle: "ಬೆಳೆ ಸಮಸ್ಯೆ ಮಾರ್ಗದರ್ಶಿ",
+        cropsSubtitle: "ಫೋಟೋ ಸೇರಿಸಿ, ನೀವು ಕಾಣುವ ಲಕ್ಷಣಕ್ಕೆ ಹೊಂದುವ ಸಮಸ್ಯೆಯನ್ನು ಆರಿಸಿ, ಚಿಕಿತ್ಸೆ ಮತ್ತು ತಡೆಗಟ್ಟುವ ಕ್ರಮಗಳನ್ನು ಪಡೆಯಿರಿ.",
         uploadAreaTitle: "ಬೆಳೆ ಚಿತ್ರವನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ",
         uploadAreaSub: "ಎಲೆ/ಸಸ್ಯದ ಫೋಟೋವನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಲು ಎಳೆಯಿರಿ ಅಥವಾ ಕ್ಲಿಕ್ ಮಾಡಿ",
-        btnAnalyze: "ಐಟಿ ರೋಗನಿರ್ಣಯ ಚಾಲನೆ",
+        btnAnalyze: "ಫೋಟೋ ಪರಿಶೀಲಿಸಿ ಮುಂದುವರಿಯಿರಿ",
         critical: "ಗಂಭೀರ",
         attention: "ಗಮನ ಹರಿಸಿ",
         healthy: "ಆರೋಗ್ಯಕರ",
-        cropDisease: "ಗುರುತಿಸಲಾದ समस्या",
+        cropDisease: "ಆಯ್ಕೆ ಮಾಡಿದ ಸಮಸ್ಯೆ",
         confidence: "ವಿಶ್ವಾಸಾರ್ಹತೆಯ ಸ್ಕೋರ್",
         treatments: "ಚಿಕಿತ್ಸೆಯ ಶಿಫಾರಸುಗಳು",
         preventions: "ತಡೆಗಟ್ಟುವ ಕ್ರಮಗಳು",
-        cropsHistory: "ಸ್ಕ್ಯಾನ್ ಇತಿಹಾಸ",
+        cropsHistory: "ಉಳಿಸಿದ ಹುಡುಕಾಟಗಳು",
         
-        cattleTitle: "ಜಾನುವಾರು ಮೇಲ್ವಿಚಾರಣೆ",
-        cattleSubtitle: "ತಳಿ ವರ್ಗೀಕರಣ ಮತ್ತು ಆರೋಗ್ಯ ಎಚ್ಚರಿಕೆಗಳಿಗಾಗಿ ಕಂಪ್ಯೂಟರ್ ವಿಷನ್",
+        cattleTitle: "ಜಾನುವಾರು ಆರೈಕೆ ಮಾರ್ಗದರ್ಶಿ",
+        cattleSubtitle: "ಸಾಮಾನ್ಯ ಆರೈಕೆ ಸಲಹೆಗಳು ಮತ್ತು ಸಾಮಾನ್ಯ ಲಸಿಕೆ ವೇಳಾಪಟ್ಟಿಗಾಗಿ ನಿಮ್ಮ ತಳಿಯನ್ನು ಆರಿಸಿ.",
         uploadCattleTitle: "ಜಾನುವಾರು ಚಿತ್ರ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ",
         uploadCattleSub: "ಮವೇಶಿಯ ಫೋಟೋವನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಲು ಎಳೆಯಿರಿ ಅಥವಾ ಕ್ಲಿಕ್ ಮಾಡಿ",
-        cattleBreed: "ಗುರುತಿಸಲಾದ ತಳಿ",
+        cattleBreed: "ಆಯ್ಕೆ ಮಾಡಿದ ತಳಿ",
         healthStatus: "ಆರೋಗ್ಯ ಸ್ಥಿತಿ",
-        vaccineTracker: "ಲಸಿಕೆ ವೇಳಾಪಟ್ಟಿ",
-        cattleHistory: "ಮೇಲ್ವಿಚಾರಣೆ ಲಾಗ್",
+        vaccineTracker: "ಸಾಮಾನ್ಯ ಲಸಿಕೆ ವೇಳಾಪಟ್ಟಿ",
+        cattleHistory: "ಉಳಿಸಿದ ಹುಡುಕಾಟಗಳು",
         
-        soilTitle: "ಮಣ್ಣಿನ ಅತ್ಯುತ್ತಮವಾಗಿಸುವಿಕೆ",
-        soilSubtitle: "ಆಪ್ಟಿಮೈಸ್ಡ್ ಬೆಳೆ ವೇಳಾಪಟ್ಟಿಗಾಗಿ ಆಳವಾದ ಉಪ-ಮೇಲ್ಮೈ ಗುಣಮಟ್ಟದ ವಿಶ್ಲೇಷಣೆ",
+        soilTitle: "ಮಣ್ಣಿನ ಪ್ರಕಾರ ಮಾರ್ಗದರ್ಶಿ",
+        soilSubtitle: "ನಿಮ್ಮ ಮಣ್ಣಿನ ಪ್ರಕಾರವನ್ನು ಆರಿಸಿ, ಅದರ ಸಾಮಾನ್ಯ ಪೋಷಕಾಂಶಗಳು ಮತ್ತು ಸೂಕ್ತ ಬೆಳೆಗಳನ್ನು ನೋಡಿ.",
         uploadSoilTitle: "ಮಣ್ಣಿನ ಚಿತ್ರವನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ",
         uploadSoilSub: "ಮಣ್ಣಿನ ಪ್ರೊಫೈಲ್ ಫೋಟೋವನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಲು ಎಳೆಯಿರಿ ಅಥವಾ ಕ್ಲಿಕ್ ಮಾಡಿ",
-        soilType: "ಗುರುತಿಸಲಾದ ಮಣ್ಣಿನ ಪ್ರಕಾರ",
-        soilNutrients: "ಮಣ್ಣಿನ ಮ್ಯಾಟ್ರಿಕ್ಸ್ (ಪೋಷಕಾಂಶಗಳು)",
+        soilType: "ಆಯ್ಕೆ ಮಾಡಿದ ಮಣ್ಣಿನ ಪ್ರಕಾರ",
+        soilNutrients: "ಸಾಮಾನ್ಯ ಪೋಷಕಾಂಶಗಳು",
         nitrogen: "ಸಾರಜನಕ (N)",
         phosphorus: "ರಂಜಕ (P)",
         potassium: "ಪೊಟ್ಯಾಸಿಯಮ್ (K)",
         phLevel: "pH ಮಟ್ಟ",
         soilMoisture: "ಮಣ್ಣಿನ ತೇವಾಂಶ",
-        optimizedCrops: "ಅತ್ಯುತ್ತಮ ಬೆಳೆ ವೇಳಾಪಟ್ಟಿ",
+        optimizedCrops: "ಈ ಮಣ್ಣಿಗೆ ಸೂಕ್ತ ಬೆಳೆಗಳು",
         recommendations: "ಮಣ್ಣಿನ ಚಿಕಿತ್ಸಾ ಶಿಫಾರಸುಗಳು",
-        soilHistory: "ವಿಶ್ಲೇಷಣೆ ದಾಖಲೆಗಳು",
+        soilHistory: "ಉಳಿಸಿದ ಹುಡುಕಾಟಗಳು",
         
-        dashTitle: "ಕಾರ್ಯಾಚರಣೆಯ ಡ್ಯಾಶ್‌ಬೋರ್ಡ್",
-        dashSubtitle: "ಬೆಳೆ ಆರೋಗ್ಯ, ಜಾನುವಾರು ಮತ್ತು ಮಣ್ಣಿನ ಡೈನಾಮಿಕ್ಸ್‌ನಾದ್ಯಂತ ನೈಜ-ಸಮಯದ ವಿಶ್ಲೇಷಣೆ",
+        dashTitle: "ನನ್ನ ಡ್ಯಾಶ್‌ಬೋರ್ಡ್",
+        dashSubtitle: "ಈ ಸಾಧನದಲ್ಲಿ ಉಳಿಸಿದ ಹುಡುಕಾಟಗಳ ಸಾರಾಂಶ.",
         botanicalIndex: "ಬೆಳೆ ಬಟಾನಿಕಲ್ ಸೂಚ್ಯಂಕ",
         cattleHealth: "ಜಾನುವಾರು ಆರೋಗ್ಯ ಸೂಚ್ಯಂಕ",
         soilTaxonomy: "ಮಣ್ಣಿನ ವರ್ಗೀಕರಣ ಅನುಪಾತ",
-        advisoryBoard: "ಸರ್ಕಾರಿ ಸಲಹೆಗಳು",
-        researchFeed: "ಕೃಷಿ ಸಂಶೋಧನಾ ಲೇಖನಗಳು",
-        scansCount: "ಒಟ್ಟು ರೋಗನಿರ್ಣಯಗಳು",
-        activeCattle: "ಮೇಲ್ವಿಚಾರಣೆ ಮಾಡಲಾದ ಜಾನುವಾರುಗಳು",
-        soilAvgPh: "ಸರಾಸರಿ pH ಮಟ್ಟ",
+        advisoryBoard: "ಅಧಿಕೃತ ಮೂಲಗಳು",
+        researchFeed: "ಸಹಾಯ ಪಡೆಯಿರಿ",
+        scansCount: "ಉಳಿಸಿದ ಹುಡುಕಾಟಗಳು",
+        activeCattle: "ಜಾನುವಾರು ಹುಡುಕಾಟಗಳು",
+        soilAvgPh: "ಸಾಮಾನ್ಯ pH (ಉಳಿಸಿದ ಮಣ್ಣು)",
         
         authTitle: "ಪ್ರವೇಶ ಪೋರ್ಟಲ್",
         authSubtitle: "ಲಾಗಿನ್ ಮಾಡಿ ಅಥವಾ ನಿಮ್ಮ ಫಾರ್ಮ್ ವಿವರಗಳನ್ನು ನೋಂದಾಯಿಸಿ",
@@ -245,29 +260,44 @@ const TRANSLATIONS = {
         errInvalidCrop: "ಪರಿಶೀಲನೆ ವಿಫಲವಾಗಿದೆ: ದಯವಿಟ್ಟು ಬೆಳೆ, ಸಸ್ಯ ಅಥವಾ ಎಲೆಯ ಫೋಟೋವನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ.",
         errInvalidCattle: "ಪರಿಶೀಲನೆ ವಿಫಲವಾಗಿದೆ: ದಯವಿಟ್ಟು ಹಸು ಅಥವಾ ಇತರ ಜಾನುವಾರುಗಳ ಫೋಟೋವನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ.",
         errInvalidSoil: "ಪರಿಶೀಲನೆ ವಿಫಲವಾಗಿದೆ: ದಯವಿಟ್ಟು ಮಣ್ಣು ಅಥವಾ ಕೊಳೆಯನ್ನು ಹೊಂದಿರುವ ಫೋಟೋವನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ.",
-        loadingModel: "ಕೃತಕ ಬುದ್ಧಿಮತ್ತೆ ಮಾದರಿಗಳನ್ನು ಪ್ರಾರಂಭಿಸಲಾಗುತ್ತಿದೆ...",
-        scanningImage: "ಚಿತ್ರದ ಲೇಯರ್‌ಗಳನ್ನು ವಿಶ್ಲೇಷಿಸಲಾಗುತ್ತಿದೆ...",
-        fetchingWeather: "ಹವಾಮಾನ ಡೇಟಾವನ್ನು ಪಡೆಯಲಾಗುತ್ತಿದೆ..."
+        loadingModel: "ಫೋಟೋ ಪರಿಶೀಲಕವನ್ನು ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ...",
+        scanningImage: "ಫೋಟೋ ಪರಿಶೀಲಿಸಲಾಗುತ್ತಿದೆ...",
+        fetchingWeather: "ಹವಾಮಾನ ಡೇಟಾವನ್ನು ಪಡೆಯಲಾಗುತ್ತಿದೆ...",
+        pickMatchTitle: "ನೀವು ಕಾಣುವುದಕ್ಕೆ ಯಾವುದು ಹೊಂದುತ್ತದೆ?",
+        pickCropSub: "ನಿಮ್ಮ ಫೋಟೋವನ್ನು ಈ ಸಾಮಾನ್ಯ ಸಮಸ್ಯೆಗಳೊಂದಿಗೆ ಹೋಲಿಸಿ, ಹತ್ತಿರದದನ್ನು ಆರಿಸಿ.",
+        pickCattleSub: "ನಿಮ್ಮ ಪ್ರಾಣಿಯ ತಳಿಯನ್ನು ಆರಿಸಿ.",
+        pickSoilSub: "ನಿಮ್ಮ ಮಣ್ಣಿಗೆ ಹೆಚ್ಚು ಹೋಲುವ ಪ್ರಕಾರವನ್ನು ಆರಿಸಿ.",
+        referenceNote: "ಇದು ಸಾಮಾನ್ಯ ಮಾರ್ಗದರ್ಶನ, ರೋಗನಿರ್ಣಯವಲ್ಲ. ರಾಸಾಯನಿಕ ಬಳಸುವ ಮೊದಲು ಸ್ಥಳೀಯ ಕೃಷಿ ಅಧಿಕಾರಿ ಅಥವಾ ಕೃಷಿ ವಿಜ್ಞಾನ ಕೇಂದ್ರದೊಂದಿಗೆ ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಿ.",
+        vetNote: "ಇದು ಸಾಮಾನ್ಯ ಮಾರ್ಗದರ್ಶನ ಮಾತ್ರ. ನಿಮ್ಮ ಸ್ಥಳೀಯ ಪಶುವೈದ್ಯರು ನೀಡುವ ವೇಳಾಪಟ್ಟಿಯನ್ನು ಅನುಸರಿಸಿ.",
+        soilNote: "ಈ ಮಣ್ಣಿನ ಪ್ರಕಾರದ ಸಾಮಾನ್ಯ ಮೌಲ್ಯಗಳು. ನಿಖರ ಪೋಷಕಾಂಶ ತಿಳಿಯಲು ಮಣ್ಣು ಆರೋಗ್ಯ ಕಾರ್ಡ್‌ಗಾಗಿ ನಿಮ್ಮ ಹೊಲದ ಮಣ್ಣನ್ನು ಪರೀಕ್ಷಿಸಿ.",
+        sampleData: "ಮಾದರಿ ದತ್ತಾಂಶ",
+        chooseAnother: "ಬೇರೆ ಆಯ್ಕೆ ಮಾಡಿ",
+        noRecords: "ಇನ್ನೂ ಏನೂ ಉಳಿಸಿಲ್ಲ.",
+        careTips: "ಆರೈಕೆ ಸಲಹೆಗಳು",
+        statusLabel: "ತೀವ್ರತೆ",
+        photoTipTitle: "ಫೋಟೋ ಸೇರಿಸಿ (ಐಚ್ಛಿಕ)",
+        skipPhoto: "ಫೋಟೋ ಬಿಟ್ಟು ಮಾರ್ಗದರ್ಶಿ ನೋಡಿ",
+        marketKpi: "ಮಾದರಿ ಬೆಲೆಗಳು"
     },
     hi: {
         appName: "फार्मटोरा",
-        tagline: "बुद्धिमान। सटीक। उपज-केंद्रित।",
+        tagline: "मौसम। फसल। पशु। मिट्टी।",
         launchApp: "ऐप लॉन्च करें",
         learnMore: "अधिक जानें",
-        homeTitle: "फार्मटोरा <span class=\"accent\">बुद्धिमान</span>.",
-        homeSubtitle: "आधुनीक खेती के लिए परम उच्च प्रदर्शन वाला एआई प्लेटफॉर्म। सटीक निदान और व्यावहारिक क्षेत्रीय बुद्धिमत्ता।",
-        unifiedIntel: "एकीकृत बुद्धिमत्ता",
-        unifiedIntelSub: "हमारे एकीकृत एआई स्तंभों के माध्यम से अगली पीढ़ी की सटीक खेती का अनुभव करें।",
-        extremeYield: "अत्यधिक उपज के लिए निर्मित।",
-        extremeYieldSub: "त्वरित, निर्णायक कृषि बुद्धिमत्ता प्रदान करने के लिए सर्वर रहित एज कंप्यूटिंग और तंत्रिका-नेटवर्क निदान का लाभ उठाना।",
-        edgeFirst: "एज-फर्स्ट एआई",
-        edgeFirstSub: "कोई विलंबता नहीं। उच्च परिशुद्धता। स्थानीय प्रसंस्करण।",
-        globalScale: "वैश्विक पैमाना",
-        globalScaleSub: "विविध क्षेत्रों के लिए बहु-भाषा समर्थन।",
-        deterministic: "१००% निर्णायक",
-        deterministicSub: "स्थिरता जिस पर आप अपनी फसल का दांव लगा सकते हैं।",
-        ctaTitle: "अपनी बुद्धिमत्ता शुरू करें।",
-        ctaSubtitle: "दुनिया के सबसे उन्नत कृषि एआई पारिस्थितिकी तंत्र का लाभ उठाने वाले आधुनिक किसानों के विशिष्ट समूह में शामिल हों।",
+        homeTitle: "रोज़ की खेती में मदद, <span class=\"accent\">आपकी भाषा में</span>।",
+        homeSubtitle: "स्थानीय मौसम देखें, फसल की समस्याएं खोजें, और पशु व मिट्टी की देखभाल करें — हिंदी, कन्नड़ और अंग्रेज़ी में।",
+        unifiedIntel: "सब कुछ एक जगह",
+        unifiedIntelSub: "रोज़मर्रा के खेती के फ़ैसलों के लिए चार आसान टूल।",
+        extremeYield: "रोज़ के खेती के फ़ैसले आसान बनाने के लिए।",
+        extremeYieldSub: "स्थानीय मौसम पूर्वानुमान, फसल समस्या गाइड और सहेजे गए रिकॉर्ड किसानों को जल्दी कदम उठाने में मदद करते हैं।",
+        edgeFirst: "ऑफ़लाइन भी चलता है",
+        edgeFirstSub: "फ़ोन पर इंस्टॉल करें; खोले गए पेज कमज़ोर नेटवर्क पर भी चलते हैं।",
+        globalScale: "तीन भाषाएं",
+        globalScaleSub: "कभी भी हिंदी, कन्नड़ और अंग्रेज़ी के बीच बदलें।",
+        deterministic: "सहेजे गए रिकॉर्ड",
+        deterministicSub: "आपकी खोजें इसी डिवाइस पर सहेजी जाती हैं, ताकि आप बाद में देख सकें।",
+        ctaTitle: "आज के खेत के हालात से शुरुआत करें।",
+        ctaSubtitle: "पहले मौसम पेज खोलें, फिर ज़रूरत के अनुसार फसल, पशु और मिट्टी गाइड इस्तेमाल करें।",
         
         navHome: "मुख्य पृष्ठ",
         navWeather: "मौसम",
@@ -279,11 +309,11 @@ const TRANSLATIONS = {
         navAccount: "खाता",
         
         marketTitle: "फ़सल बाज़ार भाव",
-        marketSubtitle: "लाइव कृषि वस्तु मूल्य, दैनिक रुझान और मंडी दरें",
+        marketSubtitle: "नमूना कृषि मूल्य और रुझान — लाइव बाज़ार दरें नहीं।",
         marketSearchPlaceholder: "फ़सल खोजें (जैसे गेहूं, धान, कपास)...",
         
         weatherTitle: "मौसम का पूर्वानुमान",
-        weatherSubtitle: "कृषि योजना के लिए वास्तविक समय के मौसम की जानकारी",
+        weatherSubtitle: "बुआई, छिड़काव और कटाई की योजना के लिए स्थानीय पूर्वानुमान।",
         searchPlaceholder: "शहर या स्थान खोजें...",
         detectLocation: "मेरा स्थान उपयोग करें",
         currentTemp: "वर्तमान तापमान",
@@ -297,54 +327,54 @@ const TRANSLATIONS = {
         weatherHistory: "हाल की खोजें",
         clearHistory: "इतिहास साफ़ करें",
         
-        cropsTitle: "फसल निदान",
-        cropsSubtitle: "मिलीसेकंड फसल रोग पहचान के लिए विज़ुअल ट्रांसफार्मर मॉडल",
+        cropsTitle: "फसल समस्या गाइड",
+        cropsSubtitle: "फ़ोटो जोड़ें, जो दिख रहा है उससे मिलती समस्या चुनें, और इलाज व बचाव के उपाय पाएं।",
         uploadAreaTitle: "फसल की छवि अपलोड करें",
         uploadAreaSub: "पत्ती/पौधे की फोटो अपलोड करने के लिए खींचें या क्लिक करें",
-        btnAnalyze: "एआई निदान चलाएं",
+        btnAnalyze: "फ़ोटो जांचें और आगे बढ़ें",
         critical: "गंभीर",
         attention: "ध्यान दें",
         healthy: "स्वस्थ",
-        cropDisease: "पहचाने गए रोग",
+        cropDisease: "चुनी गई समस्या",
         confidence: "विश्वास स्कोर",
         treatments: "उपचार की सिफारिशें",
         preventions: "बचाव के उपाय",
-        cropsHistory: "स्कैन इतिहास",
+        cropsHistory: "सहेजी गई खोजें",
         
-        cattleTitle: "मवेशी निगरानी",
-        cattleSubtitle: "नस्ल वर्गीकरण और स्वास्थ्य चेतावनियों के लिए कंप्यूटर विज़न",
+        cattleTitle: "पशु देखभाल गाइड",
+        cattleSubtitle: "सामान्य देखभाल सुझावों और सामान्य टीकाकरण अनुसूची के लिए अपनी नस्ल चुनें।",
         uploadCattleTitle: "मवेशी की छवि अपलोड करें",
         uploadCattleSub: "मवेशी की फोटो अपलोड करने के लिए खींचें या क्लिक करें",
-        cattleBreed: "पहचानी गई नस्ल",
+        cattleBreed: "चुनी गई नस्ल",
         healthStatus: "स्वास्थ्य स्थिति",
-        vaccineTracker: "टीकाकरण अनुसूची",
-        cattleHistory: "निगरानी लॉग",
+        vaccineTracker: "सामान्य टीकाकरण अनुसूची",
+        cattleHistory: "सहेजी गई खोजें",
         
-        soilTitle: "मिट्टी सुधार",
-        soilSubtitle: "अनुकूलित फसल शेड्यूलिंग के लिए गहरी उप-सतह गुणवत्ता विश्लेषण",
+        soilTitle: "मिट्टी प्रकार गाइड",
+        soilSubtitle: "अपनी मिट्टी का प्रकार चुनें और उसके सामान्य पोषक तत्व व उपयुक्त फसलें देखें।",
         uploadSoilTitle: "मिट्टी की छवि अपलोड करें",
         uploadSoilSub: "मिट्टी प्रोफ़ाइल की फोटो अपलोड करने के लिए खींचें या क्लिक करें",
-        soilType: "पहचाना गया मिट्टी का प्रकार",
-        soilNutrients: "मिट्टी मैट्रिक्स (पोषक तत्व)",
+        soilType: "चुना गया मिट्टी का प्रकार",
+        soilNutrients: "सामान्य पोषक तत्व",
         nitrogen: "नाइट्रोजन (N)",
         phosphorus: "फास्फोरस (P)",
         potassium: "पोटेशियम (K)",
         phLevel: "pH स्तर",
         soilMoisture: "मिट्टी की नमी",
-        optimizedCrops: "अनुकूलित फसल शेड्यूलिंग",
+        optimizedCrops: "इस मिट्टी के लिए उपयुक्त फसलें",
         recommendations: "मिट्टी उपचार सिफारिशें",
-        soilHistory: "विश्लेषण रिकॉर्ड",
+        soilHistory: "सहेजी गई खोजें",
         
-        dashTitle: "संचालन डैशबोर्ड",
-        dashSubtitle: "फसल स्वास्थ्य, मवेशी और मिट्टी के वास्तविक समय के आंकड़े",
+        dashTitle: "मेरा डैशबोर्ड",
+        dashSubtitle: "इस डिवाइस पर सहेजी गई खोजों का सारांश।",
         botanicalIndex: "फसल वानस्पतिक सूचकांक",
         cattleHealth: "मवेशी स्वास्थ्य सूचकांक",
         soilTaxonomy: "मिट्टी वर्गीकरण अनुपात",
-        advisoryBoard: "सरकारी सलाह",
-        researchFeed: "कृषि अनुसंधान लेख",
-        scansCount: "कुल निदान",
-        activeCattle: "निगरानी मवेशी",
-        soilAvgPh: "औसत pH स्तर",
+        advisoryBoard: "आधिकारिक स्रोत",
+        researchFeed: "मदद पाएं",
+        scansCount: "सहेजी गई खोजें",
+        activeCattle: "पशु खोजें",
+        soilAvgPh: "सामान्य pH (सहेजी गई मिट्टी)",
         
         authTitle: "प्रवेश द्वार",
         authSubtitle: "लॉग इन करें या अपने खेत का विवरण पंजीकृत करें",
@@ -363,9 +393,24 @@ const TRANSLATIONS = {
         errInvalidCrop: "सत्यापन विफल: कृपया फसल, पौधे या पत्ती की तस्वीर अपलोड करें।",
         errInvalidCattle: "सत्यापन विफल: कृपया गाय या अन्य मवेशियों की तस्वीर अपलोड करें।",
         errInvalidSoil: "सत्यापन विफल: कृपया मिट्टी या गंदगी वाली तस्वीर अपलोड करें।",
-        loadingModel: "कृत्रिम बुद्धिमत्ता मॉडल लोड हो रहे हैं...",
-        scanningImage: "छवि परतों का विश्लेषण किया जा रहा है...",
-        fetchingWeather: "मौसम की जानकारी प्राप्त की जा रही है..."
+        loadingModel: "फ़ोटो जांचने वाला टूल लोड हो रहा है...",
+        scanningImage: "फ़ोटो जांची जा रही है...",
+        fetchingWeather: "मौसम की जानकारी प्राप्त की जा रही है...",
+        pickMatchTitle: "आपको जो दिख रहा है, उससे कौन-सा मेल खाता है?",
+        pickCropSub: "अपनी फ़ोटो की तुलना इन आम समस्याओं से करें और सबसे मिलती-जुलती चुनें।",
+        pickCattleSub: "अपने पशु की नस्ल चुनें।",
+        pickSoilSub: "अपनी मिट्टी से सबसे ज़्यादा मिलता-जुलता प्रकार चुनें।",
+        referenceNote: "यह सामान्य मार्गदर्शन है, निदान नहीं। रसायन इस्तेमाल करने से पहले अपने स्थानीय कृषि अधिकारी या कृषि विज्ञान केंद्र से पुष्टि करें।",
+        vetNote: "यह केवल सामान्य मार्गदर्शन है। अपने स्थानीय पशु चिकित्सक द्वारा बताई गई अनुसूची का पालन करें।",
+        soilNote: "यह इस मिट्टी के प्रकार के सामान्य मान हैं। सही पोषक तत्व जानने के लिए मृदा स्वास्थ्य कार्ड हेतु अपने खेत की मिट्टी की जांच कराएं।",
+        sampleData: "नमूना डेटा",
+        chooseAnother: "दूसरा विकल्प चुनें",
+        noRecords: "अभी तक कुछ सहेजा नहीं गया।",
+        careTips: "देखभाल सुझाव",
+        statusLabel: "गंभीरता",
+        photoTipTitle: "फ़ोटो जोड़ें (वैकल्पिक)",
+        skipPhoto: "फ़ोटो छोड़ें और गाइड देखें",
+        marketKpi: "नमूना मूल्य"
     }
 };
 
@@ -374,7 +419,6 @@ const CROP_CATALOG = {
     tomato_late_blight: {
         title: { en: "Tomato - Late Blight", kn: "ಟೊಮೆಟೊ - ಲೇಟ್ ಬ್ಲೈಟ್", hi: "टमाटर - लेट ब्लाइट" },
         severity: "critical",
-        confidence: 94.8,
         treatments: {
             en: ["Apply copper fungicides immediately", "Prune lower infected canopy leaves", "Avoid overhead irrigation systems"],
             kn: ["ತಕ್ಷಣ ತಾಮ್ರದ ಶಿಲೀಂಧ್ರನಾಶಕಗಳನ್ನು ಬಳಸಿ", "ಸೋಂಕಿತ ಕೆಳಗಿನ ಎಲೆಗಳ ಕೊಂಬೆಗಳನ್ನು ಕತ್ತರಿಸಿ", "ಮೇಲಿಂದ ನೀರು ಹಾಯಿಸುವುದನ್ನು ತಪ್ಪಿಸಿ"],
@@ -389,7 +433,6 @@ const CROP_CATALOG = {
     rice_blast: {
         title: { en: "Rice - Blast Disease", kn: "ಭತ್ತ - ಬೆಂಕಿ ರೋಗ", hi: "धान - ब्लास्ट रोग" },
         severity: "critical",
-        confidence: 92.5,
         treatments: {
             en: ["Spray Tricyclazole fungicide as recommended", "Reduce chemical nitrogen fertilizers", "Regulate water heights in field paddies"],
             kn: ["ಟ್ರೈಸೈಕ್ಲಾಜೋಲ್ ಶಿಲೀಂಧ್ರನಾಶಕ ಸಿಂಪಡಿಸಿ", "ಸಾರಜನಕ ಗೊಬ್ಬರದ ಬಳಕೆಯನ್ನು ಕಡಿಮೆ ಮಾಡಿ", "ಗದ್ದೆಗಳಲ್ಲಿ ನೀರಿನ ಮಟ್ಟ ನಿಯಂತ್ರಿಸಿ"],
@@ -404,7 +447,6 @@ const CROP_CATALOG = {
     corn_rust: {
         title: { en: "Corn - Common Rust", kn: "ಮೆಕ್ಕೆಜೋಳ - ಮುರಗಿ ರೋಗ", hi: "मक्का - आम जंग रोग" },
         severity: "attention",
-        confidence: 88.6,
         treatments: {
             en: ["Apply foliar fungicide at early infection", "Remove host weeds and grass borders"],
             kn: ["ರೋಗದ ಆರಂಭಿಕ ಹಂತದಲ್ಲಿ ಎಲೆಗಳಿಗೆ ಶಿಲೀಂಧ್ರನಾಶಕ ಸಿಂಪಡಿಸಿ", "ಹೊಲದ ಸುತ್ತಲಿನ ಕಳೆಗಳನ್ನು ತೆಗೆದುಹಾಕಿ"],
@@ -419,7 +461,6 @@ const CROP_CATALOG = {
     healthy_leaf: {
         title: { en: "Healthy Foliage Structure", kn: "ಆರೋಗ್ಯಕರ ಎಲೆ ರಚನೆ", hi: "स्वस्थ पत्ती की संरचना" },
         severity: "healthy",
-        confidence: 97.4,
         treatments: {
             en: ["No chemical treatments needed", "Maintain active hydration schedules"],
             kn: ["ಯಾವುದೇ ರಾಸಾಯನಿಕ ಚಿಕಿತ್ಸೆಗಳ ಅಗತ್ಯವಿಲ್ಲ", "ನಿಯಮಿತ ನೀರಾವರಿಯನ್ನು ಕಾಪಾಡಿಕೊಳ್ಳಿ"],
@@ -435,52 +476,22 @@ const CROP_CATALOG = {
 
 const CATTLE_CATALOG = {
     jersey_cow: {
-        breed: { en: "Jersey Breed", kn: "ಜರ್ಸಿ ತಳಿ", hi: "जर्सी नस्ल" },
-        health: { en: "Healthy Status", kn: "ಆರೋಗ್ಯಕರ ಸ್ಥಿತಿ", hi: "स्वस्थ स्थिति" },
+        breed: {"en": "Jersey Breed", "kn": "ಜರ್ಸಿ ತಳಿ", "hi": "जर्सी नस्ल"},
         severity: "healthy",
-        confidence: 96.1,
-        vaccines: {
-            en: ["FMD Vaccine: Active (Completed)", "Anthrax Vaccine: Due in 12 days"],
-            kn: ["ಕಾಲು ಬಾಯಿ ಜ್ವರ ಲಸಿಕೆ: ಪೂರ್ಣಗೊಂಡಿದೆ", "ನೆರಡಿ ರೋಗ ಲಸಿಕೆ: 12 ದಿನಗಳಲ್ಲಿ ನೀಡಬೇಕು"],
-            hi: ["एफएमडी वैक्सीन: पूर्ण", "एंथ्रेक्स वैक्सीन: 12 दिनों में देय"]
-        },
-        treatments: {
-            en: ["No treatments required", "Provide clean drinking water, 40L daily"],
-            kn: ["ಯಾವುದೇ ಚಿಕಿತ್ಸೆಯ ಅಗತ್ಯವಿಲ್ಲ", "ದಿನಕ್ಕೆ 40 ಲೀಟರ್ ಶುದ್ಧ ಕುಡಿಯುವ ನೀರು ಒದಗಿಸಿ"],
-            hi: ["किसी उपचार की आवश्यकता नहीं है", "प्रतिदिन 40 लीटर स्वच्छ पेयजल उपलब्ध कराएं"]
-        }
+        vaccines: {"en": ["FMD (foot-and-mouth): every 6 months", "HS and Black Quarter: once a year, before the monsoon", "Brucellosis: once, for female calves aged 4–8 months"], "kn": ["ಕಾಲು ಬಾಯಿ ಜ್ವರ (FMD): ಪ್ರತಿ 6 ತಿಂಗಳಿಗೊಮ್ಮೆ", "ಗಳಲೆ ರೋಗ (HS) ಮತ್ತು ಚಪ್ಪೆ ರೋಗ: ವರ್ಷಕ್ಕೊಮ್ಮೆ, ಮುಂಗಾರಿನ ಮೊದಲು", "ಬ್ರೂಸೆಲೋಸಿಸ್: 4–8 ತಿಂಗಳ ಹೆಣ್ಣು ಕರುಗಳಿಗೆ ಒಮ್ಮೆ"], "hi": ["खुरपका-मुंहपका (FMD): हर 6 महीने", "गलघोंटू (HS) और लंगड़ी बुखार: साल में एक बार, मानसून से पहले", "ब्रूसेलोसिस: 4–8 महीने की मादा बछियों को एक बार"]},
+        treatments: {"en": ["Sensitive to heat: give shade, fans or water sprays in summer", "Provide about 40 litres of clean drinking water a day", "Feed balanced green and dry fodder with mineral mixture"], "kn": ["ಶಾಖಕ್ಕೆ ಸೂಕ್ಷ್ಮ: ಬೇಸಿಗೆಯಲ್ಲಿ ನೆರಳು, ಫ್ಯಾನ್ ಅಥವಾ ನೀರಿನ ಸಿಂಪಡಣೆ ಒದಗಿಸಿ", "ದಿನಕ್ಕೆ ಸುಮಾರು 40 ಲೀಟರ್ ಶುದ್ಧ ಕುಡಿಯುವ ನೀರು ಒದಗಿಸಿ", "ಖನಿಜ ಮಿಶ್ರಣದೊಂದಿಗೆ ಸಮತೋಲಿತ ಹಸಿರು ಮತ್ತು ಒಣ ಮೇವು ಕೊಡಿ"], "hi": ["गर्मी के प्रति संवेदनशील: गर्मियों में छाया, पंखा या पानी का छिड़काव दें", "प्रतिदिन लगभग 40 लीटर स्वच्छ पेयजल दें", "खनिज मिश्रण के साथ संतुलित हरा और सूखा चारा दें"]}
     },
     sahiwal_cow: {
-        breed: { en: "Sahiwal Breed", kn: "ಸಾಹಿವಾಲ್ ತಳಿ", hi: "साहीवाल नस्ल" },
-        health: { en: "Under Observation (Mastitis - Mild)", kn: "ಮೇಲ್ವಿಚಾರಣೆಯಲ್ಲಿ (ಕೆಚ್ಚಲು ಬಾವು - ಸೌಮ್ಯ)", hi: "निगरानी में (थनेला रोग - हल्का)" },
-        severity: "attention",
-        confidence: 91.3,
-        vaccines: {
-            en: ["Brucellosis Vaccine: Completed", "HS Vaccine: Completed"],
-            kn: ["ಬ್ರೂಸೆಲೋಸಿಸ್ ಲಸಿಕೆ: ಪೂರ್ಣಗೊಂಡಿದೆ", "ಗಳಲೆ ರೋಗ ಲಸಿಕೆ: ಪೂರ್ಣಗೊಂಡಿದೆ"],
-            hi: ["ब्रूसेलोसिस वैक्सीन: पूर्ण", "एचएस वैक्सीन: पूर्ण"]
-        },
-        treatments: {
-            en: ["Administer intramammary antibiotic tube", "Keep cow bedding thoroughly dried", "Apply warm compresses to udder weekly"],
-            kn: ["ಕೆಚ್ಚಲಿನ ಪ್ರತಿಜೀವಕ ಟ್ಯೂಬ್ ಚಿಕಿತ್ಸೆ ನೀಡಿ", "ದನದ ಕೊಟ್ಟಿಗೆಯ ನೆಲವನ್ನು ಒಣದಾಗಿರಿಸಿ", "ವಾರಕ್ಕೊಮ್ಮೆ ಕೆಚ್ಚಲಿಗೆ ಬಿಸಿ ಶಾಖ ಕೊಡಿ"],
-            hi: ["थनों में एंटीबायोटिक ट्यूब दवा डालें", "पशु के बैठने की जगह को सूखा रखें", "सप्ताह में एक बार थनों पर गर्म सेक लगाएं"]
-        }
+        breed: {"en": "Sahiwal Breed", "kn": "ಸಾಹಿವಾಲ್ ತಳಿ", "hi": "साहीवाल नस्ल"},
+        severity: "healthy",
+        vaccines: {"en": ["FMD (foot-and-mouth): every 6 months", "HS and Black Quarter: once a year, before the monsoon", "Brucellosis: once, for female calves aged 4–8 months"], "kn": ["ಕಾಲು ಬಾಯಿ ಜ್ವರ (FMD): ಪ್ರತಿ 6 ತಿಂಗಳಿಗೊಮ್ಮೆ", "ಗಳಲೆ ರೋಗ (HS) ಮತ್ತು ಚಪ್ಪೆ ರೋಗ: ವರ್ಷಕ್ಕೊಮ್ಮೆ, ಮುಂಗಾರಿನ ಮೊದಲು", "ಬ್ರೂಸೆಲೋಸಿಸ್: 4–8 ತಿಂಗಳ ಹೆಣ್ಣು ಕರುಗಳಿಗೆ ಒಮ್ಮೆ"], "hi": ["खुरपका-मुंहपका (FMD): हर 6 महीने", "गलघोंटू (HS) और लंगड़ी बुखार: साल में एक बार, मानसून से पहले", "ब्रूसेलोसिस: 4–8 महीने की मादा बछियों को एक बार"]},
+        treatments: {"en": ["Naturally heat-tolerant, but still give shade in peak summer", "Keep the shed and bedding dry to prevent udder infections (mastitis)", "Feed balanced green and dry fodder with clean water"], "kn": ["ಸಹಜವಾಗಿ ಶಾಖ ಸಹಿಷ್ಣು, ಆದರೂ ಬೇಸಿಗೆಯಲ್ಲಿ ನೆರಳು ಒದಗಿಸಿ", "ಕೆಚ್ಚಲು ಬಾವು ತಡೆಯಲು ಕೊಟ್ಟಿಗೆ ಮತ್ತು ಹಾಸನ್ನು ಒಣದಾಗಿರಿಸಿ", "ಶುದ್ಧ ನೀರಿನೊಂದಿಗೆ ಸಮತೋಲಿತ ಹಸಿರು ಮತ್ತು ಒಣ ಮೇವು ಕೊಡಿ"], "hi": ["स्वाभाविक रूप से गर्मी सहने वाली, फिर भी तेज़ गर्मी में छाया दें", "थनैला रोग से बचाव के लिए बाड़ा और बिछावन सूखा रखें", "साफ़ पानी के साथ संतुलित हरा और सूखा चारा दें"]}
     },
     gir_cow: {
-        breed: { en: "Gir Breed", kn: "ಗೀರ್ ತಳಿ", hi: "गीर नस्ल" },
-        health: { en: "Healthy Status", kn: "ಆರೋಗ್ಯಕರ ಸ್ಥಿತಿ", hi: "स्वस्थ स्थिति" },
+        breed: {"en": "Gir Breed", "kn": "ಗೀರ್ ತಳಿ", "hi": "गीर नस्ल"},
         severity: "healthy",
-        confidence: 95.8,
-        vaccines: {
-            en: ["FMD Vaccine: Completed", "Black Quarter Vaccine: Completed"],
-            kn: ["ಕಾಲು ಬಾಯಿ ಜ್ವರ ಲಸಿಕೆ: ಪೂರ್ಣಗೊಂಡಿದೆ", "ಚಪ್ಪೆ ರೋಗ ಲಸಿಕೆ: ಪೂರ್ಣಗೊಂಡಿದೆ"],
-            hi: ["एफएमडी वैक्सीन: पूर्ण", "ब्लैक क्वार्टर वैक्सीन: पूर्ण"]
-        },
-        treatments: {
-            en: ["No treatments required", "Maintain balanced dry/green fodder ratios"],
-            kn: ["ಯಾವುದೇ ಚಿಕಿತ್ಸೆಯ ಅಗತ್ಯವಿಲ್ಲ", "ಹಸಿರು ಮತ್ತು ಒಣ ಮೇವಿನ ಸಮತೋಲನ ಕಾಪಾಡಿ"],
-            hi: ["किसी उपचार की आवश्यकता नहीं है", "हरे और सूखे चारे का संतुलित अनुपात बनाए रखें"]
-        }
+        vaccines: {"en": ["FMD (foot-and-mouth): every 6 months", "HS and Black Quarter: once a year, before the monsoon", "Brucellosis: once, for female calves aged 4–8 months"], "kn": ["ಕಾಲು ಬಾಯಿ ಜ್ವರ (FMD): ಪ್ರತಿ 6 ತಿಂಗಳಿಗೊಮ್ಮೆ", "ಗಳಲೆ ರೋಗ (HS) ಮತ್ತು ಚಪ್ಪೆ ರೋಗ: ವರ್ಷಕ್ಕೊಮ್ಮೆ, ಮುಂಗಾರಿನ ಮೊದಲು", "ಬ್ರೂಸೆಲೋಸಿಸ್: 4–8 ತಿಂಗಳ ಹೆಣ್ಣು ಕರುಗಳಿಗೆ ಒಮ್ಮೆ"], "hi": ["खुरपका-मुंहपका (FMD): हर 6 महीने", "गलघोंटू (HS) और लंगड़ी बुखार: साल में एक बार, मानसून से पहले", "ब्रूसेलोसिस: 4–8 महीने की मादा बछियों को एक बार"]},
+        treatments: {"en": ["Hardy breed suited to hot regions", "Check hooves and ticks regularly", "Maintain balanced dry and green fodder"], "kn": ["ಬಿಸಿ ಪ್ರದೇಶಗಳಿಗೆ ಸೂಕ್ತವಾದ ಗಟ್ಟಿಮುಟ್ಟಾದ ತಳಿ", "ಗೊರಸು ಮತ್ತು ಉಣ್ಣೆಗಳನ್ನು ನಿಯಮಿತವಾಗಿ ಪರಿಶೀಲಿಸಿ", "ಹಸಿರು ಮತ್ತು ಒಣ ಮೇವಿನ ಸಮತೋಲನ ಕಾಪಾಡಿ"], "hi": ["गर्म क्षेत्रों के लिए उपयुक्त मज़बूत नस्ल", "खुर और किलनी (टिक) की नियमित जांच करें", "हरे और सूखे चारे का संतुलित अनुपात बनाए रखें"]}
     }
 };
 
@@ -803,7 +814,7 @@ class FarmtoraApp {
                             <div>
                                 <h3>${this.t('navWeather')}</h3>
                                 <p>${this.t('weatherSubtitle')}</p>
-                                <span class="feature-link">Explore Forecast <i data-lucide="arrow-right"></i></span>
+                                <span class="feature-link">${this.t('navWeather')} <i data-lucide="arrow-right"></i></span>
                             </div>
                         </div>
 
@@ -815,7 +826,7 @@ class FarmtoraApp {
                             <div>
                                 <h3>${this.t('navCrops')}</h3>
                                 <p>${this.t('cropsSubtitle')}</p>
-                                <span class="feature-link">Scan Pathologies <i data-lucide="arrow-right"></i></span>
+                                <span class="feature-link">${this.t('navCrops')} <i data-lucide="arrow-right"></i></span>
                             </div>
                         </div>
 
@@ -827,7 +838,7 @@ class FarmtoraApp {
                             <div>
                                 <h3>${this.t('navCattle')}</h3>
                                 <p>${this.t('cattleSubtitle')}</p>
-                                <span class="feature-link">Classify Breeds <i data-lucide="arrow-right"></i></span>
+                                <span class="feature-link">${this.t('navCattle')} <i data-lucide="arrow-right"></i></span>
                             </div>
                         </div>
 
@@ -839,7 +850,7 @@ class FarmtoraApp {
                             <div>
                                 <h3>${this.t('navSoil')}</h3>
                                 <p>${this.t('soilSubtitle')}</p>
-                                <span class="feature-link">Analyze Profiles <i data-lucide="arrow-right"></i></span>
+                                <span class="feature-link">${this.t('navSoil')} <i data-lucide="arrow-right"></i></span>
                             </div>
                         </div>
                     </div>
@@ -849,7 +860,7 @@ class FarmtoraApp {
                 <section class="why-choose-section">
                     <div class="grid grid-cols-2" style="align-items: center;">
                         <div>
-                            <span class="section-tag">${this.t('appName')} Engine</span>
+                            <span class="section-tag">${this.t('appName')}</span>
                             <h2 class="section-heading" style="margin-bottom: 2rem;">${this.t('extremeYield')}</h2>
                             <p style="color: var(--muted-foreground); margin-bottom: 3rem;">${this.t('extremeYieldSub')}</p>
                             
@@ -891,7 +902,7 @@ class FarmtoraApp {
                                 <div class="video-play-icon">
                                     <i data-lucide="video"></i>
                                 </div>
-                                <h3>Data-Driven Crop Models</h3>
+                                <h3>${this.t('globalScale')}</h3>
                             </div>
                         </div>
                     </div>
@@ -1033,11 +1044,11 @@ class FarmtoraApp {
             uSubKey = 'uploadAreaSub';
             histKey = 'cropsHistory';
             rLabelKey = 'cropDisease';
-            rValuePlaceholder = 'AI Waiting';
+            rValuePlaceholder = '-';
             statLabelKey = 'confidence';
             statValPlaceholder = '-';
-            infoCardTitle = 'Diagnostics Waiting';
-            infoCardText = 'Upload leaf photo to diagnose fungal, bacterial, or pest illnesses on-device.';
+            infoCardTitle = this.t('photoTipTitle');
+            infoCardText = this.t(subtitleKey);
         } else if (moduleName === 'cattle') {
             titleKey = 'cattleTitle';
             subtitleKey = 'cattleSubtitle';
@@ -1045,11 +1056,11 @@ class FarmtoraApp {
             uSubKey = 'uploadCattleSub';
             histKey = 'cattleHistory';
             rLabelKey = 'cattleBreed';
-            rValuePlaceholder = 'AI Waiting';
+            rValuePlaceholder = '-';
             statLabelKey = 'healthStatus';
             statValPlaceholder = '-';
-            infoCardTitle = 'Breed Identification Waiting';
-            infoCardText = 'Upload cattle photo to check livestock breeds, status, and vaccine reminders.';
+            infoCardTitle = this.t('photoTipTitle');
+            infoCardText = this.t(subtitleKey);
         } else { // Soil
             titleKey = 'soilTitle';
             subtitleKey = 'soilSubtitle';
@@ -1057,11 +1068,11 @@ class FarmtoraApp {
             uSubKey = 'uploadSoilSub';
             histKey = 'soilHistory';
             rLabelKey = 'soilType';
-            rValuePlaceholder = 'AI Waiting';
+            rValuePlaceholder = '-';
             statLabelKey = 'soilNutrients';
             statValPlaceholder = '-';
-            infoCardTitle = 'Sub-Surface Soil Analysis Waiting';
-            infoCardText = 'Upload soil sample profile photo to analyze moisture, minerals, and crop compatibility.';
+            infoCardTitle = this.t('photoTipTitle');
+            infoCardText = this.t(subtitleKey);
         }
 
         return `
@@ -1089,7 +1100,7 @@ class FarmtoraApp {
                                 <img id="scanPreviewImg" class="preview-image" src="" alt="Scan Preview">
                             </div>
                             <button id="btnRunScan" class="btn btn-primary btn-upload-submit">
-                                <i data-lucide="cpu"></i>${this.t('btnAnalyze')}
+                                <i data-lucide="image"></i>${this.t('btnAnalyze')}
                             </button>
                         </div>
                         <p id="scanErrorText" class="text-center" style="color: var(--destructive); font-weight: 700; margin-top: 1rem; display: none;"></p>
@@ -1100,10 +1111,11 @@ class FarmtoraApp {
                         <!-- Placeholder -->
                         <div id="scanPlaceholderContent">
                             <div class="upload-icon" style="background: rgba(16, 185, 129, 0.1); margin-bottom: 1.5rem; color: var(--primary);">
-                                <i data-lucide="brain-circuit" style="width:2.5rem; height:2.5rem;"></i>
+                                <i data-lucide="book-open" style="width:2.5rem; height:2.5rem;"></i>
                             </div>
                             <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">${infoCardTitle}</h3>
                             <p style="color: var(--muted-foreground); max-width: 280px; margin: 0 auto;">${infoCardText}</p>
+                            <button type="button" id="btnSkipPhoto" class="btn btn-outline" style="margin-top: 1.5rem;"><i data-lucide="book-open"></i>${this.t('skipPhoto')}</button>
                         </div>
 
                         <!-- Real Scan Details -->
@@ -1226,8 +1238,8 @@ class FarmtoraApp {
                         <div class="dash-chart-container">
                             <canvas id="soilChart"></canvas>
                             <div class="dash-chart-center-text">
-                                <span class="dash-chart-center-val" id="soilPercentText">60%</span>
-                                <span class="dash-chart-center-label">Loam</span>
+                                <span class="dash-chart-center-val" id="soilPercentText">0%</span>
+                                <span class="dash-chart-center-label" id="soilPercentLabel">-</span>
                             </div>
                         </div>
                         <ul class="dash-points-list">
@@ -1241,7 +1253,7 @@ class FarmtoraApp {
                 <!-- advisories & news feeds -->
                 <div class="news-heading">
                     <i data-lucide="newspaper" style="color: var(--primary);"></i>
-                    <h3>${this.t('advisoryBoard')} & ${this.t('researchFeed')}</h3>
+                    <h3>${this.t('advisoryBoard')}</h3>
                 </div>
                 
                 <div class="news-layout">
@@ -1679,6 +1691,11 @@ class FarmtoraApp {
             });
         }
 
+        const btnSkip = document.getElementById('btnSkipPhoto');
+        if (btnSkip) {
+            btnSkip.addEventListener('click', () => this.showMatchPicker(moduleName));
+        }
+
         if (btnClear) {
             btnClear.addEventListener('click', async () => {
                 await clearStore(moduleName);
@@ -1736,8 +1753,6 @@ class FarmtoraApp {
         this.showLoading(this.t('scanningImage'));
         document.getElementById('scanErrorText').style.display = 'none';
         
-        // Simulating 1.5s neural layers processing time
-        await new Promise(r => setTimeout(r, 1500));
 
         const img = document.getElementById('scanPreviewImg');
         const filename = img.dataset.filename || "scan.jpg";
@@ -1779,52 +1794,78 @@ class FarmtoraApp {
             return;
         }
 
-        // Run deterministic mockup search using filename/filesize hash
-        const hash = this.hashString(filename + filesize);
-        let selectedRecord;
-
-        if (moduleName === 'crops') {
-            const keys = Object.keys(CROP_CATALOG);
-            const key = keys[hash % keys.length];
-            selectedRecord = CROP_CATALOG[key];
-            this.currentCropScan = selectedRecord;
-        } else if (moduleName === 'cattle') {
-            const keys = Object.keys(CATTLE_CATALOG);
-            const key = keys[hash % keys.length];
-            selectedRecord = CATTLE_CATALOG[key];
-            this.currentCattleScan = selectedRecord;
-        } else {
-            const keys = Object.keys(SOIL_CATALOG);
-            const key = keys[hash % keys.length];
-            selectedRecord = SOIL_CATALOG[key];
-            this.currentSoilScan = selectedRecord;
-        }
-
-        // Save scan log to IndexedDB store
-        const recordTitle = selectedRecord.title ? selectedRecord.title.en : selectedRecord.breed ? selectedRecord.breed.en : selectedRecord.soil.en;
-        const recordSeverity = selectedRecord.severity || "healthy";
-        
-        await addToStore(moduleName, {
-            title: recordTitle,
-            severity: recordSeverity,
-            date: new Date().toLocaleDateString(),
-            raw: selectedRecord
-        });
-
-        this.displayScanResults(moduleName, selectedRecord);
-        this.renderScanHistory(moduleName);
+        this.showMatchPicker(moduleName);
     }
 
-    hashString(str) {
-        let hash = 0;
-        for (let i = 0; i < str.length; i++) {
-            hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    getCatalog(moduleName) {
+        if (moduleName === 'crops') return CROP_CATALOG;
+        if (moduleName === 'cattle') return CATTLE_CATALOG;
+        return SOIL_CATALOG;
+    }
+
+    getRecordTitle(record) {
+        const field = record.title || record.breed || record.soil;
+        return field[this.currentLang] || field.en;
+    }
+
+    showMatchPicker(moduleName) {
+        const catalog = this.getCatalog(moduleName);
+        const subKey = moduleName === 'crops' ? 'pickCropSub' : (moduleName === 'cattle' ? 'pickCattleSub' : 'pickSoilSub');
+        const severityLabel = { critical: this.t('critical'), attention: this.t('attention'), healthy: this.t('healthy') };
+
+        document.getElementById('scanPlaceholderContent').classList.add('hidden');
+        document.getElementById('scanResultsContent').classList.add('hidden');
+
+        let picker = document.getElementById('scanMatchPicker');
+        if (!picker) {
+            picker = document.createElement('div');
+            picker.id = 'scanMatchPicker';
+            picker.className = 'match-picker';
+            document.getElementById('scanResultsCard').appendChild(picker);
         }
-        return Math.abs(hash);
+        picker.classList.remove('hidden');
+        picker.innerHTML = `
+            <h3 class="match-picker-title">${this.t('pickMatchTitle')}</h3>
+            <p class="match-picker-sub">${this.t(subKey)}</p>
+            <div class="match-picker-list" role="list">
+                ${Object.entries(catalog).map(([key, record]) => `
+                    <button type="button" class="match-option" role="listitem" data-key="${key}">
+                        <span class="match-option-name">${this.getRecordTitle(record)}</span>
+                        ${moduleName === 'crops' ? `<span class="match-option-tag tag-${record.severity}">${severityLabel[record.severity] || ''}</span>` : ''}
+                        <i data-lucide="chevron-right"></i>
+                    </button>
+                `).join('')}
+            </div>
+        `;
+        picker.querySelectorAll('.match-option').forEach(btn => {
+            btn.addEventListener('click', () => this.selectMatch(moduleName, btn.dataset.key));
+        });
+        lucide.createIcons();
+        picker.querySelector('.match-option')?.focus();
+    }
+
+    async selectMatch(moduleName, key) {
+        const record = this.getCatalog(moduleName)[key];
+        if (!record) return;
+
+        if (moduleName === 'crops') this.currentCropScan = record;
+        else if (moduleName === 'cattle') this.currentCattleScan = record;
+        else this.currentSoilScan = record;
+
+        await addToStore(moduleName, {
+            title: (record.title || record.breed || record.soil).en,
+            severity: record.severity || "healthy",
+            date: new Date().toLocaleDateString(),
+            raw: record
+        });
+
+        this.displayScanResults(moduleName, record);
+        this.renderScanHistory(moduleName);
     }
 
     displayScanResults(moduleName, record) {
         document.getElementById('scanPlaceholderContent').classList.add('hidden');
+        document.getElementById('scanMatchPicker')?.classList.add('hidden');
         const resultsContent = document.getElementById('scanResultsContent');
         resultsContent.classList.remove('hidden');
 
@@ -1832,7 +1873,8 @@ class FarmtoraApp {
         const badge = document.getElementById('scanSeverityBadge');
         badge.className = "status-badge-container";
         
-        const severity = record.severity || (moduleName === 'soil' ? 'healthy' : 'healthy');
+        const severity = record.severity || 'healthy';
+        badge.style.display = moduleName === 'crops' ? '' : 'none';
         if (severity === 'critical') {
             badge.classList.add('status-badge-critical');
             badge.innerHTML = `<i data-lucide="alert-octagon"></i>${this.t('critical')}`;
@@ -1845,26 +1887,16 @@ class FarmtoraApp {
         }
 
         // Render Title Name
-        const titleVal = record.title ? record.title[this.currentLang] : record.breed ? record.breed[this.currentLang] : record.soil[this.currentLang];
-        document.getElementById('scanResultName').textContent = titleVal;
+        document.getElementById('scanResultName').textContent = this.getRecordTitle(record);
+        const note = (key) => `<p class="guidance-note"><i data-lucide="info"></i><span>${this.t(key)}</span></p>`;
+        const backButton = `<button type="button" class="btn btn-outline match-back" onclick="window.app.showMatchPicker('${moduleName}')"><i data-lucide="rotate-ccw"></i>${this.t('chooseAnother')}</button>`;
 
         // Render Module Specific Stats
         const statContainer = document.getElementById('resultsStatContainer');
         const recsContainer = document.getElementById('recsContainer');
 
         if (moduleName === 'crops') {
-            statContainer.innerHTML = `
-                <div class="result-stats-row">
-                    <div class="result-stat-card glass">
-                        <p class="result-item-label">${this.t('confidence')}</p>
-                        <h4 class="result-stat-val">${record.confidence}%</h4>
-                    </div>
-                    <div class="result-stat-card glass">
-                        <p class="result-item-label">Status</p>
-                        <h4 class="result-stat-val" style="color: ${severity==='critical'?'var(--destructive)':'var(--primary)'}">${severity==='healthy'?'Active':'Infected'}</h4>
-                    </div>
-                </div>
-            `;
+            statContainer.innerHTML = note('referenceNote');
 
             recsContainer.innerHTML = `
                 <h3 class="result-treatment-heading"><i data-lucide="activity"></i>${this.t('treatments')}</h3>
@@ -1875,36 +1907,27 @@ class FarmtoraApp {
                 <ul class="result-list">
                     ${record.preventions[this.currentLang].map(p => `<li class="result-list-item"><i data-lucide="check"></i>${p}</li>`).join('')}
                 </ul>
+                ${backButton}
             `;
 
         } else if (moduleName === 'cattle') {
-            const healthStatusStr = record.health[this.currentLang];
-            statContainer.innerHTML = `
-                <div class="result-stats-row">
-                    <div class="result-stat-card glass">
-                        <p class="result-item-label">${this.t('confidence')}</p>
-                        <h4 class="result-stat-val">${record.confidence}%</h4>
-                    </div>
-                    <div class="result-stat-card glass">
-                        <p class="result-item-label">Health</p>
-                        <h4 class="result-stat-val" style="font-size: 0.95rem; line-height:1.3; margin-top:0.4rem;">${healthStatusStr}</h4>
-                    </div>
-                </div>
-            `;
+            statContainer.innerHTML = note('vetNote');
 
             recsContainer.innerHTML = `
                 <h3 class="result-treatment-heading"><i data-lucide="shield-alert"></i>${this.t('vaccineTracker')}</h3>
                 <ul class="result-list" style="margin-bottom: 2rem;">
                     ${record.vaccines[this.currentLang].map(v => `<li class="result-list-item"><i data-lucide="syringe" style="color: var(--farm-rose)"></i>${v}</li>`).join('')}
                 </ul>
-                <h3 class="result-treatment-heading"><i data-lucide="activity"></i>Care Recommendations</h3>
+                <h3 class="result-treatment-heading"><i data-lucide="activity"></i>${this.t('careTips')}</h3>
                 <ul class="result-list">
                     ${record.treatments[this.currentLang].map(t => `<li class="result-list-item"><i data-lucide="check"></i>${t}</li>`).join('')}
                 </ul>
+                ${backButton}
             `;
 
         } else { // Soil Matrix Gauges
-            statContainer.innerHTML = `
+            statContainer.innerHTML = note('soilNote') + `
+                <p class="result-item-label" style="margin-top:1.5rem;">${this.t('soilNutrients')}</p>
                 <!-- Nutrients grid -->
                 <div class="soil-gauge-container" style="margin-bottom: 2rem;">
                     <div class="soil-gauge-card glass">
@@ -1941,6 +1964,7 @@ class FarmtoraApp {
                 <ul class="result-list">
                     ${record.recommendations[this.currentLang].map(r => `<li class="result-list-item"><i data-lucide="check"></i>${r}</li>`).join('')}
                 </ul>
+                ${backButton}
             `;
         }
 
@@ -1952,12 +1976,12 @@ class FarmtoraApp {
         if (!grid) return;
         const list = await getAllFromStore(moduleName);
         if (list.length === 0) {
-            grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--muted-foreground); padding: 2rem;">No archived scans recorded.</p>`;
+            grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--muted-foreground); padding: 2rem;">${this.t('noRecords')}</p>`;
             return;
         }
 
         grid.innerHTML = list.reverse().map(item => {
-            const itemTitle = item.raw.title ? item.raw.title[this.currentLang] : item.raw.breed ? item.raw.breed[this.currentLang] : item.raw.soil[this.currentLang];
+            const itemTitle = this.getRecordTitle(item.raw);
             const icon = moduleName === 'crops' ? 'leaf' : (moduleName === 'cattle' ? 'paw-print' : 'layers');
             const color = moduleName === 'crops' ? 'var(--primary)' : (moduleName === 'cattle' ? 'var(--farm-rose)' : 'var(--farm-soil)');
             return `
@@ -1967,7 +1991,7 @@ class FarmtoraApp {
                         <span class="history-card-date">${item.date}</span>
                     </div>
                     <h4>${itemTitle.split(' - ')[0]}</h4>
-                    <div class="history-card-meta">${this.t('critical')}: ${item.severity.toUpperCase()}</div>
+                    ${moduleName === 'crops' ? `<div class="history-card-meta">${this.t('statusLabel')}: ${this.t(item.severity) || item.severity}</div>` : ''}
                 </div>
             `;
         }).join('');
@@ -2004,41 +2028,45 @@ class FarmtoraApp {
         const totalScans = crops.length + cattle.length + soil.length;
         document.getElementById('dashScansCount').textContent = totalScans;
         
-        const activeCattle = 12 + cattle.filter(c => c.severity === 'healthy').length;
+        const activeCattle = cattle.length;
         document.getElementById('dashCattleCount').textContent = activeCattle;
         
         const avgPh = soil.length > 0 ? (soil.reduce((acc, curr) => acc + (curr.raw.ph || 6.5), 0) / soil.length).toFixed(1) : "6.5";
         document.getElementById('dashSoilPh').textContent = `${avgPh} pH`;
 
         // Crop chart details
-        const cropH = 15 + crops.filter(c => c.severity === 'healthy').length;
-        const cropW = 3 + crops.filter(c => c.severity === 'attention').length;
-        const cropC = 2 + crops.filter(c => c.severity === 'critical').length;
+        const cropH = crops.filter(c => c.severity === 'healthy').length;
+        const cropW = crops.filter(c => c.severity === 'attention').length;
+        const cropC = crops.filter(c => c.severity === 'critical').length;
         const cropTotal = cropH + cropW + cropC;
-        const cropPercent = Math.round((cropH / cropTotal) * 100);
+        const cropPercent = cropTotal ? Math.round((cropH / cropTotal) * 100) : 0;
         document.getElementById('cropPercentText').textContent = `${cropPercent}%`;
         document.getElementById('dashCropHealthy').textContent = cropH;
         document.getElementById('dashCropWarning').textContent = cropW;
         document.getElementById('dashCropCritical').textContent = cropC;
 
         // Cattle details
-        const catH = 8 + cattle.filter(c => c.severity === 'healthy').length;
-        const catO = 2 + cattle.filter(c => c.severity === 'attention').length;
+        const catH = cattle.filter(c => c.severity === 'healthy').length;
+        const catO = cattle.filter(c => c.severity === 'attention').length;
         const catC = cattle.filter(c => c.severity === 'critical').length;
         const catTotal = catH + catO + catC;
-        const cattlePercent = Math.round((catH / catTotal) * 100);
+        const cattlePercent = catTotal ? Math.round((catH / catTotal) * 100) : 0;
         document.getElementById('cattlePercentText').textContent = `${cattlePercent}%`;
         document.getElementById('dashCattleHealthy').textContent = catH;
         document.getElementById('dashCattleObserve').textContent = catO;
         document.getElementById('dashCattleCritical').textContent = catC;
 
         // Soil details
-        const loamCount = 60 + soil.filter(s => s.raw.soil.en.includes("Loam")).length;
-        const clayCount = 25 + soil.filter(s => s.raw.soil.en.includes("Clay")).length;
-        const sandCount = 15 + soil.filter(s => s.raw.soil.en.includes("Sand")).length;
-        document.getElementById('dashSoilLoam').textContent = `${loamCount}%`;
-        document.getElementById('dashSoilClay').textContent = `${clayCount}%`;
-        document.getElementById('dashSoilSand').textContent = `${sandCount}%`;
+        const loamCount = soil.filter(s => s.raw.soil.en.includes("Loam")).length;
+        const clayCount = soil.filter(s => s.raw.soil.en.includes("Clay")).length;
+        const sandCount = soil.filter(s => s.raw.soil.en.includes("Sand")).length;
+        const soilPct = (n) => soil.length ? `${Math.round((n / soil.length) * 100)}%` : '0%';
+        document.getElementById('dashSoilLoam').textContent = soilPct(loamCount);
+        document.getElementById('dashSoilClay').textContent = soilPct(clayCount);
+        document.getElementById('dashSoilSand').textContent = soilPct(sandCount);
+        const soilTop = [['Loam', loamCount], ['Clay', clayCount], ['Sand', sandCount]].sort((x, y) => y[1] - x[1])[0];
+        document.getElementById('soilPercentText').textContent = soil.length ? soilPct(soilTop[1]) : '0%';
+        document.getElementById('soilPercentLabel').textContent = soil.length ? soilTop[0] : '-';
 
         // Render Chart JS Objects
         this.renderDoughnutChart('cropChart', [cropH, cropW, cropC], ['#10b981', '#fb923c', '#ef4444']);
@@ -2082,79 +2110,27 @@ class FarmtoraApp {
     }
 
     renderNewsFeeds() {
-        const advisories = [
-            {
-                source: { en: "Ministry of Agriculture", kn: "ಕೃಷಿ ಸಚಿವಾಲಯ", hi: "कृषि मंत्रालय" },
-                time: { en: "2 hours ago", kn: "೨ ಗಂಟೆಗಳ ಹಿಂದೆ", hi: "२ घंटे पहले" },
-                title: { en: "Fall Armyworm Alert in Maize", kn: "ಮೆಕ್ಕೆಜೋಳದಲ್ಲಿ ಸೈನಿಕ ಹುಳು ಎಚ್ಚರಿಕೆ", hi: "मक्के में फॉल आर्मीवर्म का प्रकोप" },
-                desc: {
-                    en: "Recent weather shifts triggered pest outbreaks. Spray Chlorantraniliprole 18.5% SC immediately.",
-                    kn: "ಇತ್ತೀಚಿನ ಹವಾಮಾನ ಬದಲಾವಣೆಗಳು ಸೈನಿಕ ಹುಳುವಿನ ಬಾಧೆಯನ್ನು ಹೆಚ್ಚಿಸಿವೆ. ತಕ್ಷಣ ಕ್ಲೋರಂಟ್ರಾನಿಲಿಪ್ರೋಲ್ 18.5% ಸಿಂಪಡಿಸಿ.",
-                    hi: "हाल ही में मौसम में आए बदलाव से कीटों का प्रकोप बढ़ा है। तुरंत क्लोरेंट्रानिलिप्रोल 18.5% एससी का छिड़काव करें।"
-                }
-            },
-            {
-                source: { en: "Ground Water Board", kn: "ಭೂಗರ್ಭ ಜಲ ಮಂಡಳಿ", hi: "भूजल बोर्ड" },
-                time: { en: "1 day ago", kn: "೧ ದಿನದ ಹಿಂದೆ", hi: "१ दिन पहले" },
-                title: { en: "Monsoon Delays: Alternative Crops", kn: "ಮುಂಗಾರು ವಿಳಂಬ: ಪರ್ಯಾಯ ಬೆಳೆಗಳು", hi: "मानसून में देरी: वैकल्पिक फसलें" },
-                desc: {
-                    en: "Slight monsoon wind delays expected. Farmers should prioritize low-water legumes and millets.",
-                    kn: "ಮುಂಗಾರು ಮಳೆ ಸ್ವಲ್ಪ ವಿಳಂಬವಾಗುವ ಸಾಧ್ಯತೆ ಇದೆ. ರೈತರು ಕಡಿಮೆ ನೀರು ಬಳಸುವ ಬೇಳೆಕಾಳು ಮತ್ತು ರಾಗಿಗೆ ಆದ್ಯತೆ ನೀಡಬೇಕು.",
-                    hi: "मानसून में थोड़ी देरी की संभावना। किसान कम पानी वाली दलहन और बाजरे की फसलों को प्राथमिकता दें।"
-                }
-            }
-        ];
+        // Links to real, official services instead of invented news items.
+        const sources = [{"source": {"en": "India Meteorological Department", "kn": "ಭಾರತೀಯ ಹವಾಮಾನ ಇಲಾಖೆ", "hi": "भारत मौसम विज्ञान विभाग"}, "title": {"en": "District agromet advisories", "kn": "ಜಿಲ್ಲಾ ಕೃಷಿ ಹವಾಮಾನ ಸಲಹೆಗಳು", "hi": "ज़िला कृषि-मौसम सलाह"}, "desc": {"en": "Official weather-based crop advice for your district, updated twice a week.", "kn": "ನಿಮ್ಮ ಜಿಲ್ಲೆಗೆ ಹವಾಮಾನ ಆಧಾರಿತ ಅಧಿಕೃತ ಬೆಳೆ ಸಲಹೆ, ವಾರಕ್ಕೆ ಎರಡು ಬಾರಿ ನವೀಕರಣ.", "hi": "आपके ज़िले के लिए मौसम आधारित आधिकारिक फसल सलाह, सप्ताह में दो बार अपडेट।"}, "url": "https://mausam.imd.gov.in/"}, {"source": {"en": "Agmarknet (Govt. of India)", "kn": "ಅಗ್‌ಮಾರ್ಕ್‌ನೆಟ್ (ಭಾರತ ಸರ್ಕಾರ)", "hi": "एगमार्कनेट (भारत सरकार)"}, "title": {"en": "Today's mandi prices", "kn": "ಇಂದಿನ ಮಂಡಿ ದರಗಳು", "hi": "आज के मंडी भाव"}, "desc": {"en": "Check real arrival prices for your crop at nearby APMC markets.", "kn": "ಹತ್ತಿರದ ಎಪಿಎಂಸಿ ಮಾರುಕಟ್ಟೆಗಳಲ್ಲಿ ನಿಮ್ಮ ಬೆಳೆಯ ನಿಜವಾದ ದರ ನೋಡಿ.", "hi": "नज़दीकी APMC मंडियों में अपनी फसल के असली भाव देखें।"}, "url": "https://agmarknet.gov.in/"}, {"source": {"en": "Soil Health Card Scheme", "kn": "ಮಣ್ಣು ಆರೋಗ್ಯ ಕಾರ್ಡ್ ಯೋಜನೆ", "hi": "मृदा स्वास्थ्य कार्ड योजना"}, "title": {"en": "Get your soil tested", "kn": "ನಿಮ್ಮ ಮಣ್ಣನ್ನು ಪರೀಕ್ಷಿಸಿ", "hi": "अपनी मिट्टी की जांच कराएं"}, "desc": {"en": "Free soil testing with nutrient and fertiliser recommendations for your field.", "kn": "ನಿಮ್ಮ ಹೊಲಕ್ಕೆ ಪೋಷಕಾಂಶ ಮತ್ತು ಗೊಬ್ಬರ ಶಿಫಾರಸುಗಳೊಂದಿಗೆ ಉಚಿತ ಮಣ್ಣು ಪರೀಕ್ಷೆ.", "hi": "आपके खेत के लिए पोषक तत्व और उर्वरक सुझावों के साथ मुफ़्त मिट्टी जांच।"}, "url": "https://soilhealth.dac.gov.in/"}];
+        const help = [{"source": {"en": "Kisan Call Centre", "kn": "ಕಿಸಾನ್ ಕಾಲ್ ಸೆಂಟರ್", "hi": "किसान कॉल सेंटर"}, "title": {"en": "Call 1800-180-1551 (toll-free)", "kn": "1800-180-1551 ಗೆ ಕರೆ ಮಾಡಿ (ಉಚಿತ)", "hi": "1800-180-1551 पर कॉल करें (टोल-फ़्री)"}, "desc": {"en": "Talk to agriculture experts in your language about crop, pest or livestock problems.", "kn": "ಬೆಳೆ, ಕೀಟ ಅಥವಾ ಜಾನುವಾರು ಸಮಸ್ಯೆಗಳ ಬಗ್ಗೆ ನಿಮ್ಮ ಭಾಷೆಯಲ್ಲಿ ಕೃಷಿ ತಜ್ಞರೊಂದಿಗೆ ಮಾತನಾಡಿ.", "hi": "फसल, कीट या पशु की समस्याओं पर अपनी भाषा में कृषि विशेषज्ञों से बात करें।"}, "url": "tel:18001801551"}, {"source": {"en": "ICAR", "kn": "ಐಸಿಎಆರ್", "hi": "आईसीएआर"}, "title": {"en": "Find your Krishi Vigyan Kendra", "kn": "ನಿಮ್ಮ ಕೃಷಿ ವಿಜ್ಞಾನ ಕೇಂದ್ರವನ್ನು ಹುಡುಕಿ", "hi": "अपना कृषि विज्ञान केंद्र खोजें"}, "desc": {"en": "Your district KVK can confirm a crop disease and advise on treatment.", "kn": "ನಿಮ್ಮ ಜಿಲ್ಲೆಯ ಕೆವಿಕೆ ಬೆಳೆ ರೋಗವನ್ನು ಖಚಿತಪಡಿಸಿ ಚಿಕಿತ್ಸೆ ಬಗ್ಗೆ ಸಲಹೆ ನೀಡುತ್ತದೆ.", "hi": "आपके ज़िले का KVK फसल रोग की पुष्टि कर इलाज की सलाह दे सकता है।"}, "url": "https://icar.org.in/"}];
 
-        const research = [
-            {
-                source: { en: "Precision Farming Journal", kn: "ಪ್ರಿಸಿಸನ್ ಫಾರ್ಮಿಂಗ್ ಜರ್ನಲ್", hi: "प्रिसिजन फार्मिंग जर्नल" },
-                time: { en: "May 2026", kn: "ಮೇ ೨೦೨೬", hi: "मई २०२६" },
-                title: { en: "Evaluating On-Device Pathology Diagnostics", kn: "ಆನ್-ಡಿವೈಸ್ ಬೆಳೆ ರೋಗನಿರ್ಣಯದ ಮೌಲ್ಯಮಾಪನ", hi: "ऑन-डिवाइस फसल रोग निदान का मूल्यांकन" },
-                desc: {
-                    en: "Visual transformers achieve up to 96.8% precision for leaf blight identification on-device, surpassing manuals.",
-                    kn: "ದೃಶ್ಯ ಟ್ರಾನ್ಸ್‌ಫಾರ್ಮರ್‌ಗಳು ಮೊಬೈಲ್ ಸಾಧನದಲ್ಲೇ ಶೇ. 96.8 ರಷ್ಟು ನಿಖರವಾಗಿ ಎಲೆ ಅಂಗಮಾರಿ ರೋಗ ಪತ್ತೆ ಹಚ್ಚುತ್ತವೆ.",
-                    hi: "विजुअल ट्रांसफार्मर मोबाइल पर ही ९६.८% सटीकता के साथ पत्ती के झुलसा रोग की पहचान करने में सक्षम हैं।"
-                }
-            },
-            {
-                source: { en: "Soil Biotech Review", kn: "ಸಾಯಿಲ್ ಬಯೋಟೆಕ್ ರಿವ್ಯೂ", hi: "सॉइल बायोटेक रिव्यू" },
-                time: { en: "April 2026", kn: "ಏಪ್ರಿಲ್ ೨೦೨೬", hi: "अप्रैल २०२६" },
-                title: { en: "Sub-surface Nitrogen Loam Retention", kn: "ದುಬ್ಬಣ್ಣು ಮಣ್ಣಿನಲ್ಲಿ ಸಾರಜನಕ ಉಳಿಸಿಕೊಳ್ಳುವಿಕೆ", hi: "दूमट मिट्टी में नाइट्रोजन प्रतिधारण" },
-                desc: {
-                    en: "Incorporating organic loam compost substrates reduces sub-surface leaching washing rates by 18%.",
-                    kn: "ಸಾವಯವ ಲೋಮ್ ಗೊಬ್ಬರ ಮಿಶ್ರಣವು ಮಣ್ಣಿನಲ್ಲಿ ಸಾರಜನಕ ಕೊಚ್ಚಿ ಹೋಗುವ ಪ್ರಮಾಣವನ್ನು ಶೇ. 18 ರಷ್ಟು ಕಡಿಮೆ ಮಾಡುತ್ತದೆ.",
-                    hi: "जैविक दूमट खाद मिलाने से उप-सतह नाइट्रोजन रिसाव की दर १८% तक कम हो जाती है।"
-                }
-            }
-        ];
+        const card = (item) => `
+            <a class="news-card glass news-card-link" href="${item.url}" ${item.url.startsWith('http') ? 'target="_blank" rel="noopener"' : ''}>
+                <div class="news-card-header">
+                    <span class="news-card-source">${item.source[this.currentLang] || item.source.en}</span>
+                    <i data-lucide="${item.url.startsWith('tel:') ? 'phone' : 'external-link'}" style="width:1rem;height:1rem;"></i>
+                </div>
+                <h4>${item.title[this.currentLang] || item.title.en}</h4>
+                <p>${item.desc[this.currentLang] || item.desc.en}</p>
+            </a>
+        `;
 
         const advContainer = document.getElementById('advisoriesList');
-        if (advContainer) {
-            advContainer.innerHTML = advisories.map(item => `
-                <div class="news-card glass">
-                    <div class="news-card-header">
-                        <span class="news-card-source">${item.source[this.currentLang]}</span>
-                        <span class="news-card-date">${item.time[this.currentLang]}</span>
-                    </div>
-                    <h4>${item.title[this.currentLang]}</h4>
-                    <p>${item.desc[this.currentLang]}</p>
-                </div>
-            `).join('');
-        }
+        if (advContainer) advContainer.innerHTML = sources.map(card).join('');
 
         const resContainer = document.getElementById('researchList');
-        if (resContainer) {
-            resContainer.innerHTML = research.map(item => `
-                <div class="news-card glass">
-                    <div class="news-card-header">
-                        <span class="news-card-source">${item.source[this.currentLang]}</span>
-                        <span class="news-card-date">${item.time[this.currentLang]}</span>
-                    </div>
-                    <h4>${item.title[this.currentLang]}</h4>
-                    <p>${item.desc[this.currentLang]}</p>
-                </div>
-            `).join('');
-        }
+        if (resContainer) resContainer.innerHTML = help.map(card).join('');
+        if (window.lucide) lucide.createIcons();
     }
 
     // 9. Account Profile & Authentication
@@ -2391,7 +2367,7 @@ class FarmtoraApp {
                             <i data-lucide="trending-up"></i>
                         </div>
                         <div>
-                            <p class="dashboard-kpi-label">Top Gainer Today</p>
+                            <p class="dashboard-kpi-label">Top Gainer (sample)</p>
                             <h2 class="dashboard-kpi-value" style="font-size: 1.25rem; color: #16a34a;">Tomato (+6.8%)</h2>
                         </div>
                     </div>
@@ -2400,7 +2376,7 @@ class FarmtoraApp {
                             <i data-lucide="trending-down"></i>
                         </div>
                         <div>
-                            <p class="dashboard-kpi-label">Top Price Drop</p>
+                            <p class="dashboard-kpi-label">Top Price Drop (sample)</p>
                             <h2 class="dashboard-kpi-value" style="font-size: 1.25rem; color: #ef4444;">Onion (-4.2%)</h2>
                         </div>
                     </div>
@@ -2409,8 +2385,8 @@ class FarmtoraApp {
                             <i data-lucide="refresh-cw"></i>
                         </div>
                         <div>
-                            <p class="dashboard-kpi-label">Benchmark Status</p>
-                            <h2 class="dashboard-kpi-value" style="font-size: 1.25rem;">Live Mandi Sync</h2>
+                            <p class="dashboard-kpi-label">Data Source</p>
+                            <h2 class="dashboard-kpi-value" style="font-size: 1.25rem;">${this.t('marketKpi')}</h2>
                         </div>
                     </div>
                 </div>
@@ -2480,7 +2456,7 @@ class FarmtoraApp {
                         </div>
                         <div style="margin-top: 1rem;">
                             <div style="font-size: 1.5rem; font-weight: 700; color: var(--text);">${c.price}</div>
-                            <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem;">Updated 15 mins ago</div>
+                            <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem;">${this.t('sampleData')}</div>
                         </div>
                     </div>
                 </div>

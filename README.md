@@ -7,15 +7,17 @@ An installable, offline-capable web app that puts a farmer's local weather, crop
 ## Features
 
 - **Location-based weather** – finds the user's place with OpenStreetMap (Nominatim) reverse geocoding or a city search, then loads the forecast from the Open-Meteo API.
-- **Crop guidance** – crop and disease reference cards with recommended actions.
-- **Market prices dashboard** – searchable, filterable commodity price cards (grains, vegetables, cash crops) with trend indicators. *Prices are currently sample data.*
+- **Crop problem guide** – add an optional photo (checked on-device with TensorFlow.js MobileNet to confirm it shows a plant), then pick the problem that matches what you see to get treatment and prevention steps.
+- **Livestock and soil guides** – breed care tips with the usual vaccination schedule, and typical nutrients and suitable crops for each soil type.
+- **Official sources** – links to IMD agromet advisories, Agmarknet mandi prices, the Soil Health Card scheme, ICAR and the Kisan Call Centre (1800-180-1551).
+- **Market prices dashboard** – searchable, filterable commodity price cards with trend indicators. *Prices are sample data and are labelled as such in the app.*
 - **Three languages** – the whole UI switches between English, Kannada and Hindi; the choice is remembered on the device.
 - **Works offline (PWA)** – a service worker caches the app shell, and the app can be installed to the home screen.
 - **Farm login / registration** – stored locally in the browser.
 
 ## Tech stack
 
-JavaScript (no framework) · HTML/CSS · PWA (Web App Manifest + Service Worker) · Open-Meteo API · OpenStreetMap Nominatim · Vercel
+JavaScript (no framework) · HTML/CSS · PWA (Web App Manifest + Service Worker) · TensorFlow.js MobileNet · IndexedDB · Chart.js · Open-Meteo API · OpenStreetMap Nominatim · Vercel
 
 ## Run locally
 

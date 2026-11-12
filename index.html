@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Farmtora - AI Platform for Modern Farming</title>
-    <meta name="description" content="The ultimate high-performance AI platform for modern farming. On-device diagnostics, weather forecasting, soil analysis, and cattle health monitoring.">
+    <title>FarmTora – Weather, Crop &amp; Livestock Guide for Farmers</title>
+    <meta name="description" content="Local weather forecasts, a crop-problem guide, livestock and soil care tips and sample market prices for farmers, in English, Kannada and Hindi. Works offline.">
     <link rel="icon" href="public/farmtora_logo.png" type="image/png">
     
     <!-- PWA Setup -->
@@ -12,11 +12,11 @@
     <meta name="theme-color" content="#16a34a">
     
     <!-- Custom Style System -->
-    <link rel="stylesheet" href="styles.css?v=3">
+    <link rel="stylesheet" href="styles.css?v=4">
     
     <!-- External CDNs -->
     <!-- Chart.js for dashboard metrics -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <!-- Lucide Icons -->
     <script src="https://cdn.jsdelivr.net/npm/lucide@0.400.0/dist/umd/lucide.min.js"></script>
     <!-- TensorFlow.js and MobileNet for plant/animal/soil verification -->
@@ -135,7 +135,7 @@
     </div>
 
     <!-- Custom App Script -->
-    <script src="script.js"></script>
+    <script src="script.js?v=4"></script>
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
