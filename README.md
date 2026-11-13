@@ -6,6 +6,12 @@ An installable, offline-capable web app that puts a farmer's local weather, crop
 
 **Live demo:** https://farmtora-q28o.vercel.app
 
+## Screenshots
+
+| Home | Weather and farm advice |
+| --- | --- |
+| ![FarmTora home page](docs/screenshots/home.jpg) | ![FarmTora weather page](docs/screenshots/weather.jpg) |
+
 ## Features
 
 - **Location-based weather** – finds the user's place with OpenStreetMap (Nominatim) reverse geocoding or a city search, then loads current conditions (temperature, humidity, wind) and the 7-day forecast from the Open-Meteo API.
