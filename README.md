@@ -10,11 +10,14 @@ An installable, offline-capable web app that puts a farmer's local weather, crop
 
 - **Location-based weather** – finds the user's place with OpenStreetMap (Nominatim) reverse geocoding or a city search, then loads current conditions (temperature, humidity, wind) and the 7-day forecast from the Open-Meteo API.
 - **7-day farm advice** – turns the forecast (temperature, rain chance, rainfall and wind) into daily advice: best spraying days, when to irrigate or skip it, and frost, heat and heavy-rain warnings, in all three languages.
+- **Read aloud** – a "Listen" button reads the 7-day advice out loud in English, Kannada or Hindi (Web Speech API), for farmers who prefer listening to reading.
+- **My farm** – save a location once and the weather page always opens on it.
+- **Offline mode** – a banner shows when there is no internet, and the last saved forecast is shown instead of an error.
 - **Crop problem guide** – add an optional photo (checked on-device with TensorFlow.js MobileNet to confirm it shows a plant), then pick the problem that matches what you see to get treatment and prevention steps.
 - **Livestock and soil guides** – breed care tips with the usual vaccination schedule, and typical nutrients and suitable crops for each soil type.
 - **Official sources** – links to IMD agromet advisories, Agmarknet mandi prices, the Soil Health Card scheme, ICAR and the Kisan Call Centre (1800-180-1551).
 - **Market prices dashboard** – searchable, filterable commodity price cards with trend indicators. *Prices are sample data and are labelled as such in the app.*
-- **Three languages** – the whole UI switches between English, Kannada and Hindi; the choice is remembered on the device.
+- **Three languages** – the whole UI switches between English, Kannada and Hindi, with the switch always visible on phones; the choice is remembered on the device.
 - **Works offline (PWA)** – a service worker caches the app shell, and the app can be installed to the home screen.
 - **Farm login / registration** – stored locally in the browser.
 

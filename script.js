@@ -145,7 +145,15 @@ const TRANSLATIONS = {
         statusLabel: "Severity",
         photoTipTitle: "Add a photo (optional)",
         skipPhoto: "Skip photo and browse the guide",
-        marketKpi: "Sample Prices"
+        marketKpi: "Sample Prices",
+        offlineBanner: "You're offline. Showing the last saved data.",
+        savedWeatherNote: "Saved forecast from {time}. It updates when you're back online.",
+        listenAdvice: "Listen",
+        stopListening: "Stop",
+        speechUnavailable: "Read-aloud isn't supported in this browser.",
+        saveFarm: "Save as my farm",
+        farmSaved: "My farm",
+        farmSavedToast: "Saved. The weather page will open on your farm."
     },
     kn: {
         appName: "ಫಾರ್ಮ್‌ಟೋರಾ",
@@ -279,7 +287,15 @@ const TRANSLATIONS = {
         statusLabel: "ತೀವ್ರತೆ",
         photoTipTitle: "ಫೋಟೋ ಸೇರಿಸಿ (ಐಚ್ಛಿಕ)",
         skipPhoto: "ಫೋಟೋ ಬಿಟ್ಟು ಮಾರ್ಗದರ್ಶಿ ನೋಡಿ",
-        marketKpi: "ಮಾದರಿ ಬೆಲೆಗಳು"
+        marketKpi: "ಮಾದರಿ ಬೆಲೆಗಳು",
+        offlineBanner: "ನೀವು ಆಫ್‌ಲೈನ್‌ನಲ್ಲಿದ್ದೀರಿ. ಕೊನೆಯದಾಗಿ ಉಳಿಸಿದ ಮಾಹಿತಿ ತೋರಿಸಲಾಗುತ್ತಿದೆ.",
+        savedWeatherNote: "{time} ರಂದು ಉಳಿಸಿದ ಮುನ್ಸೂಚನೆ. ಮತ್ತೆ ಆನ್‌ಲೈನ್ ಆದಾಗ ನವೀಕರಣಗೊಳ್ಳುತ್ತದೆ.",
+        listenAdvice: "ಕೇಳಿ",
+        stopListening: "ನಿಲ್ಲಿಸಿ",
+        speechUnavailable: "ಈ ಬ್ರೌಸರ್‌ನಲ್ಲಿ ಓದಿ ಹೇಳುವ ಸೌಲಭ್ಯವಿಲ್ಲ.",
+        saveFarm: "ನನ್ನ ಹೊಲವಾಗಿ ಉಳಿಸಿ",
+        farmSaved: "ನನ್ನ ಹೊಲ",
+        farmSavedToast: "ಉಳಿಸಲಾಗಿದೆ. ಹವಾಮಾನ ಪುಟ ನಿಮ್ಮ ಹೊಲದೊಂದಿಗೆ ತೆರೆಯುತ್ತದೆ."
     },
     hi: {
         appName: "फार्मटोरा",
@@ -413,7 +429,15 @@ const TRANSLATIONS = {
         statusLabel: "गंभीरता",
         photoTipTitle: "फ़ोटो जोड़ें (वैकल्पिक)",
         skipPhoto: "फ़ोटो छोड़ें और गाइड देखें",
-        marketKpi: "नमूना मूल्य"
+        marketKpi: "नमूना मूल्य",
+        offlineBanner: "आप ऑफ़लाइन हैं। आख़िरी बार सहेजी गई जानकारी दिखाई जा रही है।",
+        savedWeatherNote: "{time} का सहेजा गया पूर्वानुमान। ऑनलाइन होने पर अपडेट होगा।",
+        listenAdvice: "सुनें",
+        stopListening: "रोकें",
+        speechUnavailable: "इस ब्राउज़र में पढ़कर सुनाने की सुविधा नहीं है।",
+        saveFarm: "मेरे खेत के रूप में सहेजें",
+        farmSaved: "मेरा खेत",
+        farmSavedToast: "सहेज लिया। मौसम पेज अब आपके खेत के साथ खुलेगा।"
     }
 };
 
@@ -657,12 +681,19 @@ class FarmtoraApp {
         });
         
         // Re-render the current page and re-attach its event handlers
+        if ('speechSynthesis' in window) speechSynthesis.cancel();
+        this.updateOfflineBanner();
         const scrollY = window.scrollY;
         this.showPage(this.currentPage);
         window.scrollTo(0, scrollY);
     }
 
     setupEventListeners() {
+        // Offline banner
+        window.addEventListener('online', () => this.updateOfflineBanner());
+        window.addEventListener('offline', () => this.updateOfflineBanner());
+        this.updateOfflineBanner();
+
         // Desktop Navbar & Account Profile Trigger clicks
         document.querySelectorAll('.nav-item, .mobile-nav-item, .brand-link, .btn-account').forEach(link => {
             link.addEventListener('click', (e) => {
@@ -959,6 +990,10 @@ class FarmtoraApp {
                                 <i data-lucide="map-pin"></i>
                                 <span id="weatherLocName">-</span>
                             </div>
+                            <button type="button" id="btnSaveFarm" class="btn btn-outline btn-save-farm">
+                                <i data-lucide="home"></i><span>${this.t('saveFarm')}</span>
+                            </button>
+                            <p id="savedWeatherNote" class="saved-weather-note hidden"></p>
                             <div class="weather-temp-display">
                                 <span id="weatherTemp">-</span>
                                 <span class="weather-temp-degree">°C</span>
@@ -1025,10 +1060,15 @@ class FarmtoraApp {
                     <div class="forecast-grid" id="weatherForecastGrid"></div>
 
                     <!-- 7-Day Farm Advice -->
-                    <h3 class="forecast-heading">
-                        <span class="forecast-heading-icon"><i data-lucide="sprout"></i></span>
-                        ${window.FarmAdvice ? FarmAdvice.text('title', this.currentLang) : ''}
-                    </h3>
+                    <div class="farm-advice-heading-row">
+                        <h3 class="forecast-heading">
+                            <span class="forecast-heading-icon"><i data-lucide="sprout"></i></span>
+                            ${window.FarmAdvice ? FarmAdvice.text('title', this.currentLang) : ''}
+                        </h3>
+                        <button type="button" id="btnListenAdvice" class="btn btn-outline btn-listen" aria-pressed="false">
+                            <i data-lucide="volume-2"></i><span>${this.t('listenAdvice')}</span>
+                        </button>
+                    </div>
                     <div id="farmAdviceSummary" class="farm-advice-summary"></div>
                     <div id="farmAdviceList" class="farm-advice-list"></div>
                     <p class="farm-advice-note">${window.FarmAdvice ? FarmAdvice.text('note', this.currentLang) : ''}</p>
@@ -1424,11 +1464,17 @@ class FarmtoraApp {
         this.renderWeatherHistory();
         
         // Restore active search or load default Bangalore
+        const farm = this.getSavedFarm();
         if (this.currentWeatherInfo) {
             this.displayWeatherData(this.currentWeatherInfo);
+        } else if (farm) {
+            this.fetchWeather(farm.lat, farm.lon, farm.name);
         } else {
             this.fetchWeather(12.97, 77.59, "Bangalore, Karnataka, IN");
         }
+
+        document.getElementById('btnSaveFarm')?.addEventListener('click', () => this.saveCurrentAsFarm());
+        document.getElementById('btnListenAdvice')?.addEventListener('click', () => this.toggleReadAloud());
     }
 
     renderSearchResults(results) {
@@ -1523,6 +1569,10 @@ class FarmtoraApp {
             };
 
             this.currentWeatherInfo = record;
+            this.isShowingSavedWeather = false;
+            try {
+                localStorage.setItem('farmtora_last_weather', JSON.stringify({ record, savedAt: Date.now() }));
+            } catch (_e) { /* storage full or blocked */ }
             this.displayWeatherData(record);
             
             // Add search entry to IndexedDB weather table
@@ -1536,7 +1586,15 @@ class FarmtoraApp {
             document.getElementById('weatherError')?.classList.add('hidden');
         } catch(e) {
             console.error("Weather fetch failure", e);
-            document.getElementById('weatherError')?.classList.remove('hidden');
+            const saved = this.getSavedWeather();
+            if (saved && !this.currentWeatherInfo) {
+                this.currentWeatherInfo = saved.record;
+                this.isShowingSavedWeather = true;
+                this.savedWeatherAt = saved.savedAt;
+                this.displayWeatherData(saved.record);
+            } else if (!saved) {
+                document.getElementById('weatherError')?.classList.remove('hidden');
+            }
         }
     }
 
@@ -1546,6 +1604,16 @@ class FarmtoraApp {
         hero.classList.remove('hidden');
 
         document.getElementById('weatherLocName').textContent = record.name;
+        this.updateFarmButton(record);
+        const note = document.getElementById('savedWeatherNote');
+        if (note) {
+            const show = this.isShowingSavedWeather && this.savedWeatherAt;
+            note.classList.toggle('hidden', !show);
+            if (show) {
+                const when = new Date(this.savedWeatherAt).toLocaleString(this.currentLang, { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
+                note.textContent = this.t('savedWeatherNote').replace('{time}', when);
+            }
+        }
         document.getElementById('weatherTemp').textContent = Math.round(record.temp);
         
         const cond = this.getWeatherCondition(record.code);
@@ -1604,6 +1672,109 @@ class FarmtoraApp {
         }
         this.renderFarmAdvice(record.raw.daily);
         lucide.createIcons();
+    }
+
+    getSavedFarm() {
+        try {
+            const farm = JSON.parse(localStorage.getItem('farmtora_farm') || 'null');
+            return farm && isFinite(farm.lat) && isFinite(farm.lon) ? farm : null;
+        } catch (_e) {
+            return null;
+        }
+    }
+
+    getSavedWeather() {
+        try {
+            const saved = JSON.parse(localStorage.getItem('farmtora_last_weather') || 'null');
+            return saved && saved.record && saved.record.raw ? saved : null;
+        } catch (_e) {
+            return null;
+        }
+    }
+
+    saveCurrentAsFarm() {
+        const record = this.currentWeatherInfo;
+        if (!record) return;
+        try {
+            localStorage.setItem('farmtora_farm', JSON.stringify({ lat: record.lat, lon: record.lon, name: record.name }));
+        } catch (_e) { return; }
+        this.updateFarmButton(record);
+        this.showToast(this.t('farmSavedToast'));
+    }
+
+    updateFarmButton(record) {
+        const btn = document.getElementById('btnSaveFarm');
+        if (!btn) return;
+        const farm = this.getSavedFarm();
+        const isFarm = farm && record && Math.abs(farm.lat - record.lat) < 0.001 && Math.abs(farm.lon - record.lon) < 0.001;
+        btn.classList.toggle('is-farm', Boolean(isFarm));
+        btn.disabled = Boolean(isFarm);
+        btn.querySelector('span').textContent = isFarm ? this.t('farmSaved') : this.t('saveFarm');
+    }
+
+    showToast(message) {
+        let toast = document.getElementById('farmToast');
+        if (!toast) {
+            toast = document.createElement('div');
+            toast.id = 'farmToast';
+            toast.className = 'farm-toast';
+            toast.setAttribute('role', 'status');
+            document.body.appendChild(toast);
+        }
+        toast.textContent = message;
+        toast.classList.add('visible');
+        clearTimeout(this.toastTimer);
+        this.toastTimer = setTimeout(() => toast.classList.remove('visible'), 3000);
+    }
+
+    updateOfflineBanner() {
+        const banner = document.getElementById('offlineBanner');
+        if (!banner) return;
+        banner.textContent = this.t('offlineBanner');
+        banner.classList.toggle('hidden', navigator.onLine !== false);
+    }
+
+    // Reads the 7-day advice out loud in the selected language (Web Speech API).
+    toggleReadAloud() {
+        const btn = document.getElementById('btnListenAdvice');
+        if (!('speechSynthesis' in window) || !window.FarmAdvice) {
+            this.showToast(this.t('speechUnavailable'));
+            return;
+        }
+        if (speechSynthesis.speaking) {
+            speechSynthesis.cancel();
+            return;
+        }
+        const daily = this.currentWeatherInfo?.raw?.daily;
+        if (!daily) return;
+
+        const lang = this.currentLang;
+        const voiceLang = { en: 'en-IN', kn: 'kn-IN', hi: 'hi-IN' }[lang] || 'en-IN';
+        const week = FarmAdvice.adviseWeek(daily);
+        const sentences = week.map((day) => {
+            const label = new Date(`${day.date}T00:00:00`).toLocaleDateString(lang, { weekday: 'long', day: 'numeric', month: 'long' });
+            return `${label}. ${day.advice.map((item) => FarmAdvice.describe(item, lang)).join(' ')}`;
+        });
+
+        const voices = speechSynthesis.getVoices();
+        const voice = voices.find((v) => v.lang === voiceLang) || voices.find((v) => v.lang && v.lang.startsWith(lang));
+        const setState = (speaking) => {
+            if (!btn) return;
+            btn.setAttribute('aria-pressed', String(speaking));
+            btn.classList.toggle('is-speaking', speaking);
+            btn.querySelector('span').textContent = speaking ? this.t('stopListening') : this.t('listenAdvice');
+        };
+
+        sentences.forEach((text, i) => {
+            const u = new SpeechSynthesisUtterance(text);
+            u.lang = voiceLang;
+            if (voice) u.voice = voice;
+            u.rate = 0.95;
+            if (i === 0) u.onstart = () => setState(true);
+            if (i === sentences.length - 1) u.onend = () => setState(false);
+            u.onerror = () => setState(false);
+            speechSynthesis.speak(u);
+        });
     }
 
     renderFarmAdvice(daily) {
