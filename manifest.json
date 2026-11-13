@@ -4,8 +4,8 @@
   "description": "Weather, crop-problem guide and livestock and soil care tips for farmers, in English, Kannada and Hindi.",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#16a34a",
+  "background_color": "#f6f1e6",
+  "theme_color": "#2f6b3a",
   "icons": [
     {
       "src": "public/farmtora_logo.png",

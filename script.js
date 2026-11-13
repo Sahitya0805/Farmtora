@@ -153,7 +153,10 @@ const TRANSLATIONS = {
         speechUnavailable: "Read-aloud isn't supported in this browser.",
         saveFarm: "Save as my farm",
         farmSaved: "My farm",
-        farmSavedToast: "Saved. The weather page will open on your farm."
+        farmSavedToast: "Saved. The weather page will open on your farm.",
+        todayOnFarm: "Today on your farm",
+        todayEmpty: "Open the weather page once and today's forecast and advice will show here.",
+        helpfulLinks: "Helpful links"
     },
     kn: {
         appName: "ಫಾರ್ಮ್‌ಟೋರಾ",
@@ -295,7 +298,10 @@ const TRANSLATIONS = {
         speechUnavailable: "ಈ ಬ್ರೌಸರ್‌ನಲ್ಲಿ ಓದಿ ಹೇಳುವ ಸೌಲಭ್ಯವಿಲ್ಲ.",
         saveFarm: "ನನ್ನ ಹೊಲವಾಗಿ ಉಳಿಸಿ",
         farmSaved: "ನನ್ನ ಹೊಲ",
-        farmSavedToast: "ಉಳಿಸಲಾಗಿದೆ. ಹವಾಮಾನ ಪುಟ ನಿಮ್ಮ ಹೊಲದೊಂದಿಗೆ ತೆರೆಯುತ್ತದೆ."
+        farmSavedToast: "ಉಳಿಸಲಾಗಿದೆ. ಹವಾಮಾನ ಪುಟ ನಿಮ್ಮ ಹೊಲದೊಂದಿಗೆ ತೆರೆಯುತ್ತದೆ.",
+        todayOnFarm: "ಇಂದು ನಿಮ್ಮ ಹೊಲದಲ್ಲಿ",
+        todayEmpty: "ಒಮ್ಮೆ ಹವಾಮಾನ ಪುಟ ತೆರೆಯಿರಿ, ಇಂದಿನ ಮುನ್ಸೂಚನೆ ಮತ್ತು ಸಲಹೆ ಇಲ್ಲಿ ಕಾಣುತ್ತದೆ.",
+        helpfulLinks: "ಉಪಯುಕ್ತ ಕೊಂಡಿಗಳು"
     },
     hi: {
         appName: "फार्मटोरा",
@@ -437,7 +443,10 @@ const TRANSLATIONS = {
         speechUnavailable: "इस ब्राउज़र में पढ़कर सुनाने की सुविधा नहीं है।",
         saveFarm: "मेरे खेत के रूप में सहेजें",
         farmSaved: "मेरा खेत",
-        farmSavedToast: "सहेज लिया। मौसम पेज अब आपके खेत के साथ खुलेगा।"
+        farmSavedToast: "सहेज लिया। मौसम पेज अब आपके खेत के साथ खुलेगा।",
+        todayOnFarm: "आज आपके खेत पर",
+        todayEmpty: "एक बार मौसम पेज खोलें, आज का पूर्वानुमान और सलाह यहां दिखेगी।",
+        helpfulLinks: "उपयोगी लिंक"
     }
 };
 
@@ -750,7 +759,9 @@ class FarmtoraApp {
         lucide.createIcons();
         window.scrollTo(0, 0);
 
-        if (pageName === 'weather') {
+        if (pageName === 'home') {
+            this.initHomeEvents();
+        } else if (pageName === 'weather') {
             this.initWeatherEvents();
         } else if (pageName === 'crops') {
             this.initScanEvents('crops');
@@ -809,28 +820,31 @@ class FarmtoraApp {
     getHomeTemplate() {
         return `
             <div class="page animate-fade-in">
-                <!-- Moving Blur blobs -->
-                <div class="bg-blob animate-blob" style="top: -60px; left: -60px; width: 600px; height: 600px; background: rgba(52, 211, 153, 0.07);"></div>
-                <div class="bg-blob animate-blob animation-delay-2000" style="top: 150px; right: -40px; width: 500px; height: 500px; background: rgba(34, 211, 238, 0.05);"></div>
-                <div class="bg-blob animate-blob animation-delay-4000" style="bottom: -100px; left: 40%; width: 700px; height: 700px; background: rgba(167, 139, 250, 0.05);"></div>
-
                 <!-- Hero -->
-                <section class="hero-section">
-                    <video class="hero-video" src="public/crops-video.mp4" autoplay loop muted></video>
-                    
-                    <div class="badge-zap glass">
-                        <i data-lucide="zap"></i><span>${this.t('tagline')}</span>
+                <section class="hero-section hero-field">
+                    <div class="hero-copy">
+                        <div class="badge-zap">
+                            <i data-lucide="sprout"></i><span>${this.t('tagline')}</span>
+                        </div>
+                        <h1 class="hero-title">${this.t('homeTitle')}</h1>
+                        <p class="hero-subtitle">${this.t('homeSubtitle')}</p>
+
+                        <div class="hero-buttons">
+                            <a href="#weather" class="btn btn-primary">
+                                <i data-lucide="cloud-sun"></i>${this.t('launchApp')}
+                            </a>
+                            <a href="#crops" class="btn btn-outline">
+                                <i data-lucide="leaf"></i>${this.t('navCrops')}
+                            </a>
+                        </div>
                     </div>
-                    <h1 class="hero-title">${this.t('homeTitle')}</h1>
-                    <p class="hero-subtitle">${this.t('homeSubtitle')}</p>
-                    
-                    <div class="hero-buttons">
-                        <a href="#weather" class="btn btn-primary">
-                            <i data-lucide="play-circle"></i>${this.t('launchApp')}
-                        </a>
-                        <a href="#dashboard" class="btn btn-outline">
-                            <i data-lucide="line-chart"></i>${this.t('navDashboard')}
-                        </a>
+
+                    <aside class="hero-today" aria-label="${this.t('todayOnFarm')}">
+                        ${this.getHeroTodayCard()}
+                    </aside>
+
+                    <div class="hero-hills" aria-hidden="true">
+                        <span class="hill hill-1"></span><span class="hill hill-2"></span><span class="hill hill-3"></span>
                     </div>
                 </section>
 
@@ -930,14 +944,14 @@ class FarmtoraApp {
                         </div>
 
                         <!-- Video Card side -->
-                        <div class="why-video-card glass">
-                            <video src="public/crops-video.mp4" autoplay loop muted></video>
-                            <div class="video-play-box glass">
-                                <div class="video-play-icon">
-                                    <i data-lucide="video"></i>
-                                </div>
-                                <h3>${this.t('globalScale')}</h3>
+                        <div class="why-lang-card">
+                            <p class="why-lang-label"><i data-lucide="languages"></i>${this.t('globalScale')}</p>
+                            <div class="why-lang-samples">
+                                <button type="button" class="why-lang-sample" data-lang-pick="en" lang="en">Namaste, farmer</button>
+                                <button type="button" class="why-lang-sample" data-lang-pick="kn" lang="kn">ನಮಸ್ಕಾರ, ರೈತರೇ</button>
+                                <button type="button" class="why-lang-sample" data-lang-pick="hi" lang="hi">नमस्ते, किसान भाई</button>
                             </div>
+                            <p class="why-lang-note">${this.t('globalScaleSub')}</p>
                         </div>
                     </div>
                 </section>
@@ -955,6 +969,33 @@ class FarmtoraApp {
                 </section>
             </div>
         `;
+    }
+
+    // "Today on your farm" card for the home hero, built from the last saved forecast.
+    getHeroTodayCard() {
+        const saved = this.getSavedWeather ? this.getSavedWeather() : null;
+        const quick = (page, icon, key) => `
+            <a href="#${page}" class="today-link"><i data-lucide="${icon}"></i><span>${this.t(key)}</span><i data-lucide="chevron-right"></i></a>`;
+        const links = `<div class="today-links">${quick('weather', 'cloud-sun', 'navWeather')}${quick('crops', 'leaf', 'navCrops')}${quick('cattle', 'paw-print', 'navCattle')}${quick('soil', 'layers', 'navSoil')}</div>`;
+        if (!saved || !window.FarmAdvice) {
+            return `<p class="today-label">${this.t('todayOnFarm')}</p><p class="today-empty">${this.t('todayEmpty')}</p>${links}`;
+        }
+        const r = saved.record;
+        const today = FarmAdvice.adviseWeek(r.raw.daily)[0];
+        const cond = this.getWeatherCondition(r.code);
+        const condText = this.currentLang === 'en' ? cond.text : (cond.textTranslated?.[this.currentLang] || cond.text);
+        const tip = today ? FarmAdvice.describe(today.advice[0], this.currentLang) : '';
+        return `
+            <p class="today-label">${this.t('todayOnFarm')}</p>
+            <div class="today-weather">
+                <div>
+                    <div class="today-place"><i data-lucide="map-pin"></i>${r.name}</div>
+                    <div class="today-cond">${condText}</div>
+                </div>
+                <div class="today-temp">${Math.round(r.temp)}°</div>
+            </div>
+            ${tip ? `<p class="today-tip level-${today.advice[0].level}"><i data-lucide="sprout"></i><span>${tip}</span></p>` : ''}
+            ${links}`;
     }
 
     getWeatherTemplate() {
@@ -1247,7 +1288,7 @@ class FarmtoraApp {
                         <div class="dash-chart-container">
                             <canvas id="cropChart"></canvas>
                             <div class="dash-chart-center-text">
-                                <span class="dash-chart-center-val" id="cropPercentText">75%</span>
+                                <span class="dash-chart-center-val" id="cropPercentText">0%</span>
                                 <span class="dash-chart-center-label">${this.t('healthy')}</span>
                             </div>
                         </div>
@@ -1269,7 +1310,7 @@ class FarmtoraApp {
                         <div class="dash-chart-container">
                             <canvas id="cattleChart"></canvas>
                             <div class="dash-chart-center-text">
-                                <span class="dash-chart-center-val" id="cattlePercentText">85%</span>
+                                <span class="dash-chart-center-val" id="cattlePercentText">0%</span>
                                 <span class="dash-chart-center-label">${this.t('healthy')}</span>
                             </div>
                         </div>
@@ -1306,7 +1347,7 @@ class FarmtoraApp {
                 <!-- advisories & news feeds -->
                 <div class="news-heading">
                     <i data-lucide="newspaper" style="color: var(--primary);"></i>
-                    <h3>${this.t('advisoryBoard')}</h3>
+                    <h3>${this.t('helpfulLinks')}</h3>
                 </div>
                 
                 <div class="news-layout">
@@ -1505,6 +1546,12 @@ class FarmtoraApp {
         } finally {
             this.hideLoading();
         }
+    }
+
+    initHomeEvents() {
+        document.querySelectorAll('[data-lang-pick]').forEach((btn) => {
+            btn.addEventListener('click', () => this.changeLanguage(btn.dataset.langPick));
+        });
     }
 
     initGeolocation() {

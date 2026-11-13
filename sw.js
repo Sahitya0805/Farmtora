@@ -1,10 +1,11 @@
-const CACHE_NAME = 'farmtora-cache-v4';
+const CACHE_NAME = 'farmtora-cache-v5';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
-  './styles.css?v=6',
+  './styles.css?v=7',
+  './farm-theme.css?v=2',
   './farm-advice.js?v=3',
-  './script.js?v=8',
+  './script.js?v=10',
   './manifest.json',
   './public/farmtora_logo.png'
 ];

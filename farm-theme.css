@@ -1,0 +1,775 @@
+/*
+ * FarmTora — "field journal" theme.
+ * Loaded after styles.css: warm paper background, field green, terracotta and
+ * mustard accents, solid cards instead of glass, and fonts that cover
+ * Latin, Kannada and Devanagari.
+ */
+:root {
+  --paper: #f6f1e6;
+  --paper-2: #efe7d6;
+  --surface: #fffdf8;
+  --ink: #1f2a1f;
+  --ink-soft: #4a5747;
+  --line: #e3d9c4;
+  --field: #2f6b3a;
+  --field-dark: #1d4a27;
+  --field-soft: #e4efdf;
+  --clay: #c2603d;
+  --clay-soft: #f7e3d9;
+  --mustard: #d99a2b;
+  --mustard-soft: #fbefd5;
+  --sky: #3d7ea6;
+  --sky-soft: #e1edf4;
+
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --card: var(--surface);
+  --primary: var(--field);
+  --secondary: var(--sky);
+  --accent: var(--clay);
+  --muted: var(--paper-2);
+  --muted-foreground: var(--ink-soft);
+  --border: var(--line);
+  --destructive: #b83a2b;
+  --radius: 1rem;
+  --farm-green: var(--field);
+  --farm-emerald: var(--field);
+  --farm-soil: #8a5a2b;
+  --farm-sun: var(--mustard);
+  --farm-sky: var(--sky);
+  --farm-rose: var(--clay);
+  --glass-bg: var(--surface);
+  --glass-border: var(--line);
+  --glass-shadow: 0 1px 0 rgba(255, 255, 255, 0.7) inset, 0 10px 24px rgba(60, 45, 20, 0.07);
+
+  --font-body: "Plus Jakarta Sans", "Noto Sans Kannada", "Noto Sans Devanagari", system-ui, sans-serif;
+  --font-display: "Fraunces", "Noto Serif Kannada", "Noto Sans Devanagari", Georgia, serif;
+}
+
+/* ---------- Base ---------- */
+*,
+html,
+body {
+  font-family: var(--font-body);
+}
+
+html,
+body {
+  background:
+    radial-gradient(900px 420px at 100% 0%, rgba(217, 154, 43, 0.10), transparent 60%),
+    var(--paper);
+  color: var(--ink);
+}
+
+h1, h2, h3,
+.page-title,
+.hero-title,
+.section-heading,
+.cta-title,
+.forecast-heading,
+.history-heading {
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.page-title {
+  font-weight: 700;
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+
+.page-subtitle {
+  color: var(--ink-soft);
+  font-weight: 500;
+}
+
+/* Kannada and Hindi read better slightly larger and without tight tracking */
+:lang(kn) *,
+:lang(hi) * {
+  letter-spacing: 0 !important;
+}
+
+/* ---------- Surfaces ---------- */
+.glass,
+.card,
+.glass-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  box-shadow: var(--glass-shadow);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.bg-blob,
+.hero-section.hero-field::before,
+.hero-section.hero-field::after {
+  display: none;
+}
+
+.main-content,
+.page,
+#app {
+  background: transparent !important;
+}
+
+body {
+  background-color: var(--paper) !important;
+}
+
+/* ---------- Navigation ---------- */
+.navbar {
+  background: rgba(246, 241, 230, 0.94);
+  border-bottom: 1px solid var(--line);
+  box-shadow: none;
+}
+
+.brand-text {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--field-dark);
+}
+
+.nav-item {
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: var(--ink-soft);
+  border-radius: 999px;
+}
+
+.nav-item:hover {
+  background: var(--paper-2);
+  color: var(--ink);
+}
+
+.nav-item.active {
+  background: var(--field);
+  color: #fff;
+  box-shadow: 0 6px 16px rgba(47, 107, 58, 0.28);
+}
+
+.lang-switch-container {
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+
+.lang-btn {
+  color: var(--ink-soft);
+  text-transform: none;
+}
+
+.lang-btn.active {
+  background: var(--field);
+  box-shadow: none;
+}
+
+.btn-account,
+.mobile-account-link {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--field-dark);
+}
+
+.nav-links-mobile {
+  background: rgba(255, 253, 248, 0.97);
+  border-top: 1px solid var(--line);
+  box-shadow: 0 -6px 20px rgba(60, 45, 20, 0.06);
+}
+
+.mobile-nav-item {
+  color: var(--ink-soft);
+}
+
+.mobile-nav-item.active {
+  color: var(--field);
+}
+
+.mobile-nav-item.active .mobile-nav-icon-wrapper {
+  background: var(--field-soft);
+  box-shadow: none;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  border-radius: 999px;
+  font-weight: 700;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.btn-primary {
+  background: var(--field);
+  box-shadow: 0 10px 22px rgba(47, 107, 58, 0.25);
+}
+
+.btn-primary:hover {
+  background: var(--field-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(47, 107, 58, 0.3);
+}
+
+.btn-outline {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--ink);
+}
+
+.btn-outline:hover {
+  border-color: var(--field);
+  color: var(--field-dark);
+  background: var(--field-soft);
+}
+
+.btn-secondary {
+  background: var(--clay);
+  color: #fff;
+}
+
+/* ---------- Home hero ---------- */
+.hero-section.hero-field {
+  position: relative;
+  min-height: auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(300px, 0.85fr);
+  align-items: center;
+  gap: 2.5rem;
+  margin: 1.5rem auto 0;
+  padding: clamp(2.2rem, 5vw, 4.5rem) clamp(1.4rem, 4vw, 3.5rem) clamp(6rem, 10vw, 8rem);
+  border-radius: 2rem;
+  text-align: left;
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    radial-gradient(700px 300px at 90% 0%, rgba(217, 154, 43, 0.35), transparent 60%),
+    linear-gradient(160deg, #2f6b3a 0%, #1d4a27 70%);
+  color: #fff;
+}
+
+.hero-copy {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-field .badge-zap {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #f6f1e6;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.hero-field .badge-zap svg {
+  width: 1rem;
+  height: 1rem;
+  color: var(--mustard);
+}
+
+.hero-field .hero-title {
+  margin: 1.2rem 0 1rem;
+  font-size: clamp(2.4rem, 5.5vw, 4.4rem);
+  font-weight: 800;
+  line-height: 1.04;
+  color: #fffdf8;
+}
+
+.hero-field .hero-title .accent {
+  background: none;
+  -webkit-text-fill-color: currentColor;
+  color: #f2c15a;
+  font-style: italic;
+}
+
+.hero-field .hero-subtitle {
+  max-width: 34rem;
+  margin: 0;
+  font-size: 1.12rem;
+  line-height: 1.6;
+  color: rgba(255, 253, 248, 0.86);
+}
+
+.hero-field .hero-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 2rem;
+  justify-content: flex-start;
+}
+
+.hero-field .btn-primary {
+  background: #f2c15a;
+  color: #1d2a12 !important;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
+}
+
+.hero-field .btn-primary:hover {
+  background: #f7cf74;
+}
+
+.hero-field .btn-outline {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.35);
+  color: #fffdf8;
+}
+
+.hero-field .btn-outline:hover {
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+}
+
+/* "Today on your farm" card */
+.hero-today {
+  position: relative;
+  z-index: 2;
+  padding: 1.4rem;
+  border-radius: 1.4rem;
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.25);
+}
+
+.today-label {
+  margin-bottom: 0.8rem;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--clay);
+}
+
+.today-empty {
+  margin-bottom: 1rem;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+}
+
+.today-weather {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px dashed var(--line);
+}
+
+.today-place {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-weight: 800;
+}
+
+.today-place svg {
+  width: 1rem;
+  height: 1rem;
+  color: var(--clay);
+}
+
+.today-cond {
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}
+
+.today-temp {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--field-dark);
+}
+
+.today-tip {
+  display: flex;
+  gap: 0.5rem;
+  margin: 1rem 0;
+  padding: 0.7rem 0.8rem;
+  border-radius: 0.8rem;
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.today-tip svg {
+  flex-shrink: 0;
+  width: 1rem;
+  height: 1rem;
+  margin-top: 0.15rem;
+}
+
+.today-tip.level-good { background: var(--field-soft); color: var(--field-dark); }
+.today-tip.level-risk { background: var(--clay-soft); color: #7a2e17; }
+.today-tip.level-info { background: var(--sky-soft); color: #1f4c66; }
+
+.today-links {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.today-link {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.65rem 0.75rem;
+  border-radius: 0.8rem;
+  color: var(--ink);
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+
+.today-link:hover {
+  background: var(--paper);
+}
+
+.today-link span {
+  flex: 1;
+}
+
+.today-link svg {
+  width: 1.05rem;
+  height: 1.05rem;
+  color: var(--field);
+}
+
+.today-link svg:last-child {
+  color: var(--ink-soft);
+}
+
+/* Rolling hills along the bottom of the hero */
+.hero-hills {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 120px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hill {
+  position: absolute;
+  bottom: -60px;
+  border-radius: 50%;
+}
+
+.hill-1 { left: -10%; width: 70%; height: 160px; background: #3f8048; }
+.hill-2 { right: -15%; width: 75%; height: 180px; background: #2f6b3a; bottom: -90px; }
+.hill-3 { left: 25%; width: 60%; height: 120px; background: #4b8f53; bottom: -70px; opacity: 0.8; }
+
+/* ---------- Home sections ---------- */
+.section-tag {
+  display: inline-block;
+  width: fit-content;
+  padding: 0.35rem 0.8rem;
+  color: var(--clay);
+  background: var(--clay-soft);
+  border: 0;
+  border-radius: 999px;
+  letter-spacing: 0.06em;
+}
+
+.feature-box {
+  border-radius: 1.4rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.feature-box:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 34px rgba(60, 45, 20, 0.12);
+}
+
+.feature-icon-container {
+  background: var(--field-soft) !important;
+  color: var(--field) !important;
+  box-shadow: none !important;
+}
+
+.feature-link {
+  color: var(--field);
+  font-weight: 800;
+}
+
+.why-icon-box {
+  background: var(--mustard-soft) !important;
+  color: #8a5d0f !important;
+}
+
+.why-lang-card {
+  display: grid;
+  align-content: center;
+  gap: 1rem;
+  padding: 2rem;
+  border-radius: 1.6rem;
+  background: linear-gradient(160deg, #fbefd5, #f7e3d9);
+  border: 1px solid var(--line);
+}
+
+.why-lang-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 800;
+  color: var(--clay);
+}
+
+.why-lang-label svg {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.why-lang-samples {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.why-lang-sample {
+  padding: 0.9rem 1.1rem;
+  border-radius: 1rem;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.why-lang-sample:hover {
+  border-color: var(--field);
+  transform: translateX(4px);
+}
+
+.why-lang-note {
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+}
+
+.cta-box {
+  background: linear-gradient(160deg, #fbefd5, #fffdf8) !important;
+  border-radius: 2rem;
+}
+
+/* ---------- Weather ---------- */
+.weather-hero-card {
+  border-radius: 1.6rem;
+}
+
+.weather-temp-display,
+#weatherTemp {
+  font-family: var(--font-display);
+  color: var(--field-dark);
+}
+
+.weather-cond-text {
+  color: var(--sky) !important;
+  font-family: var(--font-display);
+}
+
+.weather-metric-item,
+.sun-card {
+  background: var(--paper) !important;
+  border: 1px solid var(--line) !important;
+  box-shadow: none !important;
+  border-radius: 1rem;
+}
+
+.sun-card-glow {
+  display: none;
+}
+
+.forecast-heading-icon {
+  background: var(--field) !important;
+  box-shadow: none !important;
+}
+
+.forecast-card {
+  border-radius: 1rem;
+  background: var(--surface);
+}
+
+.forecast-card.today {
+  background: var(--field-soft);
+  border-color: var(--field);
+}
+
+.forecast-card .forecast-icon-box {
+  color: var(--sky) !important;
+}
+
+.forecast-slider-bar {
+  background: linear-gradient(90deg, var(--sky), var(--mustard), var(--clay)) !important;
+}
+
+.input-node,
+.input-field {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+}
+
+.input-node:focus,
+.input-field:focus {
+  border-color: var(--field);
+  box-shadow: 0 0 0 4px rgba(47, 107, 58, 0.15);
+}
+
+.farm-advice-summary {
+  background: var(--field-soft);
+  border-color: rgba(47, 107, 58, 0.25);
+  color: var(--field-dark);
+}
+
+.farm-advice-day {
+  border-radius: 1.1rem;
+}
+
+.farm-advice-item.level-risk { background: var(--clay-soft); color: #7a2e17; }
+.farm-advice-item.level-good { background: var(--field-soft); color: var(--field-dark); }
+.farm-advice-item.level-info { background: var(--sky-soft); color: #1f4c66; }
+
+.btn-listen.is-speaking {
+  background: var(--clay);
+  border-color: var(--clay);
+}
+
+/* ---------- Guides (crops, cattle, soil) ---------- */
+.upload-area {
+  border: 2px dashed #cdbf9f;
+  background: var(--paper);
+  border-radius: 1.2rem;
+}
+
+.upload-area:hover {
+  border-color: var(--field);
+  background: var(--field-soft);
+}
+
+.upload-icon {
+  background: var(--surface) !important;
+  color: var(--field) !important;
+}
+
+.match-option {
+  background: var(--surface);
+  border-color: var(--line);
+  border-radius: 1rem;
+}
+
+.match-option:hover,
+.match-option:focus-visible {
+  border-color: var(--field);
+  box-shadow: 0 8px 18px rgba(47, 107, 58, 0.12);
+}
+
+.tag-critical { background: var(--clay-soft); color: #9a3a1c; }
+.tag-attention { background: var(--mustard-soft); color: #8a5d0f; }
+.tag-healthy { background: var(--field-soft); color: var(--field-dark); }
+
+.guidance-note {
+  background: var(--mustard-soft);
+  border-color: rgba(217, 154, 43, 0.4);
+  color: #6b4708;
+}
+
+.result-list-item svg {
+  color: var(--field);
+}
+
+.history-card {
+  border-radius: 1rem;
+}
+
+/* ---------- Dashboard and market ---------- */
+.dashboard-kpi-card,
+.dash-matrix-card {
+  border-radius: 1.2rem;
+}
+
+.dashboard-kpi-icon {
+  background: var(--field-soft) !important;
+  color: var(--field) !important;
+}
+
+.market-cat-btn {
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.market-cat-btn.active {
+  background: var(--field);
+  color: #fff;
+  border-color: var(--field);
+}
+
+.news-card-link:hover,
+.news-card-link:focus-visible {
+  box-shadow: 0 10px 22px rgba(60, 45, 20, 0.1);
+}
+
+/* ---------- Offline banner and toast ---------- */
+.offline-banner {
+  background: var(--mustard-soft);
+  color: #6b4708;
+}
+
+.farm-toast {
+  background: var(--field-dark);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .hero-section.hero-field {
+    grid-template-columns: 1fr;
+    margin-top: 0.75rem;
+    border-radius: 1.5rem;
+    gap: 1.6rem;
+    padding-bottom: 5.5rem;
+  }
+
+  .hero-field .hero-title {
+    font-size: clamp(2.2rem, 9vw, 3rem);
+  }
+
+  .hero-field .hero-subtitle {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-field .hero-buttons .btn {
+    flex: 1 1 100%;
+    justify-content: center;
+  }
+
+  .why-lang-sample {
+    font-size: 1.15rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .feature-box,
+  .why-lang-sample,
+  .today-link {
+    transition: none;
+  }
+}
+
+/* Lucide turns <i> into <svg>, so position the search icon by its svg */
+.search-node-container > svg {
+  position: absolute;
+  left: 1.2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.15rem;
+  height: 1.15rem;
+  color: var(--ink-soft);
+  pointer-events: none;
+  z-index: 1;
+}
