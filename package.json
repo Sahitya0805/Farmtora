@@ -1,0 +1,9 @@
+{
+  "name": "farmtora",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "mkdir -p dist && cp index.html styles.css script.js farm-advice.js manifest.json sw.js dist/ && cp -R public dist/public",
+    "test": "node --test test/"
+  }
+}
