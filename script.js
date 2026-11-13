@@ -13,9 +13,9 @@ const TRANSLATIONS = {
         homeTitle: "Everyday farm help, <span class=\"accent\">in your language</span>.",
         homeSubtitle: "Check local weather, look up crop problems, and track livestock and soil care — in English, Kannada and Hindi.",
         unifiedIntel: "Everything in One Place",
-        unifiedIntelSub: "Four simple tools for everyday farm decisions.",
-        extremeYield: "Built for clearer daily farm decisions.",
-        extremeYieldSub: "Local weather forecasts, a crop-problem guide and saved notes help farmers move from observation to action.",
+        unifiedIntelSub: "What you can check here",
+        extremeYield: "Made for a phone in the field",
+        extremeYieldSub: "It loads on a weak signal, keeps what you looked up on your phone, and switches language with one tap.",
         edgeFirst: "Works Offline",
         edgeFirstSub: "Install it on your phone; pages you have opened keep working on weak networks.",
         globalScale: "Three Languages",
@@ -166,9 +166,9 @@ const TRANSLATIONS = {
         homeTitle: "ದಿನನಿತ್ಯದ ಕೃಷಿ ನೆರವು, <span class=\"accent\">ನಿಮ್ಮ ಭಾಷೆಯಲ್ಲಿ</span>.",
         homeSubtitle: "ಸ್ಥಳೀಯ ಹವಾಮಾನ ನೋಡಿ, ಬೆಳೆ ಸಮಸ್ಯೆಗಳನ್ನು ಹುಡುಕಿ, ಜಾನುವಾರು ಮತ್ತು ಮಣ್ಣಿನ ಆರೈಕೆಯನ್ನು ನಿರ್ವಹಿಸಿ — ಕನ್ನಡ, ಹಿಂದಿ ಮತ್ತು ಇಂಗ್ಲಿಷ್‌ನಲ್ಲಿ.",
         unifiedIntel: "ಎಲ್ಲವೂ ಒಂದೇ ಕಡೆ",
-        unifiedIntelSub: "ದೈನಂದಿನ ಕೃಷಿ ನಿರ್ಧಾರಗಳಿಗೆ ನಾಲ್ಕು ಸರಳ ಸಾಧನಗಳು.",
-        extremeYield: "ದಿನನಿತ್ಯದ ಕೃಷಿ ನಿರ್ಧಾರಗಳನ್ನು ಸುಲಭಗೊಳಿಸಲು.",
-        extremeYieldSub: "ಸ್ಥಳೀಯ ಹವಾಮಾನ ಮುನ್ಸೂಚನೆ, ಬೆಳೆ ಸಮಸ್ಯೆ ಮಾರ್ಗದರ್ಶಿ ಮತ್ತು ಉಳಿಸಿದ ದಾಖಲೆಗಳು ರೈತರಿಗೆ ಬೇಗ ಕ್ರಮ ಕೈಗೊಳ್ಳಲು ನೆರವಾಗುತ್ತವೆ.",
+        unifiedIntelSub: "ಇಲ್ಲಿ ನೀವು ಏನನ್ನು ನೋಡಬಹುದು",
+        extremeYield: "ಹೊಲದಲ್ಲಿ ಫೋನ್‌ನಲ್ಲಿ ಬಳಸಲು ಮಾಡಲಾಗಿದೆ",
+        extremeYieldSub: "ದುರ್ಬಲ ನೆಟ್‌ವರ್ಕ್‌ನಲ್ಲೂ ತೆರೆಯುತ್ತದೆ, ನೀವು ನೋಡಿದ್ದನ್ನು ಫೋನ್‌ನಲ್ಲೇ ಉಳಿಸುತ್ತದೆ, ಒಂದೇ ಟ್ಯಾಪ್‌ನಲ್ಲಿ ಭಾಷೆ ಬದಲಿಸುತ್ತದೆ.",
         edgeFirst: "ಆಫ್‌ಲೈನ್‌ನಲ್ಲೂ ಕೆಲಸ ಮಾಡುತ್ತದೆ",
         edgeFirstSub: "ಫೋನ್‌ನಲ್ಲಿ ಇನ್‌ಸ್ಟಾಲ್ ಮಾಡಿ; ತೆರೆದ ಪುಟಗಳು ದುರ್ಬಲ ನೆಟ್‌ವರ್ಕ್‌ನಲ್ಲೂ ಕೆಲಸ ಮಾಡುತ್ತವೆ.",
         globalScale: "ಮೂರು ಭಾಷೆಗಳು",
@@ -311,9 +311,9 @@ const TRANSLATIONS = {
         homeTitle: "रोज़ की खेती में मदद, <span class=\"accent\">आपकी भाषा में</span>।",
         homeSubtitle: "स्थानीय मौसम देखें, फसल की समस्याएं खोजें, और पशु व मिट्टी की देखभाल करें — हिंदी, कन्नड़ और अंग्रेज़ी में।",
         unifiedIntel: "सब कुछ एक जगह",
-        unifiedIntelSub: "रोज़मर्रा के खेती के फ़ैसलों के लिए चार आसान टूल।",
-        extremeYield: "रोज़ के खेती के फ़ैसले आसान बनाने के लिए।",
-        extremeYieldSub: "स्थानीय मौसम पूर्वानुमान, फसल समस्या गाइड और सहेजे गए रिकॉर्ड किसानों को जल्दी कदम उठाने में मदद करते हैं।",
+        unifiedIntelSub: "यहां आप क्या देख सकते हैं",
+        extremeYield: "खेत में फ़ोन पर इस्तेमाल के लिए बना",
+        extremeYieldSub: "कमज़ोर नेटवर्क पर भी खुलता है, आपकी खोजें फ़ोन में रखता है, और एक टैप में भाषा बदलता है।",
         edgeFirst: "ऑफ़लाइन भी चलता है",
         edgeFirstSub: "फ़ोन पर इंस्टॉल करें; खोले गए पेज कमज़ोर नेटवर्क पर भी चलते हैं।",
         globalScale: "तीन भाषाएं",
@@ -823,9 +823,6 @@ class FarmtoraApp {
                 <!-- Hero -->
                 <section class="hero-section hero-field">
                     <div class="hero-copy">
-                        <div class="badge-zap">
-                            <i data-lucide="sprout"></i><span>${this.t('tagline')}</span>
-                        </div>
                         <h1 class="hero-title">${this.t('homeTitle')}</h1>
                         <p class="hero-subtitle">${this.t('homeSubtitle')}</p>
 
@@ -850,7 +847,6 @@ class FarmtoraApp {
 
                 <!-- Unified Intelligence Features -->
                 <section class="features-container">
-                    <span class="section-tag">${this.t('unifiedIntel')}</span>
                     <h2 class="section-heading">${this.t('unifiedIntelSub')}</h2>
                     
                     <div class="grid grid-cols-2">
@@ -862,7 +858,7 @@ class FarmtoraApp {
                             <div>
                                 <h3>${this.t('navWeather')}</h3>
                                 <p>${this.t('weatherSubtitle')}</p>
-                                <span class="feature-link">${this.t('navWeather')} <i data-lucide="arrow-right"></i></span>
+                                
                             </div>
                         </div>
 
@@ -874,7 +870,7 @@ class FarmtoraApp {
                             <div>
                                 <h3>${this.t('navCrops')}</h3>
                                 <p>${this.t('cropsSubtitle')}</p>
-                                <span class="feature-link">${this.t('navCrops')} <i data-lucide="arrow-right"></i></span>
+                                
                             </div>
                         </div>
 
@@ -886,7 +882,7 @@ class FarmtoraApp {
                             <div>
                                 <h3>${this.t('navCattle')}</h3>
                                 <p>${this.t('cattleSubtitle')}</p>
-                                <span class="feature-link">${this.t('navCattle')} <i data-lucide="arrow-right"></i></span>
+                                
                             </div>
                         </div>
 
@@ -898,7 +894,7 @@ class FarmtoraApp {
                             <div>
                                 <h3>${this.t('navSoil')}</h3>
                                 <p>${this.t('soilSubtitle')}</p>
-                                <span class="feature-link">${this.t('navSoil')} <i data-lucide="arrow-right"></i></span>
+                                
                             </div>
                         </div>
                     </div>
@@ -908,14 +904,13 @@ class FarmtoraApp {
                 <section class="why-choose-section">
                     <div class="grid grid-cols-2" style="align-items: center;">
                         <div>
-                            <span class="section-tag">${this.t('appName')}</span>
                             <h2 class="section-heading" style="margin-bottom: 2rem;">${this.t('extremeYield')}</h2>
                             <p style="color: var(--muted-foreground); margin-bottom: 3rem;">${this.t('extremeYieldSub')}</p>
                             
                             <div class="why-items">
                                 <div class="why-item glass">
                                     <div class="why-icon-box" style="color: var(--primary);">
-                                        <i data-lucide="cpu"></i>
+                                        <i data-lucide="wifi-off"></i>
                                     </div>
                                     <div class="why-text">
                                         <h4>${this.t('edgeFirst')}</h4>
@@ -956,17 +951,6 @@ class FarmtoraApp {
                     </div>
                 </section>
 
-                <!-- CTA -->
-                <section class="cta-container">
-                    <div class="cta-box glass">
-                        <div class="bg-blob animate-blob" style="top:-30%; left:-20%; width: 500px; height: 500px; background: rgba(16, 185, 129, 0.15);"></div>
-                        <h2 class="cta-title">${this.t('ctaTitle')}</h2>
-                        <p class="cta-subtitle">${this.t('ctaSubtitle')}</p>
-                        <a href="#weather" class="btn btn-primary" style="padding: 1.5rem 3rem;">
-                            <i data-lucide="zap"></i>${this.t('launchApp')}
-                        </a>
-                    </div>
-                </section>
             </div>
         `;
     }

@@ -773,3 +773,162 @@ body {
   pointer-events: none;
   z-index: 1;
 }
+
+/* =========================================================
+   Plainer pass: flat colours, modest corners, no hover lifts
+   or glows, simple rows instead of big marketing cards.
+   ========================================================= */
+:root {
+  --radius: 10px;
+  --glass-shadow: none;
+}
+
+html,
+body {
+  background: var(--paper) !important;
+}
+
+.glass,
+.card,
+.glass-card {
+  box-shadow: none;
+}
+
+.btn {
+  border-radius: 8px;
+}
+
+.btn-primary,
+.btn-primary:hover {
+  box-shadow: none;
+  transform: none;
+}
+
+.nav-item,
+.lang-btn,
+.lang-switch-container,
+.btn-account,
+.input-node,
+.input-field {
+  border-radius: 8px;
+}
+
+.nav-item.active {
+  box-shadow: none;
+}
+
+/* Hero: one flat green, smaller corners */
+.hero-section.hero-field {
+  border-radius: 14px;
+  background: var(--field-dark);
+}
+
+.hero-field .btn-primary {
+  box-shadow: none;
+}
+
+.hero-today {
+  border-radius: 12px;
+  box-shadow: none;
+}
+
+.hill-1 { background: #2a5e33; }
+.hill-2 { background: #24532c; }
+.hill-3 { background: #31693b; opacity: 1; }
+
+/* Feature list: compact rows */
+.features-container .section-heading,
+.why-choose-section .section-heading {
+  font-size: clamp(1.7rem, 3vw, 2.3rem);
+  margin-bottom: 1.2rem;
+}
+
+.feature-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.2rem 1.3rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+
+.feature-box:hover {
+  transform: none;
+  box-shadow: none;
+  border-color: var(--field);
+}
+
+.feature-box h3 {
+  margin: 0 0 0.3rem;
+  font-size: 1.25rem;
+}
+
+.feature-box p {
+  margin: 0;
+  color: var(--ink-soft);
+}
+
+.feature-icon-container {
+  flex-shrink: 0;
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 8px !important;
+}
+
+.feature-icon-container svg {
+  width: 1.3rem !important;
+  height: 1.3rem !important;
+}
+
+.why-item {
+  border-radius: 10px;
+  box-shadow: none;
+}
+
+.why-lang-card {
+  border-radius: 12px;
+  background: var(--mustard-soft);
+}
+
+.why-lang-sample {
+  border-radius: 8px;
+}
+
+.why-lang-sample:hover {
+  transform: none;
+}
+
+.weather-hero-card,
+.farm-advice-day,
+.match-option,
+.history-card,
+.dashboard-kpi-card,
+.dash-matrix-card {
+  border-radius: 10px;
+}
+
+.match-option:hover,
+.match-option:focus-visible {
+  box-shadow: none;
+}
+
+.feature-box {
+  flex-direction: row;
+  justify-content: flex-start;
+  height: auto;
+  min-height: 0;
+}
+
+.features-container,
+.why-choose-section {
+  padding: 3.5rem 0 1rem;
+}
+
+.why-choose-section .grid {
+  align-items: start !important;
+}
+
+.why-lang-note {
+  display: none;
+}

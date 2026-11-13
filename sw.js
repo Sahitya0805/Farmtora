@@ -3,9 +3,9 @@ const ASSETS_TO_CACHE = [
   './',
   './index.html',
   './styles.css?v=7',
-  './farm-theme.css?v=2',
+  './farm-theme.css?v=4',
   './farm-advice.js?v=3',
-  './script.js?v=10',
+  './script.js?v=11',
   './manifest.json',
   './public/farmtora_logo.png'
 ];
