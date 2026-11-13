@@ -1,9 +1,0 @@
-{
-  "name": "farmtora",
-  "version": "1.0.0",
-  "private": true,
-  "description": "Weather, crop-problem guide and livestock and soil care for farmers, in English, Kannada and Hindi.",
-  "scripts": {
-    "test": "node --test test/"
-  }
-}

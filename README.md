@@ -25,7 +25,7 @@ JavaScript (no framework) · HTML/CSS · PWA (Web App Manifest + Service Worker)
 ## Tests
 
 ```bash
-npm test
+node --test test/
 ```
 
 Node's built-in test runner checks the farm-advice rules and that English, Kannada and Hindi have the same set of UI text. GitHub Actions runs them on every push.
